@@ -1,0 +1,114 @@
+<%= simple_form_for(@registration, url: get_location_process_path, method: :get, remote: true) do |f| %>
+  <%= f.error_notification %>
+  <div id="id01" class="w3-modal w3-round-large" style="display: block; margin-top:3% ">
+    <div class="w3-modal-content w3-animate-top w3-white" style="width: 33%; max-height: 80%;  overflow-y: auto; background: transparent">
+      <div style="max-width: 70%; text-align: center; margin-left: 15%; margin-top: 15px">
+        <% if flash[:notice] %>
+          <p class="flash_notice " id = 'notes' style = ""><%= notice %></p>
+          2
+        <% end %>
+      </div>
+      <header class="w3-container">
+        <h4>Please tell us your location</h4>
+      </header>
+      <div class="w3-container" >
+        <div class="form-inputs">
+          <%= f.input :surburb_id, label: "Your Country", collection: @country_list, label_method: :first, value_method: :last, input_html:{class:"combobox w3-input", id: "country",  data: { placeholder: "Type select your country from the dropdown" } }  %>
+          <%= f.input :surburb_id, label: "Region/State", collection: [],  label_method: :first, value_method: :last, input_html:{class:"w3-input ", id: "regions"}  %>
+          <%= f.input :surburb_id, label: "City", collection: [],  label_method: :first, value_method: :last, input_html:{class:"w3-input ", id: "cities"}  %>
+          <%= f.input :surburb_id, label: "Suburb", collection: [],  label_method: :first, value_method: :last, input_html:{class:"w3-input ", id: "suburbs"} %>
+        </div>
+      </div>
+      <br>
+      <footer class="w3-container" >
+        <%= link_to 'Cancel', root_path,  class: "w3-button w3-right w3-card-4 w3-small w3-round-xlarge w3-green w3-hover-green " ,data: {"disable-with": "Please wait......"}%>
+        <br />
+      </footer>
+    <% end %>
+    <br />
+  </div>
+  <br />
+</div>
+<script type="text/javascript">
+  $(document).ready(function(){
+       $('form').attr('autocomplete', 'off');
+  
+       $('.combobox').combobox();
+  
+     $('span.input-group-addon').addClass("hidden");
+  
+  });
+</script>
+<style>
+  .input-group{
+  	width: 100%;
+  }
+    .typeahead{
+      width: 100%;
+    }
+  
+    .nohover:hover{
+    	cursor:default !important;
+    }
+</style>
+<!-- <script type="text/javascript">
+ $(function () {
+   $('#datetimepicker4').datetimepicker({   	  	
+   	 format: "YYYY-MM-DD"
+   });
+   
+  });
+</script> -->
+<script>
+  $(document).ready(function(){
+     // alert('hello')
+      $('#country').change(function() {
+           console.log('works on country changed');
+           $.ajax({
+               url: '<%= find_regions_path %>',
+               data: {
+                   country_id : $('#country').val()
+               },
+               dataType: "script"
+           });
+  
+       });
+  
+       $('#regions').change(function() {
+           console.log('works on Region changed');
+          $.ajax({
+               url: '<%= find_cities_for_region_path %>',
+               data: {
+                   region_id : $('#regions').val()
+               },
+               dataType: "script"
+           });
+  
+       });
+  
+        $('#cities').change(function() {
+           console.log('works on City changed');
+          $.ajax({
+               url: '<%= find_suburbs_for_city_path %>',
+               data: {
+                   city_id : $('#cities').val()
+               },
+               dataType: "script"
+           });
+  
+       });
+  
+       $('#suburbs').change(function() {
+           console.log('works on City changed');
+          $.ajax({
+               url: '<%= get_location_process_path %>',
+               data: {
+                   suburb_id : $('#suburbs').val()
+               },
+               dataType: "script"
+           });
+  
+       });
+  
+   })
+</script>

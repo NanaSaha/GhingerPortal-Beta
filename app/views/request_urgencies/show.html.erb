@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Urgency:</strong>
+  <%= @request_urgency.urgency %>
+</p>
+
+<p>
+  <strong>Ref:</strong>
+  <%= @request_urgency.ref_id %>
+</p>
+
+<%= link_to 'Edit', edit_request_urgency_path(@request_urgency) %> |
+<%= link_to 'Back', request_urgencies_path %>

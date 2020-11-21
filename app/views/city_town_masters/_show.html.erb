@@ -1,0 +1,51 @@
+<div></div>
+<div id="id01" class="w3-modal w3-card-4" style="display: block">
+    <div class="w3-modal-content w3-animate-top w3-card-4 w3-light-gray" style="width: 40%">
+    	<% if flash[:notice] %>
+		  <p class="flash_notice " id = 'notes' style = "margin-top: 5px"><%= notice %></p>
+		<%end%>
+      <header class="w3-container"> 
+        <h4>City Detail</h4> 
+      </header>
+      <br />
+      <!-- <div class="col-md-1 col-xs-12"></div> -->
+      <div class="col-md-12 col-xs-12 w3-padding">
+      	<div class="w3-container "> 	
+			 <table class="table table-condensed table-bordered table-striped">
+				 <tr><td class="w3-teal"><strong>City/Town: </strong></td><td style="padding-left: 6%""><%= @city_town_master.city_town_name %></td></tr>
+				 <tr><td class="w3-teal" ><strong>Region: </strong></td><td style="padding-left: 6%""><%= @city_town_master.region_master.region_state_name %></td></tr>
+				 <tr><td class="w3-teal"><strong>Remark: </strong></td><td style="padding-left: 6%""><%= @city_town_master.comment %></td></tr>
+				 <!-- <tr><td class="w3-teal"><strong>Entity: </strong></td><td style="padding-left: 6%""><%= @city_town_master.entity_id %></td></tr> -->
+				 <tr><td class="w3-teal" ><strong>Added By: </strong></td><td style="padding-left: 6%""><%= @city_town_master.user.person_info.surname if @city_town_master.user %> <%= @city_town_master.user.person_info.other_names if @city_town_master.user %></td></tr>
+				 
+		
+				 <% if @city_town_master.active_status == true %>  
+		      		<tr><td class="w3-teal"><strong>Status: </strong></td><td style="padding-left: 6%"> Active </td></tr>
+		      		
+		      	 <%elsif @city_town_master.active_status == false %>
+		      		<tr><td class="w3-teal"><strong>Status: </strong></td><td style="padding-left: 6%; color: red">Inactive</td></tr>
+		         <%end%>	
+			</table>
+        </div>
+      </div> 
+      <!-- <div class="col-md-1 col-xs-12"></div> -->
+      <br />
+      <footer class="w3-container">
+        <%= link_to 'Back', find_cities_path(:region_id => @city_town_master.region_id), :remote=> true, class: "w3-button w3-black w3-hover-black w3-right w3-card-4 w3-small w3-round-xlarge" %>
+      <br />
+      </footer>
+      <br />
+    </div>
+    <br />
+</div>
+
+
+
+
+<script type="text/javascript">
+$(document).ready(function(){
+  setTimeout(function(){
+    $('#notes').remove();
+  }, 4000);
+ })
+</script> 

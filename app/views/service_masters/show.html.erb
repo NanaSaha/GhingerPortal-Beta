@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @service_master.title %>
+</p>
+
+<p>
+  <strong>Comment:</strong>
+  <%= @service_master.comment %>
+</p>
+
+<p>
+  <strong>Entity:</strong>
+  <%= @service_master.entity_id %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @service_master.user_id %>
+</p>
+
+<p>
+  <strong>Active status:</strong>
+  <%= @service_master.active_status %>
+</p>
+
+<p>
+  <strong>Change status:</strong>
+  <%= @service_master.change_status %>
+</p>
+
+<%= link_to 'Edit', edit_service_master_path(@service_master) %> |
+<%= link_to 'Back', service_masters_path %>

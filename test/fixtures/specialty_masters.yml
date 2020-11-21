@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  alias: MyString
+  comment: MyString
+  user_id: MyString
+  entity_id: MyString
+  active_status: false
+  del_status: false
+
+two:
+  title: MyString
+  alias: MyString
+  comment: MyString
+  user_id: MyString
+  entity_id: MyString
+  active_status: false
+  del_status: false

@@ -1,0 +1,128 @@
+ <% if flash[:notice] %>
+  <p class="flash_notice " id = 'notes' style = "margin-top: 5px"><%= notice %></p>
+<% end %>
+<h4>Pre Appointments</h4>
+<br>
+<div class="pull-right" style = 'margin-top: -3%; display: inline-block'>
+  <label class="">Display <u>No</u>: </label>
+  <%= select_tag :per_page, options_for_select([5,10, 20, 30, 40,50, 70,100], params[:per_page].to_i), :data => { :remote => true,
+	:url => url_for( :controller => "pre_appointments", :action => "index" )
+	}, class: "w3-bordered w3-round-xlarge w3-btn w3-small w3-card-4", remote: true %>
+</div>
+<div class="pull-left" style = 'margin-top: -3%;'>
+  <label class="w3-middle" >Filter by: </label><br/>
+  <ul class="list-inline">
+    <li>
+      <%= select_tag :provider_name, options_from_collection_for_select(ProviderMaster.all, "provider_name", "provider_name",  @provider_name), :data => {:remote => true,
+		:url => url_for(:controller => "pre_appointments", :action => "index")}, remote: true,  class: "w3-bordered w3-round-xlarge w3-btn w3-small w3-card-4", :prompt => "Service Provider", style: "max-width: 100%; width: 100%; min-width: 100%"%>
+      <!-- <br><br> -->
+    </li>
+    <li>
+      <%= select_tag :category, options_from_collection_for_select(RequestCategory.all, "category", "category",  @category), :data => {:remote => true,
+	    :url => url_for(:controller => "pre_appointments", :action => "index")}, remote: true,  class: "w3-bordered w3-round-xlarge w3-btn w3-small w3-card-4", :prompt => "Request Category", style: "max-width: 100%; width: 100%; min-width: 100%" %>
+      <!-- <br><br> -->
+    </li>
+    <li>
+      <%= select_tag :title, options_from_collection_for_select(AppointmentType.all, "title", "title",  @type), :data => {:remote => true,
+	    :url => url_for(:controller => "pre_appointments", :action => "index")}, remote: true,  class: "w3-bordered w3-round-xlarge w3-btn w3-small w3-card-4", :prompt => "Appointment Type", style: "max-width: 100%; width: 100%; min-width: 100%" %>
+      <!--  <br><br> -->
+    </li>
+    <br>
+    <br>
+    <div class="w3-clear"></div>
+    <li>
+      <%= select_tag :user_type_title, options_from_collection_for_select(PersonTypeMaster.where('ref_id =? OR ref_id =? OR ref_id =?', 'C', 'D', 'N'), "user_type_title", "user_type_title", @person_type), :data => {:remote => true,
+       :url => url_for(:controller => "pre_appointments", :action => "index")}, remote: true,  class: "w3-bordered w3-round-xlarge w3-btn w3-small w3-card-4", :prompt => "Person Type", style: "max-width: 100%; width: 100%; min-width: 100%" %>
+    </li>
+  </ul>
+</div>
+<br />
+<br>
+<div class="clearfix"></div>
+<p style = 'text-align: center; font-family: tahoma; font-size: 15px;'>
+  <b>Download:</b>  <%= link_to "CSV", pre_appointments_path(format: "csv"), :class => "w3-hover-white"%>
+  | <%= link_to "Excel", pre_appointments_path(format: "xls"), :class => "w3-hover-white" %>
+  | <%= link_to "CSV-all", all_pre_appointment_excel_path(format: "csv"), :class => "w3-hover-white", method: :get%>
+  | <%= link_to "Excel-all", all_pre_appointment_excel_path(format: "xls"),:class => "w3-hover-white", method: :get%>
+</p>
+<div class = "table-responsive">
+  <table class="table table-condensed table-bordered table-striped w3-card-4">
+    <thead>
+      <tr class="w3-teal">
+      <th>Appt Date</th>
+        <th>Requester</th>
+        <th>Mobile No</th>
+        <th>Provider</th>
+        <th>Category</th>
+        <th>Appt Type</th>
+        <th>Proposed Date/Time</th>
+        <th>Source</th>
+        <th>Details</th>
+        <th colspan="3">Options</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @pre_appointments.each do |pre_appointment| %>
+        <tr>
+
+        <td style="width: 12%"><%= pre_appointment.created_at.strftime("%B %d, %Y %H:%M") if pre_appointment.created_at %></td>
+          <td ><%= truncate(pre_appointment.person_info.surname, :length => 15) if pre_appointment.person_info %> <%= truncate(pre_appointment.person_info.other_names, :length => 15) if pre_appointment.person_info %></td>
+          <td ><%= truncate(pre_appointment.registration.mobile_number) if pre_appointment.registration %> </td>
+          <% if pre_appointment.provider_id.nil? %>
+            <td style="color: red">Not Applicable</td>
+          <%else%>
+            <td><%= truncate(pre_appointment.provider_master.provider_name, :length => 10) if pre_appointment.provider_master  %></td>
+          <%end%>
+          <td ><%= pre_appointment.request_category.category if pre_appointment.request_category %></td>
+          <td><%= truncate(pre_appointment.appointment_type.title, :length => 15) if pre_appointment.appointment_type %></td>
+          <%if  pre_appointment.proposed_date.nil?  %>
+            <td style="width: 12%; color: red">Not Applicable</td>
+          <% else %>
+            <td style="width: 12%"><%= pre_appointment.proposed_date.strftime("%B %d, %Y %H:%M") if pre_appointment.proposed_date %></td>
+          <% end %>
+          <% if pre_appointment.src == 'PTL'%>
+            <td style="width: 7%"> Portal </td>
+          <% elsif pre_appointment.src == 'APP' %>
+            <td style="width: 7%"> Mobile App </td>
+          <% elsif pre_appointment.src == 'USS' %>
+            <td style="width: 7%"> USSD </td>
+          <% elsif pre_appointment.src == 'WEB' %>
+            <td style="width: 7%"> Web App </td>
+          <% end %>
+          <td style="width: 5px"><%= link_to "Details", pre_appointment, remote: true, class: "w3-button w3-indigo w3-hover-indigo w3-card w3-small w3-round w3-round-xxlarge" %></td>
+          <% if pre_appointment.appointment_type_id == 'MA'  or pre_appointment.appointment_type_id == 'LA' or pre_appointment.appointment_type_id == 'MD' %>
+            <td style="width: 5px"><%= link_to 'Confirm', new_confirmed_appointment_path(:pre_appointment_id => pre_appointment.id ), remote: true, class: "w3-button w3-khaki w3-card w3-hover-khaki w3-small w3-round w3-round-xxlarge",data: {"disable-with": "Please wait......"}  %></td>
+          <%else%>
+            <td style="width: 5px"><%= link_to 'Pre Confirm', new_pre_confirmed_appointment_path(:requester_id => pre_appointment.requester_id, :pre_appointment_id => pre_appointment.id, :suburb_id => pre_appointment.suburb_id), remote: true, class: "w3-button w3-khaki w3-card w3-hover-khaki w3-small w3-round w3-round-xxlarge",data: {"disable-with": "Please wait......"}  %></td>
+          <% end %>
+          <td style="width: 5px"><%= link_to 'Edit', edit_pre_appointment_path(pre_appointment), remote: true, class: "w3-button w3-gray w3-card w3-hover-gray w3-small w3-round w3-round-xxlarge" ,data: {"disable-with": "Please wait......"} %></td>
+          <td style="width: 5px">
+            <% if  pre_appointment.active_status == false %>
+              <%= link_to 'Enable', enable_pre_appointment_path(:chosen => pre_appointment.id), remote: true, data: { confirm: 'You are about to enable the selected pre_appointment, do you want to continue?' },  class: "w3-button w3-blue w3-hover-blue w3-small w3-round-xxlarge w3-card" , data: {"disable-with": "Please wait......"}%>
+            <% elsif  pre_appointment.active_status == true %>
+              <%= link_to 'Disable', disable_pre_appointment_path(:chosen => pre_appointment.id), remote: true, data: { confirm: 'You are about to disable the selected pre_appointment, do you want to continue?' },  class: "w3-button w3-red w3-hover-red w3-small w3-round w3-round-xxlarge w3-card" ,data: {"disable-with": "Please wait......"}%>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+<div>
+  <%= link_to '+', new_pre_appointment_path, :remote=> true, class: "w3-button w3-circle w3-teal w3-hover-teal w3-left w3-card-4" %>
+  <%= will_paginate @pre_appointments,  renderer: BootstrapPagination::Rails, previous_label: 'Older', next_lable: 'Newer', class: "w3-right pagination-sm w3-card-4", :params => { :controller => "pre_appointments", :action => "index", count: params[:count], page: params[:page] }  %>
+  <br />
+</div>
+<br>
+<script type="text/javascript">
+  $(document).ready(function(){
+    setTimeout(function(){
+      $('#notes').remove();
+    }, 4000);
+   });
+</script>
+<script>
+  $(function(){
+    $('.pagination a').attr('data-remote', 'true');
+  });
+</script>

@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  pre_confirmed_appointment_id: 1
+  available_date: 2018-06-06 16:21:38
+  comment: MyString
+  active_status: false
+  del_status: false
+
+two:
+  pre_confirmed_appointment_id: 1
+  available_date: 2018-06-06 16:21:38
+  comment: MyString
+  active_status: false
+  del_status: false

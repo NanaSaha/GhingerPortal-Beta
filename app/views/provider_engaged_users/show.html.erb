@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Provider:</strong>
+  <%= @provider_engaged_user.provider_id %>
+</p>
+
+<p>
+  <strong>Person:</strong>
+  <%= @provider_engaged_user.person_id %>
+</p>
+
+<p>
+  <strong>Comment:</strong>
+  <%= @provider_engaged_user.comment %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @provider_engaged_user.user_id %>
+</p>
+
+<p>
+  <strong>Entity:</strong>
+  <%= @provider_engaged_user.entity_id %>
+</p>
+
+<p>
+  <strong>Active status:</strong>
+  <%= @provider_engaged_user.active_status %>
+</p>
+
+<p>
+  <strong>Del status:</strong>
+  <%= @provider_engaged_user.del_status %>
+</p>
+
+<%= link_to 'Edit', edit_provider_engaged_user_path(@provider_engaged_user) %> |
+<%= link_to 'Back', provider_engaged_users_path %>

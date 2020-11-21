@@ -1,0 +1,237 @@
+<br />
+<%= simple_form_for @pre_confirmed_appointment, remote: true do |f| %>
+  <%= f.error_notification %>
+  <%= tinymce_assets %>
+  <script type="text/javascript">
+    $(document).ready(function(){
+    	tinymce.init({
+    		  selector: '.tinymce',  // change this value according to your HTML
+    		  branding: false,
+    		  resize: false,
+    		  theme: 'modern',
+    		  statusbar: false
+    		});
+    })
+  </script>
+  <div id="id01" class="w3-modal w3-card-4 w3-round-large" style="display: block;">
+    <div class="w3-modal-content w3-animate-bottom w3-card-4 w3-light-gray" style="width: 50%; max-height: 80%; overflow-y: auto;">
+      <div class="row">
+        <div class="col-md-6" style="margin-top: 20px">
+          <header class="w3-container">
+            <h4>Pre Appointment Details </h4>
+          </header>
+          <div class="w3-container" >
+            <table class="table table-bordered table-striped" style="height: 80%  !important; ">
+              <tr>
+                <td class="w3-teal" style="width: 45%"><strong>Location </strong></td>
+                <td style="padding-left: 6%"><%= @selected_pre_appointment.suburb_master.suburb_name if @selected_pre_appointment.suburb_master %></td>
+              </tr>
+              <% if @selected_pre_appointment.appointment_type_id == 'MD' %>
+                <tr>
+                  <td class="w3-teal" style="width: 40%"><strong>Proposed Medications </strong></td>
+                  <td style="padding-left: 6%; " ><%= @selected_pre_appointment.test_list %> </td>
+                </tr>
+              <% end %>
+              <% if @selected_pre_appointment.provider_master.nil? %>
+                <tr>
+                  <td class="w3-teal" style="width: 40%"><strong>Service Provider </strong></td>
+                  <td style="padding-left: 6%; color: red" >Not Applicable</td>
+                </tr>
+              <% else %>
+                <tr>
+                  <td class="w3-teal" ><strong>Service Provider </strong></td>
+                  <td style="padding-left: 6%"><%=  @selected_pre_appointment.provider_master.provider_name if @selected_pre_appointment.provider_master%></td>
+                </tr>
+              <%end %>
+              <% if @selected_pre_appointment.appointment_type_id == 'DP' %>
+                <tr>
+                  <td class="w3-teal" style="width: 40%"><strong>Requested Medications: </strong></td>
+                  <td style="padding-left: 6%; " ><%= @selected_pre_appointment.medication %> </td>
+                </tr>
+              <%end %>
+              <% if @selected_pre_appointment.appointment_type_id == 'DP' %>
+                <tr>
+                  <td class="w3-teal" style="width: 40%"><strong>Medications Duration(days): </strong></td>
+                  <td style="padding-left: 6%; " ><%= @selected_pre_appointment.duration %> </td>
+                </tr>
+              <% end %>
+              <tr>
+                <td class="w3-teal" ><strong>Proposed Date and Time </strong></td>
+                <td style="padding-left: 6%"><%= @selected_pre_appointment.proposed_date.strftime("%F %R") if @selected_pre_appointment.proposed_date %></td>
+              </tr>
+              <tr>
+                <td class="w3-teal" ><strong>Complaint </strong></td>
+                <td style="padding-left: 6%"><%= raw @selected_pre_appointment.complaint_desc %></td>
+              </tr>
+              <tr>
+                <td class="w3-teal" ><strong>Previous Medical History </strong></td>
+                <td style="padding-left: 6%"><%= raw @selected_pre_appointment.prev_medical_history %></td>
+              </tr>
+              <tr>
+                <td class="w3-teal" ><strong>Appointment Type </strong></td>
+                <td style="padding-left: 6%"><%= raw @selected_pre_appointment.appointment_type.title if @selected_pre_appointment.appointment_type %></td>
+              </tr>
+              <tr>
+                <td class="w3-teal" ><strong>Prefered Doctor </strong></td>
+                <td style="padding-left: 6%"><%= @prefered_doc %></td>
+              </tr>
+              <tr>
+                <td class="w3-teal" ><strong>Beneficiary Name </strong></td>
+                <td style="padding-left: 6%"><%= @selected_pre_appointment.beneficiary_name %></td>
+              </tr>
+              <tr>
+                <td class="w3-teal" ><strong>Beneficiary Phone Number </strong></td>
+                <td style="padding-left: 6%"><%= @selected_pre_appointment.beneficiary_phone_number %></td>
+              </tr>
+            </table>
+          </div>
+          <!-- <footer class="w3-container w3-right">
+		           Back
+		        </footer>  -->
+        </div>
+        <div class="col-md-6">
+          <div style="max-width: 70%; text-align: center; margin-left: 15%; margin-top: 15px">
+            <% if flash[:notice] %>
+              <p class="flash_notice " id = 'notes' style = ""><%= notice %></p>
+            <% end %>
+          </div>
+          <header class="w3-container">
+            <h4> Confirm Appointment </h4>
+          </header>
+          <div class="w3-container" >
+            <div class="form-inputs">
+              <%= f.input :date_time, as: :string, label: "Date/Time", input_html: {:id =>'datetimepicker4', placeholder: "Please provide date for your appointment"} %>
+              <%= f.input :pre_appointment_id, as: :hidden, input_html: {value: @pre_appointment_id} %>
+              <%= f.input :patient_id, as: :hidden, input_html: {value: @selected_pre_appointment.requester_id} %>
+              <input id="doctor_apt" type="radio" name="search_param" value="doctor" class = "w3-radio" /> Doctor Appointment
+              <input id="nurse_apt" type="radio" name="search_param" value="nurse" class = "w3-radio" /> Nurse Appointment  
+              <br />
+              <br />
+              <div class="hidden" id="doctor_appointment">
+                <% if @selected_pre_appointment.appointment_type_id == 'PC' or @selected_pre_appointment.appointment_type_id == 'PDDP' or @selected_pre_appointment.appointment_type_id == 'PDVC' or @selected_pre_appointment.appointment_type_id = 'PDHC'%>
+                  <p><b style="color: red">Note:</b> Patient's personal doctor is: 
+                    <b style="color: green"><%= @personal_doctor.doctor.surname if @personal_doctor.present? %> <%= @personal_doctor.doctor.other_names if @personal_doctor.present? %></b>
+                  </p>
+                <% end %>
+                <%= f.input :doctor_id, label: "Select Doctor(s)", collection: @doc_list,  label_method: :first, value_method: :last, include_blank: false, :include_hidden => false,  input_html:{:id => "doctor", :value=> :last, class:"form-control",  :multiple=>"multiple"} %>
+              </div>
+              <div class="hidden" id="nurse_appointment">
+                <%= f.input :nurse_id, label: "Select Nurse(s)", collection: @nurse_list,  label_method: :first, value_method: :last, include_blank: false, :include_hidden => false, input_html:{:id => "nurse", class:"form-control", :multiple=>"multiple"} %>
+              </div>
+              <%= f.input :user_id, as: :hidden, input_html: {value: current_user.id} %>
+              <%= f.input :active_status, as: :hidden, input_html: {value: 1} %>
+              <%= f.input :del_status, as: :hidden, input_html: {value: 0} %>
+            </div>
+          </div>
+          <br>
+          <footer class="w3-container">
+            <%= f.button :submit, class: "w3-button w3-teal w3-hover-teal w3-left w3-card-4 w3-small w3-round-xlarge", value: "Confirm",data: {"disable-with": "Please wait......"} %>
+            <%= link_to 'Back', pre_appointments_path, :remote=> true, class: "w3-button w3-black w3-hover-black w3-right w3-card-4 w3-small w3-round-xlarge",data: {"disable-with": "Please wait......"} %>
+            <br />
+          </footer>
+        <% end %>
+        <br />
+      </div>
+      <br />
+    </div>
+  </div>
+</div>
+<%= tinymce %>
+<script type="text/javascript">
+  $(document).ready(function(){
+    setTimeout(function(){
+      $('#notes').remove();
+    }, 3000);
+    });
+</script>
+<script type="text/javascript">
+  $(function () {
+    $('#datetimepicker4').datetimepicker({
+    	 format: "YYYY-MM-DD HH:mm",
+    	 minDate: new Date()
+    });
+  
+   });
+</script>
+<script>
+  $(document).ready(function() {
+  	 // $("#doctor").select2({
+  	 	// maximumSelectionLength: 5,
+          // formatSelectionTooBig: function (limit) {
+            // return 'You are allowed to select a maximum of 5 doctors';
+     		 // }
+  	 // });
+  
+  	 // $("#nurse").select2({
+  	 	// maximumSelectionLength: 5,
+          // formatSelectionTooBig: function (limit) {
+            // return 'You are allowed to select a maximum of 5 nurses';
+     		 // }
+  	 // });
+  
+     });
+</script>
+<script type="text/javascript">
+  $(document).ready(function(){
+       $('form').attr('autocomplete', 'off');
+  
+       $('.combobox').combobox();
+  
+     $('span.input-group-addon').addClass("hidden");
+  
+  });
+</script>
+<script type="text/javascript">
+  $(document).ready(function (){
+  	$("#doctor_apt").click(function() {
+  		if ($("#doctor_apt").is(":checked")) {
+                 $('#doctor_appointment').removeClass('hidden');
+                 $('#nurse_appointment').addClass('hidden');
+  
+                 $("#doctor").select2({
+  		    	 	maximumSelectionLength: 5,
+  		            formatSelectionTooBig: function (limit) {
+  		              return 'You are allowed to select a maximum of 5 doctors';
+  		       		 }
+  		    	 });
+  
+  		    	var nurse_field = document.getElementById('nurse');
+                  nurse_field.value = null;
+  
+  
+              }
+  	 });
+  
+          $("#nurse_apt").click(function() {
+              if ($("#nurse_apt").is(":checked")) {
+                 $('#doctor_appointment').addClass('hidden');
+                 $('#nurse_appointment').removeClass('hidden');
+  
+  
+  
+                  $("#nurse").select2({
+  	    	 	maximumSelectionLength: 5,
+  	            formatSelectionTooBig: function (limit) {
+  	              return 'You are allowed to select a maximum of 5 nurses';
+  	       		 }
+  	    	 });
+  
+  	    	 var doctor_field = document.getElementById('doctor');
+                  doctor_field.value = null;
+              }
+          });
+  
+  });
+</script>
+<style>
+  .input-group{
+  	width: 100%;
+  }
+    .typeahead{
+      width: 100%;
+    }
+  
+    #doctor{
+    	width: 100% !important;
+    }
+</style>

@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  service_provider_id: 1
+  service_id: 1
+  comment: MyString
+  entity_id: 1
+  user_id: 1
+  active_status: false
+  change_status: false
+
+two:
+  service_provider_id: 1
+  service_id: 1
+  comment: MyString
+  entity_id: 1
+  user_id: 1
+  active_status: false
+  change_status: false

@@ -1,0 +1,31 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  person_id: MyString
+  specialty_id: 1
+  specialty_duration: MyString
+  has_specialty: false
+  forign_training: 
+  foreign_institution_desc: MyString
+  profession_group_id: 1
+  licence_number: MyString
+  comment: MyString
+  user_id: 1
+  entity_id: 1
+  active_status: false
+  del_status: false
+
+two:
+  person_id: MyString
+  specialty_id: 1
+  specialty_duration: MyString
+  has_specialty: false
+  forign_training: 
+  foreign_institution_desc: MyString
+  profession_group_id: 1
+  licence_number: MyString
+  comment: MyString
+  user_id: 1
+  entity_id: 1
+  active_status: false
+  del_status: false

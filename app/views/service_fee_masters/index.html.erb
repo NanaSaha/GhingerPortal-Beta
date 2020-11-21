@@ -1,0 +1,102 @@
+<div class="col-md-8 col-sm-12 col-xs-12 col-md-offset-2">
+  <h4>Service Price List</h4>
+  <div id="new"></div>
+  <div class="pull-right" style = 'margin-top: -3%; '>
+    <label class="">Display <u>No</u>: </label>
+    <!-- <%#= select_tag :count, options_for_select([5,10,15,20,25,30], params[:count].to_i), :onchange => "if(this.value){ window.location='?count='+this.value ;}" %> -->
+    <%= select_tag :per_page, options_for_select([15, 30, 40,50, 70,100], params[:per_page].to_i), :data => { :remote => true,
+                            :url => url_for( :controller => "service_fee_masters", :action => "index" )
+                            }, :onchange => "if(this.value){window.location='?per_page='+this.value;}", class: "w3-bordered w3-round-xlarge w3-btn w3-small w3-card-4" %>
+  </div>
+
+  <div class="pull-left" style = 'margin-top: -3%;'>
+    <label class="">Filter by: </label><br>
+    <%= select_tag :ref_id, options_from_collection_for_select(AppointmentType.where("appointment_types.ref_id !=? and appointment_types.ref_id !=? and appointment_types.ref_id !=?", "MA", "PD", "MD"), "ref_id", "title",  'ref_id'), :data => {
+        :url => url_for(:controller => "service_fee_masters", :action => "index")},
+         :onchange => "window.location.href = '?ref_id='+this.value;",
+        class: "w3-bordered w3-round-xlarge w3-btn w3-small w3-card-4",
+       :prompt => "Appointment Type", style: "max-width: 90%; width: 8%; min-width: 70%" %>
+    <%#= form_tag drug_masters_path, :method => 'get', class: "form-inline", html: { autocomplete: "off" }, :id => "drug_search" do %>
+        <%#= text_field_tag :drug_name, params[:drug_name], class: "form-control w3-bordered ", :placeholder=> "Filter by Drug  Name", autocomplete: "off"  %>
+        <%#= submit_tag "Search", :name => nil,  class: "w3-btn w3-round w3-blue w3-tiny", id: "submitBtn" %>
+    <%# end %>
+  </div>
+
+  <br /><br>
+  <p style = 'text-align: center; font-family: tahoma; font-size: 15px;'>
+    <b>Download:</b>  <%= link_to "CSV", service_fee_masters_path(format: "csv"), :class => "w3-hover-white"%>
+    | <%= link_to "Excel", service_fee_masters_path(format: "xls"), :class => "w3-hover-white" %>
+    | <%= link_to "CSV-all", all_price_excel_path(format: "csv"), :class => "w3-hover-white", method: :get%>
+    | <%= link_to "Excel-all", all_price_excel_path(format: "xls"),:class => "w3-hover-white", method: :get%>
+  </p>
+  <% if @ref_id.present? %>
+      <%= link_to  service_fee_masters_path, class: "w3-hover-none" do %>
+        <span class="fa fa-refresh fa-2x"></span>
+      <% end %>
+  <% end %>
+  <div class="table-responsive">
+    <table class="table table-condensed table-bordered table-striped w3-card">
+      <thead>
+      <tr class="w3-teal">
+        <th>S/N</th>
+        <th>Appt Type</th>
+        <th>Service</th>
+        <th>Urgency</th>
+        <th>Price (GHS)</th>
+        <th>Status</th>
+        <th colspan="2">Options</th>
+      </tr>
+      </thead>
+      <tbody>
+      <% @service_fee_masters.each_with_index  do |service_fee_master, index| %>
+          <tr>
+            <td><%= index+1 %></td>
+            <td><%= service_fee_master.appointment_type.title %></td>
+            <td>
+              <% if  service_fee_master.service_id.present? %>
+                <%= service_fee_master.lab_service.title %>
+              <% else %>
+                <span style="color: red;">Not Applicable</span>
+              <% end %>
+            </td>
+            <td>
+              <% if service_fee_master.req_urgency == "S" %>
+                Standard
+              <% elsif service_fee_master.req_urgency == "E" %>
+                Express
+              <% end %>
+            </td>
+            <td><%= number_to_currency(service_fee_master.fee, unit: " ")  %></td>
+            <% if service_fee_master.active_status%>
+                <td >Active</td>
+            <% else %>
+                <td style="color: red">Inactive</td>
+            <% end %>
+
+            <td style="width: 15px"><%= link_to 'Edit', edit_service_fee_master_path(service_fee_master), remote: true,  class: "w3-button w3-gray w3-card w3-hover-gray w3-small w3-round w3-round-xxlarge" %></td>
+
+            <td style="width: 15px">
+              <% if service_fee_master.active_status == false %>
+                  <%= link_to 'Enable', enable_price_path(:chosen => service_fee_master.id), data: { confirm: 'You are about to enable the selected price, do you want to continue?' },  class: "w3-button w3-blue w3-hover-blue w3-small w3-round-xxlarge w3-card" %>
+
+              <% elsif service_fee_master.active_status == true %>
+                  <%= link_to 'Disable', disable_price_path(:chosen => service_fee_master.id), data: { confirm: 'You are about to disable the selected price, do you want to continue?' },  class: "w3-button w3-red w3-hover-red w3-small w3-round w3-round-xxlarge w3-card" %>
+
+              <% end %>
+            </td>
+
+          </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
+
+  <div>
+    <%= link_to '+', new_service_fee_master_path, remote: true, class: "w3-button w3-circle w3-teal w3-hover-teal w3-left w3-card-4" %>
+    <%= will_paginate @service_fee_masters,  renderer: BootstrapPagination::Rails, previous_label: 'Older', next_lable: 'Newer', class: "w3-right pagination-sm w3-card-4" %>
+    <br /><br>
+  </div>
+</div>
+<hr>
+<div class="clearfix w3-clear"></div>
+<br><br>

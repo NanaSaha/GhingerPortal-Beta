@@ -1,0 +1,42 @@
+<div id="id01" class="w3-modal w3-round-large" style="display: block; margin-top: ">
+    <div class="w3-modal-content w3-animate-top w3-white" style="width: 33%; max-height: 80%; margin-top: ; overflow-y: auto; background: transparent">
+     
+      <header class="w3-container">  
+        <h4>
+         <% if flash[:notice] %>
+           <p class="flash_notice " id = 'notes' style = ""><%= notice %></p>
+		 <% end %>
+        </h4> 
+      </header>            
+           <div class="w3-container" > 	
+           	  <% if @user_type == 'C'%>	
+           	  	<p style="font-family: tahoma; font-size: 20px; text-align: center"><b>Please log In to make appointments</b></p>
+           	  <%else%>	
+           	    <!-- <%= flash.now[:notice] = 'Please fill in your professional information' %> -->
+                  <p style="font-family: tahoma; font-size: 15px; text-align: center"><b>Please fill in your professional information</b></p>
+           	  <%end%>
+           </div>
+        <br>
+      <footer class="w3-container" >
+      	<% if @user_type == 'C'%>	
+      	    <button onclick="document.getElementById('id01').style.display='none'" class="w3-button w3-right w3-card-4 w3-small w3-round-xlarge w3-green w3-hover-green ">Okay</button>
+      	<%else%>
+      	   <%= link_to 'Provide Prof. Info', user_prof_info_path(:reg_id => @reg_id), remote: true, class: "w3-button form-control w3-card-4 w3-small w3-round-xlarge w3-green w3-hover-green " %>
+      	<%end%>     
+      <br />
+      </footer>
+      <br />
+    </div>
+    <br />
+</div>
+
+
+
+<script type="text/javascript">
+$(document).ready(function(){
+  // setTimeout(function(){
+    // $('#notes').remove();
+  // }, 3000);
+  });
+</script>
+

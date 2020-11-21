@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Person Infos</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Surname</th>
+      <th>Other names</th>
+      <th>Person type</th>
+      <th>Entity</th>
+      <th>User</th>
+      <th>Active status</th>
+      <th>Del status</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @person_infos.each do |person_info| %>
+      <tr>
+        <td><%= person_info.surname %></td>
+        <td><%= person_info.other_names %></td>
+        <td><%= person_info.person_type_id %></td>
+        <td><%= person_info.entity_id %></td>
+        <td><%= person_info.user_id %></td>
+        <td><%= person_info.active_status %></td>
+        <td><%= person_info.del_status %></td>
+        <td><%= link_to 'Show', person_info %></td>
+        <td><%= link_to 'Edit', edit_person_info_path(person_info) %></td>
+        <td><%= link_to 'Destroy', person_info, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Person info', new_person_info_path %>

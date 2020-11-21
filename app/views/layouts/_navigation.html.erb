@@ -1,0 +1,359 @@
+
+
+<!-- <% if user_signed_in? %> -->
+
+
+<% if current_user.role.name == 'Super Admin' or current_user.role.name == 'Customer Service'%>
+  <nav class="navbar navbar-default w3-white w3-card-4 w3-border navbar-fixed-top" id="main">
+    <div class="container-fluid">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <div class="w3-sidebar w3-bar-block w3-card w3-animate-left w3-black" style="display:none; background: transparent" id="mySidebar">
+          <a href="#" style="color: white" class="w3-bar-item w3-large w3-hover-none" onclick="w3_close()"><b class="w3-right">&#9776;</b></a>
+          <div class="w3-clear"></div>
+          <%= render 'layouts/navigation_links' %>
+          <div class="w3-clear"></div>
+        </div>
+        <button id="openNav" class="w3-button w3-white w3-large w3-left w3-card w3-margin-right w3-hover-none navbar-brand w3-margin-left my-sideNav" onclick="w3_open()" >&#9776;</button>
+        <%= link_to admin_root_path do %>
+          <%#= image_tag ('logo.png'), class: "navbar-brand" %>
+        <% end %>
+      </div>
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="background: transparent">
+        <ul class="nav navbar-nav w3-hide-large w3-black" style="text-align: left">
+          <li><%= render 'layouts/navigation_links' %></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+              <span class="fa fa-cog"></span>
+              <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu w3-dropdown-content w3-bar-block" style="width: 350%;">
+              <li >
+                <%= link_to service_fee_masters_path, class: "w3-bar-item w3-card" do %>
+                  <i class="fa fa-money" aria-hidden="true" style=""></i><span><b> Service Prices</b></span>
+                <% end %>
+              </li>
+              <li >
+                <%= link_to lab_services_path, class: "w3-bar-item w3-card" do %>
+                  <i class="fa fa-wheelchair" aria-hidden="true" style=""></i><span><b> Lab Services</b></span>
+                <% end %>
+              </li>
+              <li>
+                <%= link_to allergies_masters_path, class: "w3-bar-item w3-card" do %>
+                  <i class="fa fa-arrows-alt" aria-hidden="true"></i> <span><b> Allergies</b></span>
+                <% end %>
+              </li>
+              <li>
+                <%= link_to condition_masters_path, class: "w3-bar-item w3-card" do %>
+                  <i class="fa fa-thermometer-quarter" aria-hidden="true"></i> <span><b> Conditions</b></span>
+                <% end %>
+              </li>
+              <li>
+                <%= link_to specialty_masters_path, class: "w3-bar-item w3-card" do %>
+                  <i class="fa fa-user-md" aria-hidden="true"></i> <span><b> Specialties</b></span>
+                <% end %>
+              </li>
+              <li>
+                <%= link_to profesional_groups_path, class: "w3-bar-item w3-card" do %>
+                  <i class="fa fa-handshake-o" aria-hidden="true" ></i><span><b> Prof Groups</b></span>
+                <% end %>
+              </li>
+              <li>
+                <%= link_to roles_path, class: "w3-bar-item w3-card" do %>
+                  <i class="fa fa-user-secret" aria-hidden="true" ></i> <span><b> User Roles</b></span>
+                <% end %>
+              </li>
+              <li>
+                <%= link_to permissions_path, class: "w3-bar-item w3-card" do %>
+                  <i class="fa fa-pencil-square-o" aria-hidden="true" ></i><b > Permissions</b></span>
+              <% end %>
+            </li>
+            <li>
+              <%= link_to user_services_path, class: "w3-bar-item w3-card" do %>
+                <i class="fa fa-heartbeat" aria-hidden="true" ></i> <span ><b > User Services</b></span>
+              <% end %>
+            </li>
+            <li>
+              <%= link_to drug_masters_path, class: "w3-bar-item w3-card" do %>
+                <i class="fa fa-medkit" aria-hidden="true" ></i> <span ><b > Drug List</b></span>
+              <% end %>
+            </li>
+            <li>
+              <%= link_to measure_units_path, class: "w3-bar-item w3-card" do %>
+                <i class="fa fa-medkit" aria-hidden="true" ></i> <span ><b > Measure Units</b></span>
+              <% end %>
+            </li>
+          </ul>
+        </li>
+        <% if current_user.profile.nil? %>
+          <!-- <%= path_to_image "user.png" %> -->
+          <%= image_tag ('user.png'), class: "pull-left img-responsive img-circle", style: "width: 30px; height: 30px; margin-top: 10px" %>
+        <% else %>
+          <%= image_tag current_user.profile.url(:thumb), class: "pull-left img-responsive img-circle", style: "width: 30px; height: 30px; margin-top: 10px" %>
+        <% end %>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+            <% if current_user.present? && current_user.person_id? %>
+              <!-- <%#= current_user.role.name  if current_user.role%> -->
+              <%= current_user.person_info.surname if current_user.person_info %>
+              <%= current_user.person_info.other_names if current_user.person_info %>
+            <% end %>
+            <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu">
+            <li>
+              <%= link_to current_user, class: "w3-bar-item" do %>
+                <i class="fa fa-user" aria-hidden="true"></i> <span style="">Profile</span>
+              <% end %>
+            </li>
+            <li>
+              <%= link_to destroy_user_session_path, method: :delete,  class: "w3-bar-item" do %>
+                <i class="fa fa-power-off" aria-hidden="true"></i> <span style="">Sign Out</span>
+              <% end %>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+    <!-- /.navbar-collapse -->
+  </div>
+  <!-- /.container-fluid -->
+</nav>
+<br />
+<br />
+<br />
+<!-- Top nav bar for doctors -->
+<% elsif current_user.role.name == 'Doctor' %>
+  <nav class="navbar navbar-default w3-card-4 w3-border navbar-fixed-top"  style="background: #92d36e" >
+    <div class="container-fluid">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <!-- Toggle side bar for doctors page -->
+        <% if current_user.role.name == 'Doctor' %>
+          <button id="openNav" class="w3-button w3-white w3-card w3-left w3-tiny navbar-brand w3-margin-right w3-margin-left my-sideNav" onclick="w3_open()" style="">&#9776;</button>
+        <%end%>
+        <%= link_to doctor_root_path do %>
+          <%= image_tag ('ghinger_resize.png'), class: "", input_html: {style: "margin-left: 10%"}%>
+        <% end %>
+      </div>
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav w3-hide-large">
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <% if current_user.profile.nil? %>
+            <%= image_tag ('user.png'), class: "pull-left img-responsive img-circle", style: "width: 30px; height: 30px; margin-top: 10px" %>
+          <% else %>
+            <%= image_tag current_user.profile.url(:thumb), class: "pull-left img-responsive img-circle", style: "width: 30px; height: 30px; margin-top: 10px" %>
+          <% end %>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" style="color: white">
+              <% if current_user.present? && current_user.person_id? %>
+                <%= current_user.person_info.surname if current_user.person_info %>
+                <%= current_user.person_info.other_names if current_user.person_info %>
+              <% end %>
+              <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu w3-card w3-hover" >
+              <li>
+                <%= link_to 'Edit Account', edit_profile_path, class: "w3-bar-item w3-card", remote: true %>
+              </li>
+              <li>
+                <%= link_to destroy_user_session_path, method: :delete,  class: "w3-bar-item w3-card" do %>
+                  <i class="fa fa-power-off" aria-hidden="true"></i> <span style="">Sign Out</span>
+                <% end %>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container-fluid -->
+    <div class="w3-sidebar w3-bar-block w3-card  w3-animate-left w3-card-4 w3-black" style="display: none; padding: 10px" id="mySidebar">
+      <span class="w3-right w3-border w3-card w3-tiny w3-white w3-button w3-margin fa-2x w3-hover-white" onclick="w3_close()" style="margin-bottom: 10px" >&#9776;</span>
+      <!-- <a href="#" class="w3-bar-item w3-button w3-border-bottom w3-border-top" >Link 1</a>
+			   <a href="#" class="w3-bar-item w3-button">Link 2</a>
+			   <a href="#" class="w3-bar-item w3-button">Link 3</a> -->
+      <div class="w3-clear"></div>
+      <%= render 'layouts/doctor_navigation_links' %>
+    </div>
+  </nav>
+  <br />
+  <br />
+  <br />
+
+  <!-- Top nav bar for Patienta -->
+<% elsif current_user.role.name == 'Patient' %>
+    <nav class="navbar navbar-default w3-white w3-card-4 w3-border navbar-fixed-top" id="main">
+    <div class="container-fluid">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+  	<a href="/"> <img class="navbar-brand-sticky" src="https://res.cloudinary.com/sahanana/image/upload/v1596453505/ghinger_assets/images/nn_x8gcfr.jpg" alt="sticky brand-logo" height="50px" width="120px"> </a>
+      </div>
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="background: transparent">
+        
+        <ul class="nav navbar-nav navbar-right">
+          <li class="dropdown">
+            
+            <ul class="dropdown-menu w3-dropdown-content w3-bar-block" style="width: 350%;">
+              
+           
+          </ul>
+        </li>
+        <% if current_user.profile.nil? %>
+          <!-- <%= path_to_image "user.png" %> -->
+          <%= image_tag ('user.png'), class: "pull-left img-responsive img-circle", style: "width: 30px; height: 30px; margin-top: 10px" %>
+        <% else %>
+          <%= image_tag current_user.profile.url(:thumb), class: "pull-left img-responsive img-circle", style: "width: 30px; height: 30px; margin-top: 10px" %>
+        <% end %>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+            <% if current_user.present? && current_user.person_id? %>
+              <!-- <%#= current_user.role.name  if current_user.role%> -->
+              <%= current_user.person_info.surname if current_user.person_info %>
+              <%= current_user.person_info.other_names if current_user.person_info %>
+            <% end %>
+            <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu">
+            <li>
+              <%= link_to current_user, class: "w3-bar-item" do %>
+                <i class="fa fa-user" aria-hidden="true"></i> <span style="">Profile</span>
+              <% end %>
+            </li>
+            <li>
+              <%= link_to destroy_user_session_path, method: :delete,  class: "w3-bar-item" do %>
+                <i class="fa fa-power-off" aria-hidden="true"></i> <span style="">Sign Out</span>
+              <% end %>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+    <!-- /.navbar-collapse -->
+  </div>
+  <!-- /.container-fluid -->
+</nav>
+  <br />
+  <br />
+  <br />
+
+    <!-- Top nav bar for Pnurse -->
+<% elsif current_user.role.name == 'Nurse' %>
+  <nav class="navbar navbar-default w3-card-4 w3-border navbar-fixed-top"  style="background: #92d36e" >
+    <div class="container-fluid">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <!-- Toggle side bar for doctors page -->
+        <% if current_user.role.name == 'Nurse' %>
+          <button id="openNav" class="w3-button w3-white w3-card w3-left w3-tiny navbar-brand  w3-margin-right w3-margin-left my-sideNav" onclick="w3_open()" style="">&#9776;</button>
+        <%end%>
+        <!-- <%= link_to doctor_root_path do %> 
+			    <%= image_tag ('ghinger.png'), class: "navbar-brand fa-spin", input_html: {style: "margin-left: 10%"}%>
+			  <% end %> -->
+        <%= link_to nurse_root_path do %>
+          <%= image_tag ('ghinger_resize.png'), class: "", input_html: {style: "margin-left: 10%"}%>
+        <% end %>
+        <!-- <a class="navbar-brand" href="#">Brand</a> -->
+      </div>
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav w3-hide-large">
+          <!-- <li><%#= render 'layouts/navigation_links' %></li>  -->
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <% if current_user.profile.nil? %>
+            <!-- <%= path_to_image "user.png" %> -->
+            <%= image_tag ('user.png'), class: "pull-left img-responsive img-circle", style: "width: 30px; height: 30px; margin-top: 10px" %>
+          <% else %>
+            <%= image_tag current_user.profile.url(:thumb), class: "pull-left img-responsive img-circle", style: "width: 30px; height: 30px; margin-top: 10px" %>
+          <% end %>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" style="color: white">
+              <% if current_user.present? && current_user.person_id? %>
+                <!-- <%= current_user.role.name  if current_user.role%> -->
+                <%= current_user.person_info.surname if current_user.person_info %>
+                <%= current_user.person_info.other_names if current_user.person_info %>
+              <% end %>
+              <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu w3-card w3-hover" >
+              <li>
+                <%= link_to 'Edit Account', edit_profile_path, class: "w3-bar-item w3-card", remote: true %>
+                <!-- <%= link_to current_user, class: "w3-bar-item w3-card" do %>
+						  <i class="fa fa-user" aria-hidden="true"></i> <span style="margin-left:;">Profile</span> 
+						<% end %>  -->
+              </li>
+              <li>
+                <%= link_to destroy_user_session_path, method: :delete,  class: "w3-bar-item w3-card" do %>
+                  <i class="fa fa-power-off" aria-hidden="true"></i> <span style="">Sign Out</span>
+                <% end %>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container-fluid -->
+    <div class="w3-sidebar w3-bar-block w3-card  w3-animate-left w3-card-4 w3-black" style="display: none; padding: 10px" id="mySidebar">
+      <span class="w3-right w3-border w3-card w3-tiny w3-white w3-button w3-margin fa-2x w3-hover-white" onclick="w3_close()" style="margin-bottom: 10px" >&#9776;</span>
+      
+      <div class="w3-clear"></div>
+      <%= render 'layouts/nurse_navigation_links' %>
+    </div>
+  </nav>
+  <br />
+  <br />
+  <br />
+<%end%>
+<div class="clearfix w3-clear"></div>
+<!-- <nav class="navbar navbar-default navbar-fixed-bottom w3-card-4 w3-border w3-white" style="max-height: 5px">
+  <div class="container-fluid" style="text-align: center">
+    <p>Powered by <a href="http://www.devdexsoftware.com" target="blank"> <b>Devdex Software</b></a></p>
+  </div>
+</nav> -->
+<script>
+  $("#menu-toggle").click(function(e) {
+    e.preventDefault();
+    $("#wrapper").toggleClass("toggled");
+  });
+</script>
+<script>
+  function w3_open() {
+    document.getElementById("main").style.marginLeft = "15%";
+    document.getElementById("mySidebar").style.width = "20%";
+    document.getElementById("mySidebar").style.marginLeft = "-1%";
+    document.getElementById("mySidebar").style.display = "block";
+    document.getElementById("openNav").style.display = 'none';
+  }
+  function w3_close() {
+    document.getElementById("main").style.marginLeft = "0%";
+    document.getElementById("mySidebar").style.display = "none";
+    document.getElementById("openNav").style.display = "inline-block";
+  }
+</script>
+<!-- <%end%> -->

@@ -1,0 +1,93 @@
+<% if flash[:notice] %>
+  <p class="flash_notice " id = 'notes' style = "margin-top: 5px"><%= notice %></p>
+<%end%>
+
+<h4>Available Services</h4>
+<br />
+
+<p style = 'text-align: center; font-family: tahoma; font-size: 15px;'>
+   <b>Download:</b>  <%= link_to "CSV", service_masters_path(format: "csv"), :class => "w3-hover-white"%> 
+                     | <%= link_to "Excel", service_masters_path(format: "xls"), :class => "w3-hover-white" %> 
+                     | <%= link_to "CSV-all", all_service_excel_path(format: "csv"), :class => "w3-hover-white", method: :get%> 
+                     | <%= link_to "Excel-all", all_service_excel_path(format: "xls"),:class => "w3-hover-white", method: :get%>
+</p>
+<div class="pull-right" style = 'margin-top: -3%; '>
+	  <label class="">Display <u>No</u>: </label> 
+	     <!-- <%#= select_tag :count, options_for_select([5,10,15,20,25,30], params[:count].to_i), :onchange => "if(this.value){ window.location='?count='+this.value ;}" %> -->
+	   <%= select_tag :per_page, options_for_select([5,10, 20, 30, 40,50, 70,100], params[:per_page].to_i), :data => { :remote => true, 
+	 	                :url => url_for( :controller => "service_masters", :action => "index" )
+	 	             },  remote: true, class: "w3-bordered w3-round-xlarge w3-btn w3-small w3-card-4" %>	
+   </div>
+ <br />
+<div class="table-responsive">
+	<table class="table table-condensed table-bordered table-striped">
+	  <thead>
+	    <tr class="w3-teal">
+	      <th>Title</th>
+	      <!-- <th>Comment</th>
+	      <th>Entity</th>-->
+	      <th>Added by</th> 
+	      <th>Status</th>
+	      <th>Date/time</th>
+	      <th colspan="2">Options</th>
+	    </tr>
+	  </thead>
+	
+	  <tbody>
+	    <% @service_masters.each do |service_master| %>
+	      <tr>
+	        <td><%= service_master.title %></td>
+	        <!-- <td><%= service_master.comment %></td>
+	        <td><%= service_master.entity_id %></td>-->
+	        <td><%= service_master.user.person_info.surname if service_master.user %> <%= service_master.user.person_info.other_names if service_master.user %></td> 
+	       
+	        <% if service_master.active_status == true %>  
+	      		<td style=" ">Active</td>
+	      		
+	      	<%elsif service_master.active_status == false %>
+	      		<td style="color: red">Inactive</td>
+	      		
+	        <%end%>
+	        
+	        <td><%= service_master.created_at.strftime("%F %R") %></td>
+	        <!-- <td style="width: 5px"><%= link_to 'View', service_master, remote: true, class: "w3-button w3-indigo w3-hover-indigo w3-card w3-small w3-round w3-round-xxlarge" %></td> -->
+	        <td style="width: 5px"><%= link_to 'Edit', edit_service_master_path(service_master), remote: true, class: "w3-button w3-gray w3-card w3-hover-gray w3-small w3-round w3-round-xxlarge" %></td>
+	        
+	        <td style="width: 15px">
+	           <% if service_master.active_status == false %>
+	           	 <%= link_to 'Enable', enable_service_path(:chosen => service_master.id), data: { confirm: 'You are about to enable the selected service. Do you want to continue?' }, remote: true,  class: "w3-button w3-blue w3-hover-blue w3-small w3-round-xxlarge w3-card" %>
+                  
+               <% else service_master.active_status == true %>
+	              <%= link_to 'Disable', disable_service_path(:chosen => service_master.id), data: { confirm: 'You are about to disable the selected service. Do you want to continue?' }, remote: true,  class: "w3-button w3-red w3-hover-red w3-small w3-round w3-round-xxlarge w3-card" %> 
+	                           
+               <% end %>
+	        	
+	        </td>
+	        
+	        <!-- <td><%#= link_to 'Destroy', service_prov_type, method: :delete, data: { confirm: 'Are you sure?' } %></td> -->
+	      </tr>
+	    <% end %>
+	  </tbody>
+	</table>
+</div>
+
+<div>
+ <%= link_to '+', new_service_master_path, :remote=> true, class: "w3-button w3-circle w3-teal w3-hover-teal" %>
+ <%= will_paginate @service_masters,  renderer: BootstrapPagination::Rails, previous_label: 'Older', next_lable: 'Newer', class: "w3-right pagination-sm w3-card-4", :params => { :controller => "service_masters", :action => "index", count: params[:count], page: params[:page] } %>
+</div>
+<br>
+
+<script type="text/javascript">
+$(document).ready(function(){
+  setTimeout(function(){
+    $('.flash_notice').remove();
+  }, 4000);
+ })
+</script>
+
+<script>
+  $(function(){
+    $('.pagination a').attr('data-remote', 'true')
+  });
+
+</script>

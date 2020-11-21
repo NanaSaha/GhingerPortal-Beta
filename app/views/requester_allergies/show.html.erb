@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Pre appointment:</strong>
+  <%= @requester_allergy.pre_appointment_id %>
+</p>
+
+<p>
+  <strong>Allergy:</strong>
+  <%= @requester_allergy.allergies_master.title %>
+</p>
+
+<p>
+  <strong>Comment:</strong>
+  <%= @requester_allergy.comment %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @requester_allergy.user_id %>
+</p>
+
+<p>
+  <strong>Active status:</strong>
+  <%= @requester_allergy.active_status %>
+</p>
+
+<p>
+  <strong>Del status:</strong>
+  <%= @requester_allergy.del_status %>
+</p>
+
+<%= link_to 'Edit', edit_requester_allergy_path(@requester_allergy) %> |
+<%= link_to 'Back', requester_allergies_path %>

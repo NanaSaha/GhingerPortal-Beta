@@ -1,0 +1,45 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Person Contact Infos</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Person</th>
+      <th>Contact number</th>
+      <th>Email</th>
+      <th>Postal address</th>
+      <th>Location address</th>
+      <th>Comment</th>
+      <th>User</th>
+      <th>Entity</th>
+      <th>Active status</th>
+      <th>Del status</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @person_contact_infos.each do |person_contact_info| %>
+      <tr>
+        <td><%= person_contact_info.person_id %></td>
+        <td><%= person_contact_info.contact_number %></td>
+        <td><%= person_contact_info.email %></td>
+        <td><%= person_contact_info.postal_address %></td>
+        <td><%= person_contact_info.location_address %></td>
+        <td><%= person_contact_info.comment %></td>
+        <td><%= person_contact_info.user_id %></td>
+        <td><%= person_contact_info.entity_id %></td>
+        <td><%= person_contact_info.active_status %></td>
+        <td><%= person_contact_info.del_status %></td>
+        <td><%= link_to 'Show', person_contact_info %></td>
+        <td><%= link_to 'Edit', edit_person_contact_info_path(person_contact_info) %></td>
+        <td><%= link_to 'Destroy', person_contact_info, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Person contact info', new_person_contact_info_path %>

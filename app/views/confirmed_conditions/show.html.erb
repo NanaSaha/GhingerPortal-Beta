@@ -1,0 +1,44 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Confirmed appointment:</strong>
+  <%= @confirmed_condition.confirmed_appointment_id %>
+</p>
+
+<p>
+  <strong>Condition:</strong>
+  <%= @confirmed_condition.condition_id %>
+</p>
+
+<p>
+  <strong>Allergy:</strong>
+  <%= @confirmed_condition.allergy_id %>
+</p>
+
+<p>
+  <strong>Comment:</strong>
+  <%= @confirmed_condition.comment %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @confirmed_condition.user_id %>
+</p>
+
+<p>
+  <strong>Entity:</strong>
+  <%= @confirmed_condition.entity %>
+</p>
+
+<p>
+  <strong>Active status:</strong>
+  <%= @confirmed_condition.active_status %>
+</p>
+
+<p>
+  <strong>Del status:</strong>
+  <%= @confirmed_condition.del_status %>
+</p>
+
+<%= link_to 'Edit', edit_confirmed_condition_path(@confirmed_condition) %> |
+<%= link_to 'Back', confirmed_conditions_path %>

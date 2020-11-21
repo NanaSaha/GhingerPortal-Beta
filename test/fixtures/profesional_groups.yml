@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  group_name: MyString
+  comment: 
+  user_id: MyString
+  entity_id: MyString
+  active_status: false
+  del_status: false
+
+two:
+  group_name: MyString
+  comment: 
+  user_id: MyString
+  entity_id: MyString
+  active_status: false
+  del_status: false

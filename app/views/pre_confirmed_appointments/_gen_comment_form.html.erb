@@ -1,0 +1,72 @@
+<%= simple_form_for @decline_comment, url: create_gen_decline_comment_path, method: :post, remote: true do |f| %>
+  
+
+<div id="id01" class="w3-modal w3-round-large" style="display: block; margin-top: ">
+    <div class="w3-modal-content w3-animate-top w3-white" style="width: 30%; ; margin-top: ; overflow-y: ; background: transparent">
+    	<div style="max-width: 70%; text-align: center; margin-left: 15%; margin-top: 0px">
+	    	<% if flash[:notice] %>
+                <p class="flash_notice " id = 'notes' style = ""><%= notice %></p>
+		  	 <% end %>
+    	</div>	   
+      <header class="w3-container">  
+        <h4>Let us know why you wouldn't be available</h4> 
+      </header>  
+      <br />          
+           <div class="w3-container" > 				 		      	
+              <span class="w3-margin"><%= f.error_notification  %></span>
+               <div class="form-inputs">
+               		<%= f.input :pre_confirmed_appointment_id,as: :hidden,  input_html: {value: @pre_confirmed_appointment_id} %>
+               		<% if @doctor_id.present? %>
+               		   <%= f.input :doctor_id, as: :hidden,  input_html: {value: current_user.person_info.id} %>
+               		<% elsif @nurse_id.present? %>
+               		   <%= f.input :nurse_id, as: :hidden,  input_html: {value: current_user.person_info.id}%>
+               		<%end%>
+				    <%= f.input :available_date, label: "Date you will be available", as: :string, input_html: {id: "datetimepicker4", placeholder: "Select date of birth or type yyyy-mm-dd"} %>
+				    <%= f.label :comment, "Your option(s)/Reason(s)"%>
+				    <%= f.text_area :comment, :style => "width: 100%", :rows=> 5%>
+				    
+				    <%= f.input :active_status, as: :hidden, input_html: {value: 1} %>
+				    <%= f.input :del_status, as: :hidden, input_html: {value: 0} %>					       
+               </div>
+           </div>
+        <br>
+      <footer class="w3-container" >
+       	<%= f.button :submit,  class: "w3-button w3-right w3-card-4 w3-small w3-round-xlarge w3-green w3-hover-green", value: "submit", style: " background: rgb(146, 211, 110); hover:none" %>
+		<%= link_to 'Back', :back, class: "w3-button w3-black w3-hover-black w3-left w3-card-4 w3-small w3-round-xlarge" %>
+        <!-- <span onclick="document.getElementById('id01').style.display='none'" class="w3-button w3-black w3-hover-black w3-left w3-card-4 w3-small w3-round-xlarge">Cancel</span> -->
+      <br />
+      </footer>
+      <% end %>
+      <br />
+    </div>
+    <br />
+</div>
+
+<%= tinymce %>
+
+<script type="text/javascript">
+$(document).ready(function(){
+  setTimeout(function(){
+    $('#notes').remove();
+  }, 3000);
+  });
+</script>
+
+
+
+<script type="text/javascript">
+ $(function () {
+   $('#datetimepicker4').datetimepicker({   	
+   	 format: "YYYY-MM-DD HH:mm",
+   	 minDate: new Date()
+   });
+   
+    // $("#datetimepicker4").on("dp.change", function (e) {
+      // $('#datetimepicker4').data("DateTimePicker").minDate(e.date);
+    // });
+    // $("#datetimepicker4").on("dp.change", function (e) {
+    // $('#datetimepicker4').data("DateTimePicker").maxDate(e.date);
+   // });
+    
+  });
+</script>

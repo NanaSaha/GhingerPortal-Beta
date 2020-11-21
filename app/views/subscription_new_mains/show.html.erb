@@ -1,0 +1,113 @@
+<br />
+<div class="row">
+  <div class="col-md-3 col-xs-12"></div>
+  <div class="col-md-6 col-xs-12 w3-card-4 w3-round-large">
+    <!-- <br /> -->
+    <h4>Subscription Details</h4>
+    <table class="table table-condensed table-bordered table-striped">
+      <tr>
+        <td class="w3-teal"><strong>Full Name: </strong></td>
+        <td style="padding-left: 6%""><%= @subscription_new_main.f_name+' '+@subscription_new_main.last_name %></td>
+      </tr>
+      <tr>
+        <td class="w3-teal" ><strong>Phone Number: </strong></td>
+        <td style="padding-left: 6%""><%= @subscription_new_main.phone_number %></td>
+      </tr>
+      <tr>
+        <td class="w3-teal" ><strong>Email: </strong></td>
+        <td style="padding-left: 6%""><%= @subscription_new_main.email %></td>
+      </tr>
+      <tr>
+        <td class="w3-teal" ><strong>Subscription: </strong></td>
+        <td style="padding-left: 6%""><%= @subscription_new_main.sub_name %></td>
+      </tr>
+      <tr>
+        <td class="w3-teal" ><strong>Amount GHC: </strong></td>
+        <td style="padding-left: 6%""><%= @subscription_new_main.amount %></td>
+      </tr>
+      <tr>
+        <td class="w3-teal" ><strong>Date of Birth: </strong></td>
+        <td style="padding-left: 6%""><%= @subscription_new_main.dob %></td>
+      </tr>
+      <tr>
+        <td class="w3-teal" ><strong>Age: </strong></td>
+        <td style="padding-left: 6%""><%= @subscription_new_main.age %></td>
+      </tr>
+      <tr>
+        <td class="w3-teal" ><strong>Who(Subscription): </strong></td>
+        <td style="padding-left: 6%""><%= @subscription_new_main.sub_self %></td>
+      </tr>
+      <tr>
+        <td class="w3-teal" ><strong>Gender: </strong></td>
+        <td style="padding-left: 6%""><%= @subscription_new_main.gender %></td>
+      </tr>
+      <tr>
+        <td class="w3-teal" ><strong>Marital Status: </strong></td>
+        <td style="padding-left: 6%""><%= @subscription_new_main.marital_status %></td>
+      </tr>
+      <tr>
+        <td class="w3-teal" ><strong>Religion: </strong></td>
+        <td style="padding-left: 6%""><%= @subscription_new_main.religion %></td>
+      </tr>
+      <tr>
+        <td class="w3-teal" ><strong>Subscription Initial: </strong></td>
+        <td style="padding-left: 6%""><%= @subscription_new_main.sub_initial %></td>
+      </tr>
+      <tr>
+        <td class="w3-teal" ><strong>Address: </strong></td>
+        <td style="padding-left: 6%""><%= @subscription_new_main.address %></td>
+      </tr>
+      <tr>
+        <td class="w3-teal" ><strong>Emergency Name: </strong></td>
+        <td style="padding-left: 6%""><%= @subscription_new_main.emergency_name %></td>
+      </tr>
+      <tr>
+        <td class="w3-teal" ><strong>Emergency Phone: </strong></td>
+        <td style="padding-left: 6%""><%= @subscription_new_main.emergency_phone %></td>
+      </tr>
+      <tr>
+        <td class="w3-teal" ><strong>Emergency Email: </strong></td>
+        <td style="padding-left: 6%""><%= @subscription_new_main.emergency_email %></td>
+      </tr>
+      <tr>
+        <td class="w3-teal" ><strong>Emergency Address: </strong></td>
+        <td style="padding-left: 6%""><%= @subscription_new_main.emergency_address %></td>
+      </tr>
+      <tr>
+        <td class="w3-teal" ><strong>Doctor: </strong></td>
+        <td style="padding-left: 6%""><%= @subscription_new_main.person_info.surname+''+@subscription_new_main.person_info.other_names if @subscription_new_main.person_info %></td>
+      </tr>
+      <% if @subscription_new_main.status == true %>
+        <tr>
+          <td class="w3-teal"><strong>Assigned Status: </strong></td>
+          <td style="padding-left: 6%"> Assigned </td>
+        </tr>
+      <%elsif @subscription_new_main.status == false %>
+        <tr>
+          <td class="w3-teal"><strong>Assigned Status: </strong></td>
+          <td style="padding-left: 6%; color: red">Not Assigned</td>
+        </tr>
+      <%end%>
+      <% if @subscription_new_main.paid_status == true %>
+        <tr>
+          <td class="w3-teal"><strong>Paid Status: </strong></td>
+          <td style="padding-left: 6%"> Paid </td>
+        </tr>
+      <%elsif @subscription_new_main.paid_status == false %>
+        <tr>
+          <td class="w3-teal"><strong>Paid Status: </strong></td>
+          <td style="padding-left: 6%; color: red">Not Paid</td>
+        </tr>
+      <%end%>
+    </table>
+    <%= link_to 'Back', subscription_new_mains_path, class: "w3-left w3-button w3-small w3-round-large w3-blue w3-hover-blue" %>
+    <br />
+    <br />
+      <br />
+    <br />
+  </div>
+  <div class="col-md-3 col-xs-12"></div>
+</div>
+<br />
+<br />
+<br />

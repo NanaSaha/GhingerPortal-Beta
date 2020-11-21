@@ -1,0 +1,34 @@
+<div class="nested-fields">
+  <header class="w3-container">
+    <h4>Drug Pricing</h4>
+  </header>
+  <%= f.input :price, input_html: {min: '0'} %>
+  <%= f.input :unit_id,
+              collection:  @units,  label_method: :first, value_method: :last, input_html:{class:"combobox form-control", data: { placeholder: "Select a measure unit" } } %>
+  <%= f.label :comment, "Comment"%>
+  <%= f.text_area :comment, :rows=> 5, style: "width: 100%;"%>
+  <%= f.input :user_id, as: :hidden, input_html: {value: current_user.id } %>
+  <%= f.input :active_status, as: :hidden, input_html: {value: 1} %>
+  <%= f.input :del_status, as: :hidden, input_html: {value: 0}  %>
+</div>
+
+<style>
+    .input-group{
+        width: 100%;
+    }
+    .typeahead{
+        width: 100%;
+    }
+
+</style>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('form').attr('autocomplete', 'off');
+
+        $('.combobox').combobox();
+
+        $('span.input-group-addon').addClass("hidden");
+
+    });
+</script>

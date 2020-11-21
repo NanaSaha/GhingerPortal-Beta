@@ -1,0 +1,53 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Pre Appointments</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Provider</th>
+      <th>Requester</th>
+      <th>Requester cat</th>
+      <th>Beneficiary name</th>
+      <th>Appointment type</th>
+      <th>Proposed date</th>
+      <th>Proposed time</th>
+      <th>Complaint desc</th>
+      <th>Prev medical history</th>
+      <th>Req urgency</th>
+      <th>Comment</th>
+      <th>User</th>
+      <th>Active status</th>
+      <th>Del status</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @pre_appointments.each do |pre_appointment| %>
+      <tr>
+        <td><%= pre_appointment.provider_id %></td>
+        <td><%= pre_appointment.requester_id %></td>
+        <td><%= pre_appointment.requester_cat %></td>
+        <td><%= pre_appointment.beneficiary_name %></td>
+        <td><%= pre_appointment.appointment_type_id %></td>
+        <td><%= pre_appointment.proposed_date %></td>
+        <td><%= pre_appointment.proposed_time %></td>
+        <td><%= pre_appointment.complaint_desc %></td>
+        <td><%= pre_appointment.prev_medical_history %></td>
+        <td><%= pre_appointment.req_urgency %></td>
+        <td><%= pre_appointment.comment %></td>
+        <td><%= pre_appointment.user_id %></td>
+        <td><%= pre_appointment.active_status %></td>
+        <td><%= pre_appointment.del_status %></td>
+        <td><%= link_to 'Show', pre_appointment %></td>
+        <td><%= link_to 'Edit', edit_pre_appointment_path(pre_appointment) %></td>
+        <td><%= link_to 'Destroy', pre_appointment, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Pre appointment', new_pre_appointment_path %>

@@ -1,0 +1,14 @@
+<%= simple_form_for(@callback_status) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :trans_status %>
+    <%= f.input :trans_id %>
+    <%= f.input :exttrid %>
+    <%= f.input :trans_msg %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

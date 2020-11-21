@@ -1,0 +1,51 @@
+<div></div>
+<div id="id01" class="w3-modal w3-card-4" style="display: block">
+    <div class="w3-modal-content w3-animate-top w3-card-4 w3-light-gray" style="width: 40%">
+    	<% if flash[:notice] %>
+		  <p class="flash_notice " id = 'notes' style = "margin-top: 5px"><%= notice %></p>
+		<%end%>
+      <header class="w3-container"> 
+        <h4>Service Details</h4> 
+      </header>
+      <br />
+      <!-- <div class="col-md-1 col-xs-12"></div> -->
+      <div class="col-md-12 col-xs-12 w3-padding">
+      	<div class="w3-container "> 	
+			<table class="table table-condensed table-bordered table-striped">
+				 <tr><td class="w3-teal"><strong>Service Provider: </strong></td><td style="padding-left: 6%""><%= @provider_service.provider_master.provider_name if @provider_service.provider_master %></td></tr>
+				 <tr><td class="w3-teal"><strong>Service: </strong></td><td style="padding-left: 6%""><%= @provider_service.service_master.title if @provider_service.service_master %></td></tr>
+				 <tr><td class="w3-teal" ><strong>Comment: </strong></td><td style="padding-left: 6%""><%= @provider_service.comment %></td></tr>
+				 <tr><td class="w3-teal"><strong>Entity: </strong></td><td style="padding-left: 6%""><%= @provider_service.entity_id %></td></tr>
+				 <tr><td class="w3-teal" ><strong>Added By: </strong></td><td style="padding-left: 6%""><%= @provider_service.user_id %></td></tr>
+				 
+		
+				 <% if @provider_service.active_status == true %>  
+		      		<tr><td class="w3-teal"><strong>Status: </strong></td><td style="padding-left: 6%"> Active </td></tr>
+		      		
+		      	 <%elsif @provider_service.active_status == false %>
+		      		<tr><td class="w3-teal"><strong>Status: </strong></td><td style="padding-left: 6%; color: red">Inactive</td></tr>
+		         <%end%>	
+			</table>
+        </div>
+      </div> 
+      <!-- <div class="col-md-1 col-xs-12"></div> -->
+      <br />
+      <footer class="w3-container">
+        <%= link_to 'Back', find_services_path(:provider_id => @provider_service.service_provider_id), :remote=> true, class: "w3-button w3-black w3-hover-black w3-right w3-card-4 w3-small w3-round-xlarge" %>
+      <br />
+      </footer>
+      <br />
+    </div>
+    <br />
+</div>
+
+<script type="text/javascript">
+$(document).ready(function(){
+  setTimeout(function(){
+    $('#notes').remove();
+  }, 4000);
+ })
+</script> 
+
+
+

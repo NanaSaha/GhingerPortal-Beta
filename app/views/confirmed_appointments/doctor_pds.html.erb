@@ -1,0 +1,50 @@
+<div class="container" style="min-width: 75%; margin-left: 2%"> 
+	<div class="col-md-2 colxs-12 col-sm-12"></div>
+	<div class="col-md-10 colxs-12 col-sm-12">
+	<div class = "table-responsive">
+		<% if flash[:notice] %>
+		  <p class="flash_notice " id = 'notes' style = "margin-top: 5px"><%= notice %></p>
+		<% end %>
+		
+		<h4>List of Personal Patients </h4>
+		
+		<table class="table table-condensed table-bordered w3-striped w3-card-4 w3-hoverable">
+		  <thead>
+		  <%  if@doctor_personal_patients.blank?%>
+			    <p class="alert alert-danger" id = '' style = "margin-top: 5px"><%= flash.now[:notice] = "Sorry you do not have any appointment" %></p>
+		  	
+		  <% else %>
+		    <tr class="w3-black w3-card">
+		    	<th>N<u>o</u></th>
+		        <th>Patient Name</th>
+		        <th>Patient Contact</th>
+		         <th colspan="2"></th>	      
+			    <!--<th>Date/Time</th>	      
+		        <th>Accept Status</th>
+			    <th>Attend Status</th> -->
+		    </tr> 
+		   
+		  </thead> 
+		  <tbody>  
+	
+			 <% @doctor_personal_patients.each_with_index do |doctor_personal_patient,index| %>
+		        <tr class="w3-hover-pale-green">
+		        	<td style="width: 5%;"><%= index+=1%></td>
+		            <td><%= doctor_personal_patient.patient.surname %> <%= doctor_personal_patient.patient.other_names %></td>
+			       	<td><%= doctor_personal_patient.patient.person_contact_infos.last.contact_number %></td>
+			        <td style="width: 5px"><%= link_to "Records", find_patient_details_path(:chosen => doctor_personal_patient.patient_id, :doc => @doctor_id ), class: "w3-button w3-indigo w3-hover-indigo w3-card w3-small w3-round w3-round-xxlarge" %></td>
+			        <td style="width: 5%"> <%= link_to 'Delete', disable_personal_patient_path(:chosen => doctor_personal_patient.id), data: { confirm: 'You are about to delete the selected personal patient, do you want to continue?' },  class: "w3-button w3-red w3-hover-red w3-small w3-round w3-round-xxlarge w3-card" %> </td>
+			        			       
+		        </tr> 
+		          
+		       <% end %>
+			<% end %> 
+		      
+		  </tbody>
+		</table>
+	</div>
+	</div>
+	<div class="col-md-2 colxs-12 col-sm-12"></div>
+</div>
+<div class="w3-clear clearfix" style="margin-bottom: 5%"></div>
+<br /><br />

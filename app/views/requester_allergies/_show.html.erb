@@ -1,0 +1,43 @@
+<div></div>
+<div id="id01" class="w3-modal w3-card-4" style="display: block">
+    <div class="w3-modal-content w3-animate-right w3-card-4 w3-light-gray" style="width: 40%">
+      <div style="max-width: 70%; text-align: center; margin-left: 15%; margin-top: 15px">
+	       <% if flash.now[:notice] %>
+			  <p class="flash_notice "  style = ""><b><%= notice %></b></p>
+		   <% end %>
+    	</div>
+      <br />
+      <header class="w3-container"> 
+        <h4>Allergies Details</h4> 
+      </header>
+      <!-- <div class="col-md-1 col-xs-12"></div> -->
+      <div class="col-md-12 col-xs-12 w3-padding">
+      	<div class="w3-container "> 	
+		   <table class="table table-condensed table-bordered table-striped">
+		   
+		   	<% @requester_allergies.each_with_index do |requester_allergy, index| %>
+		   	   <tr><td style="width: 2px"><%= index + 1 %></td><td style="padding-left: 6%""><%= requester_allergy.allergies_master.title %></td></tr>
+		   	<%end%>	
+				 					
+		   </table>
+	    </div>
+	   </div> 
+	  <footer class="w3-container">
+		<%= link_to 'Back', pre_appointments_path, :remote=> true, class: "w3-button w3-black w3-hover-black w3-right w3-card-4 w3-small w3-round-xlarge" %>
+	    <br /><br />
+	  </footer>  
+	  <div class="w3-clear"></div>    
+    </div>
+    <br />
+</div>
+
+
+
+
+<script type="text/javascript">
+$(document).ready(function(){
+  setTimeout(function(){
+    $('#notes').remove();
+  }, 4000);
+ });
+</script> 

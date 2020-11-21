@@ -1,0 +1,59 @@
+<div></div>
+<div id="id01" class="w3-modal w3-card-4" style="display: block">
+    <div class="w3-modal-content w3-animate-opacity w3-card-4 w3-light-gray" style="width: 40%">
+    	<div style="max-width: 70%; text-align: center; margin-left: 15%; margin-top: 15px">
+	    	<% if flash[:notice] %>
+			  <p class="flash_notice " id = 'notes' style = ""><%= notice %></p>
+			<%end%>
+    	</div>
+    	
+		
+      <header class="w3-container"> 
+        <h4>User Prefessional Informations</h4> 
+      </header>
+      	<div class="w3-container"> 	
+	      	  <table class="table table-condensed table-bordered table-striped w3-card">
+				 <tr><td class="w3-teal"><strong>Name </strong></td><td style="padding-left: 6%""><%= @person_info_extra.person_info.surname %>  </td></tr>
+				 <tr><td class="w3-teal" ><strong>Specialty </strong></td><td style="padding-left: 6%""><%= @person_info_extra.specialty_master.title %> </td></tr>				 
+				 <tr><td class="w3-teal"><strong>Specialty Duration </strong></td><td style="padding-left: 6%""><%= @person_info_extra.specialty_duration %></td></tr>			 
+				  <tr><td class="w3-teal" ><strong>Medical Regulator </strong></td><td style="padding-left: 6%""><%= @person_info_extra.profesional_group.group_name %> </td></tr>
+				  <tr><td class="w3-teal" ><strong>Licence Number </strong></td><td style="padding-left: 6%""><%= @person_info_extra.licence_number %> </tr>	
+				 <tr><td class="w3-teal" ><strong>Is a specialist? </strong></td><td style="padding-left: 6%"">
+				 	<% if @person_info_extra.has_specialty == true %>	
+					   Yes
+					<%elsif @person_info_extra.has_specialty == false %> 
+					  No
+					<%end%>
+				 	<!-- <%#= @person_info_extra.has_specialty %>  -->
+				 </td></tr>
+				 <tr><td class="w3-teal" ><strong>Foreign Training </strong></td><td style="padding-left: 6%"">
+				 	<% if @person_info_extra.forign_training == true %>	
+					   Yes
+					<%elsif @person_info_extra.forign_training == false %> 
+					   No
+					<%end%>
+				 	<!-- <%#= @person_info_extra.forign_training %>  -->
+				 </td></tr>
+				 <tr><td class="w3-teal" ><strong>Foreign Medical Board </strong></td><td style="padding-left: 6%""><%= @person_info_extra.foreign_institution_desc %> </td></tr>
+				 <tr><td class="w3-teal" ><strong>Foreign Licence Number </strong></td><td style="padding-left: 6%""><%= @person_info_extra.foreign_licence_number %> </td></tr>		
+				 <tr><td class="w3-teal" ><strong>Place of Work </strong></td><td style="padding-left: 6%""><%= @person_info_extra.hospital_name %> </td></tr>		
+			  </table>
+        </div>
+      
+      <br />
+      <footer class="w3-container">
+        <%= link_to 'Back', :back, :remote=> true, class: "w3-button w3-black w3-hover-black w3-right w3-card-4 w3-small w3-round-xlarge" %>
+      <br />
+      </footer>
+      <br />
+    </div>
+    <br />
+</div>
+
+<script type="text/javascript">
+$(document).ready(function(){
+  setTimeout(function(){
+    $('#notes').remove();
+  }, 3000);
+ })
+</script>

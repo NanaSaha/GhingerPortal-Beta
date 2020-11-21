@@ -1,0 +1,42 @@
+<%= simple_form_for(@provider_engaged_user, remote: true ) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :provider_id, as: :hidden, input_html: {value: @provider_id } %>
+    <%= f.input :person_id, label: "Enter staff name", :placeholder => "Please type a name to select from the menu",  collection:  @the_list,  label_method: :first, value_method: :last, input_html:{class:"combobox"}  %>
+    <%= f.input :comment, label: "Remark" %>
+    <%= f.input :user_id, as: :hidden %>
+    <%= f.input :entity_id, as: :hidden %>
+    <%= f.input :active_status, as: :hidden, input_html: {value: 1} %>
+    <%= f.input :del_status, as: :hidden,  input_html: {value: 0} %>
+  </div>
+
+  <div class="form-actions">
+  	<%= link_to 'Back', find_saff_path(:provider_id => @provider_id), remote: true, class: "w3-left w3-button w3-small w3-round-large w3-black w3-hover-black" %>
+    <%= f.button :submit, class: "w3-right w3-button w3-small w3-round-large w3-teal w3-hover-teal", value: "Add staff" %>
+  </div>
+  <div class="w3-clear" style="margin-bottom: -30px"></div>
+<% end %>
+<br /><br />
+
+
+<style>
+	.input-group{
+		width: 100%;
+  	}
+    .typeahead{
+    width: 100%;
+  }
+  
+</style>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+         $('form').attr('autocomplete', 'off');
+        
+         $('.combobox').combobox();
+    
+   $('span.input-group-addon').addClass("hidden");
+  
+    });
+</script>

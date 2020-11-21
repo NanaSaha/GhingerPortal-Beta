@@ -1,0 +1,8 @@
+<% if @appt_type == 'MD'%>
+	$("#D_Med").html("<%= escape_javascript(render(:partial =>"attend_to_form")) %>");
+<% elsif @appt_type == 'VC'%>
+	$("#V_Consult").html("<%= escape_javascript(render(:partial =>"attend_to_form")) %>");
+<% elsif @appt_type == 'HC'%>
+	$("#H_Care").html("<%= escape_javascript(render(:partial =>"attend_to_form")) %>");
+<%end%>
+

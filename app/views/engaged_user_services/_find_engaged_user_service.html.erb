@@ -1,0 +1,43 @@
+<div></div>
+<div id="id01" class="w3-modal w3-card-4" style="display: block">
+    <div class="w3-modal-content w3-animate-top w3-card-4 w3-light-gray" style="width: 40%">
+      <header class="w3-container"> 
+        <h4>Personnel Subscribed Services</h4> 
+      </header>
+      <div class="col-md-12 col-xs-12 w3-padding">
+      	<% if flash.now[:notice] %>
+		   <p class="alert alert-danger alert-dismissable"  style = "">
+		   	<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+		   	<b><%= notice %></b>
+		   	</p>
+		<% else %>
+      	<div class="w3-container"> 	
+      		<div class="col-md-1 col-xs-12"></div>
+      		<div class="col-md-10 col-xs-12">
+      		  <table class="table table-condensed table-bordered table-striped w3-card">
+				<% @engaged_user_services.each_with_index do |service, index| %>
+				 <tr>
+				 	<td style="width: 5px"><%= index + 1 %></td>
+				 	<td><%= service.user_service.service_desc %></td>
+				 </tr>
+				 <%end%>
+			  </table>	
+      		</div>
+            <div class="col-md-1 col-xs-12"></div>
+        </div>
+        <%end%>
+      </div>
+      
+      <br />
+      <footer class="w3-container">
+      	<% if @engaged_user_service.nil? %>
+      	  <%= link_to '+', new_engaged_user_service_path(:person_id => @person_id), :remote=> true, class: "w3-button w3-teal w3-hover-teal w3-left w3-card-4 w3-small w3-circle" %>
+      	<% end %>
+         <%= link_to 'Back', find_persons_path(:person_id => @person_id), :remote=> true, class: "w3-button w3-black w3-hover-black w3-right w3-card-4 w3-small w3-round-xlarge" %>
+      <br />
+      </footer>
+      <br />
+    </div>
+    <br />
+</div>
+ 

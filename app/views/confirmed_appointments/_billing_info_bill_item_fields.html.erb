@@ -1,0 +1,51 @@
+<div class="nested-fields group-goal">
+  <div class="form-inline" >
+    <div class="form-group" style="">
+      <%= f.label :item_id, "Item" %><br>
+      <% if @appt_type == "MD" %>
+        <%= f.input :item_id, label: false,
+                      collection:  @med_list,  label_method: :first, value_method: :last,
+                      input_html:{ style: "min-width: 100% !important", class:"", id: "new", data: { placeholder: "Enter Item" } } %>
+      <% elsif @appt_type == "LA" %>
+        <%= f.input :item_id, label: false,
+                      collection:  @lab_list,  label_method: :first, value_method: :last,
+                      input_html:{ style: "min-width: 100% !important", class:"", id: "new", data: { placeholder: "Enter Item" } } %>
+      <% end %>
+    </div>
+    <% if @appt_type == "MD" %>
+      <div class="form-group" style="">
+        <%= f.label :quantity, "Qty" %><br>
+        <%= f.input :quantity, label: false, input_html: {style: "width: 40%; max-width: 40%;",  min: "0", class: "" } %>
+      </div>
+    <% end %>
+    <div class="form-group" >
+      <%= link_to_remove_association  f  do %>
+        <span class="fa fa-trash-o" style="color: red; cursor: pointer;"></span>
+      <% end %>
+    </div>
+  </div>
+  <%= f.input :item_price, as: :hidden, input_html: {value: 0.00} %>
+  <%= f.input :user_id, as: :hidden, input_html: {value: current_user.id} %>
+  <%= f.input :active_status, as: :hidden, input_html: {value: 1} %>
+  <%= f.input :del_status, as: :hidden, input_html: {value: 0} %>
+</div>
+<br />
+<div class="w3-clear clearfix"></div>
+<script type="text/javascript">
+  //    $(document).ready(function(){
+  ////        $('form').attr('autocomplete', 'off');
+  //
+  //        $('.combobox').combobox();
+  //
+  //        $('span.input-group-addon').addClass("hidden");
+  //
+  //    });//
+</script>
+<style type="text/css">
+  .input-group{
+      width: 100%;
+  }
+  .typeahead{
+      width: 100%;
+  }
+</style>

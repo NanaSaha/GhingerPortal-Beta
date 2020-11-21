@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Payment Reqs</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Billing info</th>
+      <th>Amount</th>
+      <th>Reference</th>
+      <th>Exttrid</th>
+      <th>Mobile number</th>
+      <th>Nw</th>
+      <th>Callback url</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @payment_reqs.each do |payment_req| %>
+      <tr>
+        <td><%= payment_req.billing_info_id %></td>
+        <td><%= payment_req.amount %></td>
+        <td><%= payment_req.reference %></td>
+        <td><%= payment_req.exttrid %></td>
+        <td><%= payment_req.mobile_number %></td>
+        <td><%= payment_req.nw %></td>
+        <td><%= payment_req.callback_url %></td>
+        <td><%= link_to 'Show', payment_req %></td>
+        <td><%= link_to 'Edit', edit_payment_req_path(payment_req) %></td>
+        <td><%= link_to 'Destroy', payment_req, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Payment req', new_payment_req_path %>

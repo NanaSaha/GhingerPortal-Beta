@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Billing info:</strong>
+  <%= @payment_req.billing_info_id %>
+</p>
+
+<p>
+  <strong>Amount:</strong>
+  <%= @payment_req.amount %>
+</p>
+
+<p>
+  <strong>Reference:</strong>
+  <%= @payment_req.reference %>
+</p>
+
+<p>
+  <strong>Exttrid:</strong>
+  <%= @payment_req.exttrid %>
+</p>
+
+<p>
+  <strong>Mobile number:</strong>
+  <%= @payment_req.mobile_number %>
+</p>
+
+<p>
+  <strong>Nw:</strong>
+  <%= @payment_req.nw %>
+</p>
+
+<p>
+  <strong>Callback url:</strong>
+  <%= @payment_req.callback_url %>
+</p>
+
+<%= link_to 'Edit', edit_payment_req_path(@payment_req) %> |
+<%= link_to 'Back', payment_reqs_path %>

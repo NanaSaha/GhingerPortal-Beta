@@ -1,0 +1,52 @@
+<% if flash[:notice] %>
+  <p class="flash_notice " id = 'notes' style = "margin-top: 5px"><%= notice %></p>
+<%end%>
+<br />
+<div class="row">
+	<div class="col-md-3 col-xs-12"></div>
+	<div class="col-md-6 col-xs-12 w3-card-4 w3-round-large">
+		<!-- <br /> -->
+		<h4>Provider Service Details</h4>
+		<table class="table table-condensed table-bordered table-striped">
+			 <tr><td class="w3-teal"><strong>Service Provider: </strong></td><td style="padding-left: 6%""><%#= @service_prov_extra_infos.provider_master.provider_name %></td></tr>
+			 <tr><td class="w3-teal"><strong>Suburb: </strong></td><td style="padding-left: 6%""><%#= @service_prov_extra_infos.suburb_master.suburb_name %></td></tr>
+			 <tr><td class="w3-teal" ><strong>Contact Number 1: </strong></td><td style="padding-left: 6%""><%= service_prov_extra_info.contact_number1 %></td></tr>
+			 <tr><td class="w3-teal"><strong>Contact Number 2: </strong></td><td style="padding-left: 6%""><%= service_prov_extra_info.contact_number2 %></td></tr>
+			 <tr><td class="w3-teal" ><strong>Portal Address: </strong></td><td style="padding-left: 6%""><%= service_prov_extra_info.postal_address %></td></tr>
+			 <tr><td class="w3-teal" ><strong>Location Address: </strong></td><td style="padding-left: 6%""><%= service_prov_extra_info.location_address %></td></tr>
+			 <tr><td class="w3-teal" ><strong>Contact Person's Name: </strong></td><td style="padding-left: 6%""><%= service_prov_extra_info.contact_person_name %></td></tr>
+			 <tr><td class="w3-teal" ><strong>Website: </strong></td><td style="padding-left: 6%""><%= service_prov_extra_info.web_url %></td></tr>
+			 <tr><td class="w3-teal" ><strong>Longitude: </strong></td><td style="padding-left: 6%""><%= service_prov_extra_info.longitude %></td></tr>
+			 <tr><td class="w3-teal" ><strong>Latitude: </strong></td><td style="padding-left: 6%""><%= service_prov_extra_info.latitude %></td></tr>
+			 <tr><td class="w3-teal" ><strong>Comment: </strong></td><td style="padding-left: 6%""><%= service_prov_extra_info.comment %></td></tr>
+			 <tr><td class="w3-teal" ><strong>Entity: </strong></td><td style="padding-left: 6%""><%= service_prov_extra_info.entity_id %></td></tr>
+			 <tr><td class="w3-teal" ><strong>Added by: </strong></td><td style="padding-left: 6%""><%= service_prov_extra_info.user_id %></td></tr>
+			 
+	
+			 <% if service_prov_extra_info.active_status == true %>  
+	      		<tr><td class="w3-teal"><strong>Status: </strong></td><td style="padding-left: 6%"> Active </td></tr>
+	      		
+	      	 <%elsif service_prov_extra_info.active_status == false %>
+	      		<tr><td class="w3-teal"><strong>Status: </strong></td><td style="padding-left: 6%; color: red">Inactive</td></tr>
+	         <%end%>	
+		</table>
+		<%= link_to 'Back', provider_masters_path, remote: true, class: "w3-left w3-button w3-small w3-round-large w3-blue w3-hover-blue" %>	
+		<%= link_to 'Extra', service_prov_extra_info_path, remote: true, class: "w3-button w3-small w3-round-large w3-green w3-hover-green w3-right" %>
+
+	   <br /><br />
+	</div>
+	<div class="col-md-3 col-xs-12"></div> 
+</div>
+<br />
+
+<script type="text/javascript">
+$(document).ready(function(){
+  setTimeout(function(){
+    $('#notes').remove();
+  }, 4000);
+ })
+</script>
+
+
+<%#= link_to 'Edit', edit_service_prov_extra_info_path(@service_prov_extra_info) %> |
+<%#= link_to 'Back', service_prov_extra_infos_path %>

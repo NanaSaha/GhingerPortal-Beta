@@ -1,0 +1,41 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Confirmed Conditions</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Confirmed appointment</th>
+      <th>Condition</th>
+      <th>Allergy</th>
+      <th>Comment</th>
+      <th>User</th>
+      <th>Entity</th>
+      <th>Active status</th>
+      <th>Del status</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @confirmed_conditions.each do |confirmed_condition| %>
+      <tr>
+        <td><%= confirmed_condition.confirmed_appointment_id %></td>
+        <td><%= confirmed_condition.condition_id %></td>
+        <td><%= confirmed_condition.allergy_id %></td>
+        <td><%= confirmed_condition.comment %></td>
+        <td><%= confirmed_condition.user_id %></td>
+        <td><%= confirmed_condition.entity %></td>
+        <td><%= confirmed_condition.active_status %></td>
+        <td><%= confirmed_condition.del_status %></td>
+        <td><%= link_to 'Show', confirmed_condition %></td>
+        <td><%= link_to 'Edit', edit_confirmed_condition_path(confirmed_condition) %></td>
+        <td><%= link_to 'Destroy', confirmed_condition, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Confirmed condition', new_confirmed_condition_path %>

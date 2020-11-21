@@ -1,0 +1,53 @@
+<!-- 
+<%= simple_form_for @person_info, remote: true  do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :surname %>
+    <%= f.input :other_names %>
+    <%= f.input :dob, label: "Date of Birth", as: :string, input_html: {id: "datepicker", placeholder: "Select date of birth or type yyyy-mm-dd"} %>
+    <%= f.input :person_type_id, collection: @person_type_masters, label_method: "user_type_title", value_method: :ref_id %>
+    <%= f.input :entity_id, as: :hidden %>
+    <%= f.input :user_id, as: :hidden %>
+    <%= f.input :active_status, as: :hidden, input_html: {value: 1} %>
+    <%= f.input :del_status, as: :hidden, input_html: {value: 0} %>
+  </div>
+  
+ 	 <div class="extra">			
+			<%= link_to_add_association 'Contact Info', f, :person_contact_infos, force_non_association_create: true, data: { association_insertion_node: '.extra', association_insertion_method: :append }, class: "w3-middle w3-button w3-small w3-round-large w3-indigo w3-hover-indigo hidden"%>
+			<%= f.simple_fields_for :person_contact_infos do |extra| %>
+				 <%= render  'person_contact_info_fields', f: extra %>			 
+			<%end%>
+			
+			<!-- <br /> -->
+			<!-- <b style="color: red">Please leave this place blank for patients</b> -->
+			<!-- <%= link_to_add_association 'Users', f, :users, force_non_association_create: true, data: { association_insertion_node: '.extra', association_insertion_method: :append }, class: "w3-middle w3-button w3-small w3-round-large w3-indigo w3-hover-indigo hidden"%>
+		    <%= f.simple_fields_for :users do |extra| %>
+			 <%= render  'user_fields', f: extra %>			 
+	      <%end%>
+	</div> -->
+	
+	<!-- <div class="login">
+		  <%= link_to_add_association 'Contact Info', f, :person_contact_infos, force_non_association_create: true, data: { association_insertion_node: '.extra', association_insertion_method: :append }, class: "w3-middle w3-button w3-small w3-round-large w3-indigo w3-hover-indigo hidden"%>
+		  <%= f.simple_fields_for :person_contact_infos do |extra| %>
+			 <%= render  'person_contact_info_fields', f: extra %>			 
+	   <%end%>
+   </div> -->
+ 
+ <!-- <br />
+  <div class="form-actions">
+  	<%= link_to 'Back', person_infos_path, class: "w3-left w3-button w3-small w3-round-large w3-blue w3-hover-blue", remote: true %>
+    <%= f.button :submit, class: "w3-right w3-button w3-small w3-round-large w3-teal w3-hover-teal", value: "Add Player" %>
+   <br />
+  </div>
+ 
+ <div class="w3-clear" style="margin-bottom: -30px"></div>
+<% end %>
+<br />
+ <script>
+  $( function() {
+    $( "#datepicker" ).datepicker({
+    	dateFormat : 'yy-mm-dd'
+    });
+  } );
+  </script> --> 

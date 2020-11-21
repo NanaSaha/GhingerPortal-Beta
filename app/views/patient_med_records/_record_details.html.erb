@@ -1,0 +1,50 @@
+<div></div>
+<div id="id01" class="w3-modal w3-card-4" style="display: block">
+    <div class="w3-modal-content w3-animate-top w3-card-4 w3-light-gray" style="width: 40%">
+    <% if flash[:notice] %>
+		   <p class="flash_notice " id = 'notes' style = "margin-top: 5px"><%= notice %></p>
+	   <% end %>
+      <header class="w3-container"> 
+        <h4>Medical Record Details</h4> 
+      </header>
+      <br />
+      <!-- <div class="col-md-1 col-xs-12"></div> -->
+      <div class="col-md-12 col-xs-12 w3-padding">
+      	<div class="w3-container "> 	
+		 <table class="table table-condensed table-bordered table-striped">
+		   <tr><td class="w3-green" style="width: 25%"><strong>Patient </strong></td><td style="padding-left: 6%"><%= @patient_name.surname %> <%= @patient_name.other_names %></td></tr>
+                <tr><td class="w3-green" ><strong>Appointment Type </strong></td><td style="padding-left: 6%"><%= @patient_med_record.confirmed_appointment.pre_appointment.appointment_type.title %></td></tr>
+                <tr><td class="w3-green" ><strong>Clinical Complaints </strong></td><td style="padding-left: 6%"><%= raw @patient_med_record.clinical_complaints %></td></tr>
+                <tr><td class="w3-green" ><strong>Clinical Examinations </strong></td><td style="padding-left: 6%"><%= raw @patient_med_record.clinical_examinations %></td></tr>   
+                <tr><td class="w3-green" ><strong>Working Dignosis </strong></td><td style="padding-left: 6%"><%= raw @patient_med_record.working_diagnosis %></td></tr>    
+                <tr><td class="w3-green" ><strong>Required Investigations </strong></td><td style="padding-left: 6%"><%= raw @patient_med_record.investigation_rquired %></td></tr> 
+                <tr><td class="w3-green" ><strong>Treatments </strong></td><td style="padding-left: 6%"><%= raw @patient_med_record.treatments %></td></tr> 
+                <tr><td class="w3-green" ><strong>Follow Up Plans </strong></td><td style="padding-left: 6%"><%= raw @patient_med_record.follow_up_plan %></td></tr> 
+                
+		</table>
+       </div> 
+      </div>  
+      <!-- <div class="col-md-1 col-xs-12"></div> -->
+      <br />
+      <footer class="w3-container">   
+      	<span onclick="document.getElementById('id01').style.display='none'" class="w3-button w3-black w3-hover-black w3-right w3-card-4 w3-small w3-round-xlarge">Close</span>  
+        <!-- <%= link_to 'Back', doctor_general_appointments_path, :remote=> true, class: "w3-button w3-black w3-hover-black w3-right w3-card-4 w3-small w3-round-xlarge" %> -->
+      <br />
+      </footer>
+      <br />
+    </div>
+    <br />
+</div>
+
+
+
+
+<script type="text/javascript">
+$(document).ready(function(){
+  setTimeout(function(){
+    $('#notes').remove();
+  }, 4000);
+ });
+</script> 
+
+

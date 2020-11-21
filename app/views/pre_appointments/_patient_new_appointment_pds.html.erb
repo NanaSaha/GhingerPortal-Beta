@@ -1,0 +1,222 @@
+<br>
+<%= simple_form_for @pre_appointment, url: process_patient_new_appointment_pds_path, :remote => true  do |f| %>
+<%= f.error_notification %>
+<%= tinymce_assets %>
+
+ <script type="text/javascript">
+  	$(document).ready(function(){
+  		tinymce.init({
+		  selector: '.tinymce',  // change this value according to your HTML
+		  branding: false,
+		  resize: false,
+		  theme: 'modern',
+		  statusbar: false
+		});
+  	})
+  </script>
+
+<div id="id01" class="w3-modal w3-card-4 w3-round-large" style="display: block; ">
+    <div class="w3-modal-content w3-animate-top w3-card-4 w3-light-gray" style="width: 33%; max-height: 80%; overflow-y: auto;">
+    	<div style="max-width: 70%; text-align: center; margin-left: 15%; margin-top: 15px">
+      
+	    	<% if flash[:notice] %>
+                <p class="flash_notice " id = 'notes' style = ""><%= notice %></p>
+		  	 <% end %>
+		  	
+    	</div>	   
+      <header class="w3-container">  
+        <h4>Book an Appointment</h4> 
+      </header>          
+           <div class="w3-container" > 				 		      	
+              
+               <div class="form-inputs">
+               	   <%= f.input :appointment_type_id, collection: @appointment_types, label_method: :title, value_method: :ref_id, input_html: {id: 'appt_type', class: "w3-input w3-card", :include_blank=> false, :onchange => "lab()"} %>
+	               <div class='hidden' id='location'>
+	                <%= f.input :suburb_id, label: "Location", collection:  @loc_list,  label_method: :first, value_method: :last, input_html:{class:"combobox w3-input w3-card", data: { placeholder: "Type select the location from the dropdown" } }%>
+	               </div>
+	               
+	               <div class='hidden' id='has_pd'>
+	                <%= f.input :has_pd, label: "Have a doctor in mind?", input_html: {id: "has_pd_value"}%>
+	               </div>
+	               
+	               <div class='hidden' id='pd_name'>
+	                <%= f.input :pd_name, label: "Enter doctor's name here" %>
+	               </div>
+	               
+	               <div class='hidden' id='provider'>
+	               <%= f.input :provider_id, label: "Service Provider", collection:  @the_list,  label_method: :first, value_method: :last, input_html:{class:"combobox w3-input w3-card",  data: { placeholder: "Type select the service provider from the dropdown" } }%>  
+	               </div>
+	               
+	               <div class='hidden' id=''>
+	               <%= f.input :requester_id, label: "Requester", as: :hidden, input_html: {value: current_user.person_info.id} %>
+	               </div>
+	               
+	               <div class='hidden' id='reg_urgency'>
+	               <%= f.input :req_urgency, label: "Request Urgency", collection: @request_urgencies, label_method: :urgency, value_method: :ref_id %>
+	               </div>
+	               
+	               <div class='hidden' id='req_type'>
+	               <%= f.input :requester_cat, label: 'Request Type', collection: RequestCategory.all, label_method: :category, value_method: :ref_id, input_html: {id: 'req_cat', class: "w3-input w3-card", :include_blank=> false, :onchange => "change()"}  %>
+	               </div>
+	               
+	               <div class='hidden' id='beneficiary_name'>
+	                  <%= f.input :beneficiary_name, input_html: {class: "w3-input w3-card"} %>
+	                  <%= f.input :beneficiary_phone_number, as: :integer, input_html: {class: "w3-input w3-card"} %>
+	               </div>
+	              
+	               <p class="w3-btn w3-black w3-round-xlarge hidden" id="show" onclick="showLab(); ">Show</p>
+	               <p class="w3-btn w3-black w3-round-xlarge hidden" id="hide" onclick="hideLab(); ">Hide</p>
+	               <div class="extra hidden" id = 'extra_type' >
+	                 
+	                <%= link_to_add_association 'Lab Detail Image', f, :lab_detail_images, force_non_association_create: true, data: { association_insertion_node: '.extra', association_insertion_method: :append }, class: "w3-middle w3-button w3-small w3-round-large w3-indigo w3-hover-indigo hidden"%>
+	               
+	                <%= f.simple_fields_for :lab_detail_images do |extra| %>
+	                      <%= render  'lab_detail_image_fields', f: extra %>			 
+	                  <%end%>
+	                <br>
+	                <%= link_to_add_association 'Lab Details', f, :lab_details, force_non_association_create: true, data: { association_insertion_node: '.extra', association_insertion_method: :append }, class: "w3-middle w3-button w3-small w3-round-large w3-indigo w3-hover-indigo hidden"%>
+	                <%= f.simple_fields_for :lab_details do |extra| %>
+	                      <%= render  'lab_detail_fields', f: extra %>			 
+	                  <%end%>
+	                </div>
+	                <br />
+	               <div class='hidden' id='datetime'>
+	                <%= f.input :proposed_date, as: :string, label: "Schedule Date and Time", input_html: {:id =>'datetimepicker4', class: "w3-input w3-card", data: { placeholder: "Enter date and time" } } %>
+	              </div>
+	               <!--, data: { date_format: 'YYYY-MM-DD HH:mm:s' }-->
+	               <!-- <%#= f.input :proposed_time %> -->
+	               
+	               <div class="hidden" id="complaint"><%= f.label :complaint_desc, "Complaint Description"%>
+	                <%= f.text_area :complaint_desc, :class => "tinymce w3-card", :rows=> 7 %>
+	               </div>
+	               <br>
+	               <div class="hidden" id="prev_history">
+	               <%= f.label :prev_medical_history, "Previous Medical History"%>
+	               <%= f.text_area :prev_medical_history, :class => "tinymce w3-card", :rows=> 7 %>
+	               </div>	              
+	               <br>
+	               <div class="hidden" id="medication">
+		               <%= f.label :medication, "List of Medications you want"%>
+		               <%= f.text_area :medication, :class => "tinymce w3-card", :rows=> 7 %>
+	               </div>
+	               <br />
+	               <div class="hidden" id="duration">
+		               <%= f.input :duration, label: "Duration(days)" %>
+	               </div>
+	               <br />
+	               <div class="hidden" id="allergy">
+		               <%= f.label :allergies, "List Allergies (If Any)"%>
+		               <%= f.text_area :allergies, :class => "tinymce w3-card", :rows=> 7 %>
+	               </div>
+	               
+	               <%= f.input :user_id, as: :hidden %>
+	               <%= f.input :active_status, as: :hidden, input_html: {value: 1} %>
+	               <%= f.input :del_status, as: :hidden, input_html: {value: 0}  %>
+	               <%= f.input :src, as: :hidden, input_html: {value: "WEB"}  %>
+	               <%= f.input :confirm_status, as: :hidden, input_html: {value: 0}  %>
+                 <%= f.input :pre_confirm_status , as: :hidden, input_html: {value: 0}%>
+               </div>
+           </div>
+        <br>
+      <footer class="w3-container">
+       	<%= f.button :submit, class: "w3-button w3-hover-green w3-right w3-card-4 w3-small w3-round-xlarge", style: 'background: rgb(146, 211, 110);', value: "Create" %>
+        <%= link_to 'Back', :back,  class: "w3-button w3-black w3-hover-black w3-left w3-card-4 w3-small w3-round-xlarge" %>
+      <br />
+      </footer>
+      <% end %>
+      <br />
+    </div>
+    <br />
+</div>
+
+<%= tinymce %>
+
+<script type="text/javascript">
+$(document).ready(function(){
+  setTimeout(function(){
+    $('#notes').remove();
+  }, 3000);
+  });
+</script>
+
+
+<style>
+	.input-group{
+		width: 100%;
+	}
+  .typeahead{
+    width: 100%;
+  }
+  
+</style>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+         $('form').attr('autocomplete', 'off');
+        
+         $('.combobox').combobox();
+
+   $('span.input-group-addon').addClass("hidden");
+  
+    });
+</script>
+
+
+<script type="text/javascript">
+ $(function () {
+   $('#datetimepicker4').datetimepicker({
+   	 format: "YYYY-MM-DD HH:mm",
+   	 minDate: new Date()
+   });
+   
+    // $("#datetimepicker4").on("dp.change", function (e) {
+      // $('#datetimepicker4').data("DateTimePicker").minDate(e.date);
+    // });
+    // $("#datetimepicker4").on("dp.change", function (e) {
+    // $('#datetimepicker4').data("DateTimePicker").maxDate(e.date);
+   // });
+    
+  });
+</script>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		lab();
+	})
+</script> 
+
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		requester_cat = document.getElementById('req_cat');
+    //alert(requester_cat.value);
+    
+	 	if (requester_cat.value == 'T')  {
+            console.log('This is the if');
+            $("#beneficiary_name").removeClass("hidden");
+            //document.getElementById("foreign_licence").disabled = false;
+            //document.getElementById("foreign_licence").required = true;
+            }
+         else{
+              console.log('This is the else');
+              $("#beneficiary_name").addClass("hidden");
+              //document.getElementById("foreign_licence").disabled = true;
+              //document.getElementById("foreign_licence").required = false;
+            }  
+	})
+</script>
+
+<!-- <script type="text/javascript">
+		
+var appointment_type;
+function lab(){
+	appointment_type = document.getElementById('appt_type');
+	alert(appointment_type.value)
+	
+	// if (appointment_type.value == 'LA'){
+		// console.log('This is the if');
+		// $('#extra_type').removeClass("hidden");
+	// }
+}
+</script> -->
+

@@ -1,0 +1,107 @@
+
+<% if flash[:notice] %>
+  <p class="flash_notice " id = 'notes' style = "margin-top: 5px"><%= notice %></p>
+<%end%>
+
+<h4>Available Regions/States</h4>
+
+<br />
+<p style = 'text-align: center; font-family: tahoma; font-size: 15px;'>
+   <b>Download:</b>  <%= link_to "CSV", region_masters_path(format: "csv"), :class => "w3-hover-white"%> 
+                     | <%= link_to "Excel", region_masters_path(format: "xls"), :class => "w3-hover-white" %> 
+                     | <%= link_to "CSV-all", all_region_excel_path(format: "csv"), :class => "w3-hover-white", method: :get%> 
+                     | <%= link_to "Excel-all", all_region_excel_path(format: "xls"),:class => "w3-hover-white", method: :get%>
+</p>
+
+<div class="pull-right" style = 'margin-top: -3%; '>
+	  <label class="">Display <u>No</u>: </label> 
+	   <%= select_tag :per_page, options_for_select([5,10, 20, 30, 40,50, 70,100], params[:per_page].to_i), :remote => true, :data => { :remote => true, :url => url_for(:controller => "region_masters", :action => "index")}, class: "w3-bordered w3-round-xlarge w3-btn w3-small w3-card-4" %>	
+</div>
+
+ <div class="pull-left" style = 'margin-top: -3%;'>
+	 <label class="">Filter by Country: </label> 
+	  
+	  <%= select_tag :country_name, options_from_collection_for_select(CountryMaster.all, "country_name", "country_name", @country_name), :data => {:remote => true, 
+	  	:url => url_for(:controller => "region_masters", :action => "index")}, remote: true,  class: "w3-bordered w3-round-xlarge w3-btn w3-small w3-card-4" %>
+	 	      	                                                                                                        
+ </div>
+ <br />
+<div class="table-responsive">
+<table class="table table-condensed table-bordered table-striped">
+  <thead>
+    <tr class="w3-teal">
+      <th>Region/state name</th>
+      <th>Country</th>  
+      <th>Remark</th>
+      <!-- <th>Entity</th> -->
+      <th>Added by</th>
+      <th>Status</th>
+      <th>Towns</th>
+      <th colspan="2">Options</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @region_masters.each do |region_master| %>
+      <tr>
+        <td><%= region_master.region_state_name %></td>
+        <td><%= region_master.country_master.country_name if region_master.country_master %></td>
+         <td><%= region_master.comment %></td>
+        <!-- <td><%= region_master.entity_id %></td> -->
+        <td><%= region_master.user.person_info.surname if region_master.user %> <%= region_master.user.person_info.other_names if region_master.user %></td>
+        
+        <% if region_master.active_status == true %>  
+	       <td style="color: ">Active</td>
+	      		
+	    <%elsif region_master.active_status == false %>
+	       <td style="color: red">Inactive</td>
+	      		
+	    <%end%>
+        
+       <td style="width: 5px"><%= link_to "Towns", find_cities_path(:region_id => region_master.id), remote: true, class: "w3-button w3-indigo w3-hover-indigo w3-card w3-small w3-round w3-round-xxlarge" %></td>
+        <!-- <td style="width: 5px"><%= link_to 'View', region_master, remote: true, class: "w3-button w3-indigo w3-hover-indigo w3-card w3-small w3-round w3-round-xxlarge" %></td> -->
+        <td style="width: 5px"><%= link_to 'Edit', edit_region_master_path(region_master), remote: true, class: "w3-button w3-gray w3-card w3-hover-gray w3-small w3-round w3-round-xxlarge" %></td>
+        <!-- <td><%= link_to 'Destroy', region_master, method: :delete, data: { confirm: 'Are you sure?' } %></td> -->
+        
+        <td style="width: 15px">
+	       <% if region_master.active_status == false %>
+	          <%= link_to 'Enable', enable_region_path(:chosen => region_master.id), data: { confirm: 'You are about to enable the selected region. Do you want to continue?' }, remote: true,  class: "w3-button w3-blue w3-hover-blue w3-small w3-round-xxlarge w3-card" %>
+               
+           <% else region_master.active_status == true %>
+	           <%= link_to 'Disable', disable_region_path(:chosen => region_master.id), data: { confirm: 'You are about to disable the selected region. Do you want to continue?' }, remote: true,  class: "w3-button w3-red w3-hover-red w3-small w3-round w3-round-xxlarge w3-card" %> 
+	          
+           <% end %>
+	        	
+	        	
+	    </td>
+        
+      </tr>
+    <% end %> 
+  </tbody>
+</table>
+</div> 
+
+
+<div>
+ <!-- <%#= link_to '+', new_region_master_path, :remote=> true, class: "w3-button w3-circle w3-teal w3-hover-teal w3-left w3-card-4" %> -->
+ <%= will_paginate @region_masters,  renderer: BootstrapPagination::Rails, previous_label: 'Older', next_lable: 'Newer', class: "w3-right pagination-sm w3-card-4", :params => { :controller => "region_masters", :action => "index", count: params[:count], page: params[:page] } %>
+</div>
+<br><br><br />
+<div class="clearfix"></div>
+
+<script type="text/javascript">
+$(document).ready(function(){
+  setTimeout(function(){
+    $('#notes').remove();
+  }, 4000);
+ })
+</script>
+
+<script>
+  $(function(){
+    $('.pagination a').attr('data-remote', 'true')
+  });
+
+</script> 
+
+<!-- <%= link_to 'New Region master', new_region_master_path %> -->

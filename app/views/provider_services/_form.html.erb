@@ -1,0 +1,20 @@
+<%= simple_form_for(@provider_service, remote: true ) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :service_provider_id,as: :hidden, input_html: {value: @current_prov_id}   %>
+    <%= f.input :service_id, collection: @service_masters, label_method: :title, value_method: :id  %>
+    <%= f.input :comment %>
+    <%= f.input :entity_id,  as: :hidden %>
+    <%= f.input :user_id,  as: :hidden %>
+    <%= f.input :active_status, as: :hidden, input_html: {value: 1} %>
+    <%= f.input :change_status, as: :hidden, input_html: {value: 0} %>
+  </div>
+
+  <div class="form-actions">
+    <%= link_to 'Back', find_services_path(:provider_id => @current_prov_id), remote: true, class: "w3-left w3-button w3-small w3-round-large w3-blue w3-hover-blue" %>
+    <%= f.button :submit, class: "w3-right w3-button w3-small w3-round-large w3-teal w3-hover-teal", value: "Add Provider Service" %>
+    <br />
+  </div>
+<% end %>
+<br />

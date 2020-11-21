@@ -1,0 +1,15 @@
+
+<div class="nested-fields" style="margin-top: 5%;">
+	<h4 >Login Credentials</h4>
+	<%= f.input :role_id, label: "User role", collection: Role.all,  label_method: :name, value_method: :id, placeholder: "Please select a user role for the user"  %>
+	<%= f.input :email, required: true, autofocus: true, input_html: {value: @email} %>
+	<!-- <%= f.input :email, autofocus: true %> -->
+    <%= f.input :password, required: true, as: :hidden, hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length), input_html: {value: @user_unique_code} %>
+    <%= f.input :password_confirmation, as: :hidden, required: true, input_html: {value: @user_unique_code} %>
+    <%= f.input :active_status, as: :hidden, input_html: {vlaue: 1} %>
+    <%= f.input :del_status, as: :hidden, input_html: {vlaue: 0} %>
+
+	 <p><b>Upload a profile picture</b></p>
+	 <%= f.input :profile, as: :file %>
+</div>
+ 

@@ -1,0 +1,122 @@
+<%= simple_form_for(@engaged_user_service, :remote => true ) do |f| %>
+  <%= f.error_notification %>
+
+<div id="id01" class="w3-modal w3-card-4 w3-round-large" style="display: block;">
+    <div class="w3-modal-content w3-animate-left w3-card-4 w3-light-gray" style="width: 33%; max-height: 80%; overflow-y: auto;">
+    	<div style="max-width: 70%; text-align: center; margin-left: 15%; margin-top: 15px">
+      
+	    	<% if flash[:notice] %>
+                <p class="flash_notice " id = 'notes' style = ""><%= notice %></p>
+		  	 <% end %>
+		  	
+    	</div>	   
+      <header class="w3-container">  
+        <h4>Add Personnel Engaged Services</h4> 
+      </header>          
+           <div class="w3-container" > 				 		      	
+              <% count = 1 %>
+      		
+      		<% unless @user_services.nil? %>
+      		
+      		   <!-- <%= f.input :person_id, label: "Personnel", collection:  @person_list,  label_method: :first, value_method: :last, input_html:{class:"combobox form-control", data: { placeholder: "Type select the personnel from the dropdown" } } %> -->
+      			
+      			<%= f.input :person_id, as: :hidden, input_html: {value: @person_id} %> 
+	      		<% @user_services.each do |user_service| %>
+	      		<div style="height: ; overflow-y: auto">
+					 <table class="table table-condensed table-bordered table-striped">	
+					 	<tr>
+					 		<td style="width: 5%"><%= "#{count}. " %></td>
+		         			<td style="width: 90%"><%= "#{user_service.service_desc}" %></td>	
+					 	    
+					 	    <td >
+					 	    	<% if @engaged_user_services.include? user_service.id %>
+					 	    		<input type="checkbox" name="user_service_id<%=count%>[checkbox]]" checked="checked" />
+					 	    	<% else %>
+					 	    		<input type="checkbox" name="user_service_id[<%=count%>[checkbox]]"/>
+					 	    	<%end%>	 	    	 
+					 	    	    <input type="hidden" name="user_service_id[<%=count%>[id]]" value="<%= user_service.id %>">
+					 	    	    <% count += 1 %>
+					 	    </td>
+					 	
+					 	</tr>	
+				     </table>
+			    </div>
+			    <% end %>
+			     
+            <% end %>
+           </div>
+        <br>
+      <footer class="w3-container">
+       	<%= f.button :submit, class: "w3-button w3-teal w3-hover-teal w3-right w3-card-4 w3-small w3-round-xlarge", value: "Add" %>
+        <%= link_to 'Back', find_engaged_user_service_path(:person_id => @person_id), :remote=> true, class: "w3-button w3-black w3-hover-black w3-left w3-card-4 w3-small w3-round-xlarge" %>
+      <br />
+      </footer>
+      <% end %>
+      <br />
+    </div>
+    <br />
+</div>
+
+<%= tinymce %>
+
+<script type="text/javascript">
+$(document).ready(function(){
+  setTimeout(function(){
+    $('#notes').remove();
+  }, 3000);
+  });
+</script>
+
+
+<style>
+	.input-group{
+		width: 100%;
+	}
+  .typeahead{
+    width: 100%;
+  }
+  
+</style>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+         $('form').attr('autocomplete', 'off');
+        
+         $('.combobox').combobox();
+
+   $('span.input-group-addon').addClass("hidden");
+  
+    });
+</script>
+
+
+<script type="text/javascript">
+ $(function () {
+   $('#datetimepicker4').datetimepicker({
+   	 format: "YYYY-MM-DD HH:mm",
+   	 minDate: new Date()
+   });
+   
+    // $("#datetimepicker4").on("dp.change", function (e) {
+      // $('#datetimepicker4').data("DateTimePicker").minDate(e.date);
+    // });
+    // $("#datetimepicker4").on("dp.change", function (e) {
+    // $('#datetimepicker4').data("DateTimePicker").maxDate(e.date);
+   // });
+    
+  });
+</script>
+
+<!-- <script type="text/javascript">
+		
+var appointment_type;
+function lab(){
+	appointment_type = document.getElementById('appt_type');
+	alert(appointment_type.value)
+	
+	// if (appointment_type.value == 'LA'){
+		// console.log('This is the if');
+		// $('#extra_type').removeClass("hidden");
+	// }
+}
+</script> -->

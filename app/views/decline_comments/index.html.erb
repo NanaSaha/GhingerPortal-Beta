@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Decline Comments</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Pre confirmed appointment</th>
+      <th>Available date</th>
+      <th>Comment</th>
+      <th>Active status</th>
+      <th>Del status</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @decline_comments.each do |decline_comment| %>
+      <tr>
+        <td><%= decline_comment.pre_confirmed_appointment_id %></td>
+        <td><%= decline_comment.available_date %></td>
+        <td><%= decline_comment.comment %></td>
+        <td><%= decline_comment.active_status %></td>
+        <td><%= decline_comment.del_status %></td>
+        <td><%= link_to 'Show', decline_comment %></td>
+        <td><%= link_to 'Edit', edit_decline_comment_path(decline_comment) %></td>
+        <td><%= link_to 'Destroy', decline_comment, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Decline comment', new_decline_comment_path %>

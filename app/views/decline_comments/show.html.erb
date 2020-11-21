@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Pre confirmed appointment:</strong>
+  <%= @decline_comment.pre_confirmed_appointment_id %>
+</p>
+
+<p>
+  <strong>Available date:</strong>
+  <%= @decline_comment.available_date %>
+</p>
+
+<p>
+  <strong>Comment:</strong>
+  <%= @decline_comment.comment %>
+</p>
+
+<p>
+  <strong>Active status:</strong>
+  <%= @decline_comment.active_status %>
+</p>
+
+<p>
+  <strong>Del status:</strong>
+  <%= @decline_comment.del_status %>
+</p>
+
+<%= link_to 'Edit', edit_decline_comment_path(@decline_comment) %> |
+<%= link_to 'Back', decline_comments_path %>

@@ -1,0 +1,28 @@
+
+<br />
+<div class="row">
+	<div class="col-md-3 col-xs-12"></div>
+	<div class="col-md-6 col-xs-12 w3-card-4 w3-round-large">
+		<!-- <br /> -->
+		<h4>Permission Details</h4>
+		<table class="table table-condensed table-bordered table-striped">
+			 <tr><td class="w3-teal" style="width: 35%"><strong>Subject Class: </strong></td><td style="padding-left: 6%""><%= @permission.subject_class %></td></tr>
+			 <tr><td class="w3-teal" ><strong>Action: </strong></td><td style="padding-left: 6%""><%= @permission.action %></td></tr>
+			 <tr><td class="w3-teal" ><strong>Name: </strong></td><td style="padding-left: 6%""><%= @permission.name %></td></tr>
+			 <tr><td class="w3-teal" ><strong>Description: </strong></td><td style="padding-left: 6%""><%= @permission.description %></td></tr>
+		</table>
+				
+		<%= link_to 'Back', permissions_path , class: "w3-left w3-button w3-small w3-round-large w3-blue w3-hover-blue" %>
+	   <br /><br />
+	</div>
+	<div class="col-md-3 col-xs-12"></div> 
+</div>
+<br />  
+
+<script type="text/javascript">
+$(document).ready(function(){
+  setTimeout(function(){
+    $('#notes').remove();
+  }, 4000);
+ });
+</script>

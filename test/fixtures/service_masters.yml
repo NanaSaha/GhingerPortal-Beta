@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  comment: MyString
+  entity_id: 1
+  user_id: 
+  active_status: false
+  change_status: false
+
+two:
+  title: MyString
+  comment: MyString
+  entity_id: 1
+  user_id: 
+  active_status: false
+  change_status: false

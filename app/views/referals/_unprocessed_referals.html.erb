@@ -1,0 +1,79 @@
+ 
+<h4>New Referals to Ghinger</h4>
+
+<div class="pull-right" style = 'margin-top: -3%; '>
+	  <label class="">Display <u>No</u>: </label> 
+	     <!-- <%#= select_tag :count, options_for_select([5,10,15,20,25,30], params[:count].to_i), :onchange => "if(this.value){ window.location='?count='+this.value ;}" %> -->
+	   <%= select_tag :per_page, options_for_select([10, 20, 30, 40,50, 70,100], params[:per_page].to_i), :data => { 
+	 	 :url => url_for( :controller => "referals", :action => "index" )
+	 	 }, :onchange => "if(this.value){window.location='?per_page='+this.value;}", class: "w3-bordered w3-round-xlarge w3-btn w3-small w3-card-4" %>	
+   </div>
+ <br />
+ 
+ <p style = 'text-align: center; font-family: tahoma; font-size: 15px;'>
+   <b>Download:</b>  <%= link_to "CSV", referals_path(format: "csv", type: "unprocessed"), :class => "w3-hover-white"%> 
+                     | <%= link_to "Excel", referals_path(format: "xls", type: "unprocessed"), :class => "w3-hover-white" %> 
+                     | <%= link_to "CSV-all", all_referal_excel_path(format: "csv",  type: "unprocessed"), :class => "w3-hover-white", method: :get%> 
+                     | <%= link_to "Excel-all", all_referal_excel_path(format: "xls",  type: "unprocessed"),:class => "w3-hover-white", method: :get%>
+</p> 
+
+<% if flash[:notice] %>
+  <p class="flash_notice " id = 'notes' style = "margin-top: 5px"><%= notice %></p>
+<% end %>
+<div class="table-responsive"> 
+	<table class="table table-condensed table-bordered table-striped w3-card-4">
+	  <thead>
+	    <tr class="w3-teal">
+	    	<th>S/N</th>
+		<th>Surname</th>
+	  	<th>Other Name(s)</th>
+	  	<th>Contact</th>
+	  	<th>Date/Time</th>
+	  	<th>Status</th>
+	  	<th>Mark as processed</th>
+	    </tr>
+	  </thead>
+	 
+	  <tbody>
+	     <% @unprocessed.each_with_index do |referal, index| %> 
+		    <tr>
+		    	<td><%= index+1%></td>
+		    	<td><%= referal.surname %></td>
+		    	<td><%= referal.other_names %></td>
+		    	<td><%= referal.contact %></td>
+		    	<td><%= referal.created_at.strftime("%F %R")%></td>
+		       <% if referal.active_status == true %>  
+      		   	  <td style="color: ">Active</td>	
+		      	<% elsif referal.active_status == false %> 
+		      	  <td style="color: ">Inactive</td>	      		
+		       <% end %>	
+		   	<td style="width: 15px" class="w3-center"><%= link_to "Mark", update_processed_status_path(:ref_id => referal.id ), data: { confirm: "Do you want to continue?" }, remote: true, class: "w3-bordered w3-round-xlarge w3-btn w3-small w3-card-4 w3-hover-none w3-light-blue w3-hover-light-blue"%></td>
+	   	    </tr>
+	    <% end %> 
+	  </tbody> 
+	</table>
+</div>
+<br>
+
+<div>
+ <!-- <%#= link_to '+', new_registration_path, :remote=> true, class: "w3-button w3-circle w3-teal w3-hover-teal w3-left w3-card-4" %> -->
+ <%= will_paginate @unprocessed,  renderer: BootstrapPagination::Rails, previous_label: 'Older', next_lable: 'Newer', class: "w3-right pagination-sm w3-card-4", :params => { :controller => "referals", :action => "index", count: params[:count], page: params[:page] }  %>
+<br /> 
+</div>
+<br />
+
+<script type="text/javascript">
+$(document).ready(function(){
+  setTimeout(function(){
+    $('.flash_notice').remove();
+  }, 4000);
+ });
+</script>
+<script>
+  $(function(){
+    $('.pagination a').attr('data-remote', 'true');
+  });
+
+</script>
+
+

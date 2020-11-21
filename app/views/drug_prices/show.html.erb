@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Drug:</strong>
+  <%= @drug_price.drug_id %>
+</p>
+
+<p>
+  <strong>Price:</strong>
+  <%= @drug_price.price %>
+</p>
+
+<p>
+  <strong>Unit:</strong>
+  <%= @drug_price.unit_id %>
+</p>
+
+<p>
+  <strong>Comment:</strong>
+  <%= @drug_price.comment %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @drug_price.user_id %>
+</p>
+
+<p>
+  <strong>Active status:</strong>
+  <%= @drug_price.active_status %>
+</p>
+
+<p>
+  <strong>Del status:</strong>
+  <%= @drug_price.del_status %>
+</p>
+
+<%= link_to 'Edit', edit_drug_price_path(@drug_price) %> |
+<%= link_to 'Back', drug_prices_path %>

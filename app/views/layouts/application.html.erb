@@ -1,0 +1,118 @@
+
+
+
+<!DOCTYPE html>
+<html>
+  <head>
+  <link rel="icon" type="image/png" href="https://res.cloudinary.com/sahanana/image/upload/v1596453401/ghinger_assets/images/favicon_vgg0kp.png">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= content_for?(:title) ? yield(:title) : "Ghinger Health Care" %></title>
+    <meta name="description" content="<%= content_for?(:description) ? yield(:description) : "Ghinger Health Care" %>">
+    <%= tinymce_assets %>
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track' => 'reload' %>
+    
+    <!-- <%= stylesheet_link_tag    'application', media: 'all' %>
+    <%= javascript_include_tag 'application' %> -->
+    <%= csrf_meta_tags %>
+    
+  
+  </head>
+   <div id="modalDiv"></div>
+  <% if user_signed_in? && (params[:action] != "welcome")%>
+  	  <body class="" id="main">  	
+  	
+	  	<header class="w3-margin-bottom">
+	  		<%= render 'layouts/navigation' %>
+	  		<br />
+	  	</header>
+	  	<div class="w3-clear"></div>
+	  	
+	  	    <% if current_user.role.name == 'Super Admin' or current_user.role.name == 'Customer Service' %>
+			    <div class="container-fluid w3-padding" style="width: 90%; max-width: 90%">
+			    	<% if flash[:notice] %>
+					     <p class="flash_notice " id = 'notes' style = "margin-top: 5px"><%= notice %></p>
+				  	 <% end %>
+				  	 
+				  	 <% if flash[:danger] %>
+					     <p class="alert alert-danger" id = 'notes' style = "margin-top: 5px"><%= danger %></p>
+				  	 <% end %>
+				  	 
+			        <%= yield %>
+			        
+			        <div class="clearfix"></div> 
+				</div> 
+				
+			<% elsif current_user.role.name == 'Doctor' %>	
+			
+				 <div class="container-fluid" id = 'content'>		    	 
+				  	 <% if flash[:danger] %>
+					     <p class="alert alert-danger" id = 'notes' style = "margin-top: 5px"><%= danger %></p>
+				  	 <% end %>
+				  	 
+	
+			        <%= yield %>
+			        
+			        <div class="clearfix"></div> 
+				</div> 
+				
+		  <% elsif current_user.role.name == 'Nurse' %>	
+			
+				 <div class="container-fluid" id = 'content'>		    	 
+				  	 <% if flash[:danger] %>
+					     <p class="alert alert-danger" id = 'notes' style = "margin-top: 5px"><%= danger %></p>
+				  	 <% end %>
+				  	 
+					
+			        <%= yield %>
+			        
+			        <div class="clearfix"></div> 
+				</div> 
+		
+		 <% else %>	
+	     <div class="container-fluid w3-padding">
+			    	<% if flash[:notice] %>
+					     <p class="flash_notice " id = 'notes' style = "margin-top: 5px"><%= notice %></p>
+				  	 <% end %>
+				  	 
+				  	 <% if flash[:danger] %>
+					     <p class="alert alert-danger" id = 'notes' style = "margin-top: 5px"><%= danger %></p>
+				  	 <% end %>
+				  	 
+			        <%= yield %>
+			        
+			        <div class="clearfix"></div> 
+				</div> 
+		
+		  <% end %>
+	</body>	
+	
+	<%else %>
+		<body>
+			  <div class="">	
+			  <% if flash[:notice] %>
+					     <p class="flash_notice " id = 'notes' style = "margin-top: 5px"><%= notice %></p>
+				  	 <% end %>    	
+		        <%= yield %>	        
+		        <div class="clearfix"></div> 
+			</div>
+		</body>	
+	<% end %>
+		 
+	   
+  
+</html>
+
+<script type="text/javascript">
+$(document).ready(function(){
+  setTimeout(function(){
+    $('#notes').remove();
+  }, 4000);
+ });
+ 
+ 
+ 
+ 
+</script>
+

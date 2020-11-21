@@ -1,0 +1,38 @@
+<div></div>
+<div id="id01" class="w3-modal w3-card-4" style="display: block">
+    <div class="w3-modal-content w3-animate-top w3-card-4 w3-light-gray" style="width: 33%; max-height: 80%; overflow-y: auto;">
+       <% if flash[:notice] %>
+		   <p class="flash_notice " id = 'notes' style = "margin-top: 5px"><%= notice %></p>
+	   <% end %>
+      <header class="w3-container"> 
+        <h4>Please Select </h4> 
+      </header>
+      <br />
+      <div class="col-md-12 col-xs-12 w3-padding">
+      	<div class="w3-container"> 
+      		<h5 style="font-weight: bold">1. <%= link_to 'General Appointment', patient_new_appointment_path, remote: true, class: "w3-hover-none" %></h5>	
+			<h5 style="font-weight: bold">2. <%= link_to 'Personal Doctor Appointment', patient_new_appointment_pds_path, remote: true, class: "w3-hover-none" %></h5>
+        </div> 
+      </div>  
+      <br />
+      <footer class="w3-container">      
+        <%= link_to 'Back', root_path, class: "w3-button w3-black w3-hover-black w3-right w3-card-4 w3-small w3-round-xlarge" %>
+      <br />
+      </footer>
+      <br />
+    </div>
+    <br />
+</div>
+
+
+
+
+<script type="text/javascript">
+$(document).ready(function(){
+  setTimeout(function(){
+    $('#notes').remove();
+  }, 4000);
+ });
+</script> 
+
+

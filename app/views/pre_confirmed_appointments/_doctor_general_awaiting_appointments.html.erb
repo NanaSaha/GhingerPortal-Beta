@@ -1,0 +1,45 @@
+<br />
+<div class = "table-responsive">
+  <table class="table table-condensed table-bordered w3-striped w3-card-4 w3-hoverable">
+    <thead>
+      <%  if  @doctor_general_appointments.blank?%>
+        <p class="alert alert-danger" id = '' style = "margin-top: 5px"><%= flash.now[:notice] = "Sorry you do not have any appointment" %></p>
+      <% else %>
+        <% if flash[:notice] %>
+          <p class="flash_notice " id = 'notes' style = "margin-top: 5px"><%= notice %></p>
+        <% end %>
+        <% if flash[:danger] %>
+          <p class="alert alert-danger " id = 'notes' style = "margin-top: 5px"><%= danger %></p>
+        <% end %>
+        <tr class="w3-black w3-card">
+          <th>N<u>o</u></th>
+          <th>Patient Name</th>
+          <th>Patient Contact</th>
+          <th>Appt Type</th>
+          <th>Appt Date/Time</th>
+          <th colspan="2">Options</th>
+        </tr>
+      </thead>
+      <tbody>
+        <%  @doctor_general_appointments.each_with_index do |doctor_general_appointment,index| %>
+          <tr class="w3-hover-pale-green">
+            <td style="width: 5%;"><%= index+=1%></td>
+            <td><%= doctor_general_appointment.pre_appointment.person_info.surname %> <%= doctor_general_appointment.pre_appointment.person_info.other_names %></td>
+            <td><%= doctor_general_appointment.pre_appointment.person_info.person_contact_infos.last.contact_number %></td>
+            <td><%= doctor_general_appointment.pre_appointment.appointment_type.title %></td>
+            <td style="width: 15%;"><%= doctor_general_appointment.date_time.strftime("%F %R") if doctor_general_appointment.date_time  %></td>
+            <td style="width: 5%"><%= link_to "Accept", doctor_accept_gen_appt_path(:gen_pre_confirm_appt_id => doctor_general_appointment.id), remote: true, data: { confirm: 'You are about to accept the selected appointment, do you want to continue?' }, class: "w3-button w3-khaki w3-hover-khaki w3-card w3-small w3-round w3-round-xxlarge",data: {"disable-with": "Please wait......"} %></td>
+            <td style="width: 5%"><%= link_to "Decline", doctor_decline_gen_appt_path(:gen_pre_confirm_appt_id => doctor_general_appointment.id), remote: true, class: "w3-button w3-deep-orange w3-hover-deep-orange w3-card w3-small w3-round w3-round-xxlarge",data: {"disable-with": "Please wait......"} %></td>
+          </tr>
+        <% end %>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+<script type="text/javascript">
+  $(document).ready(function(){
+    setTimeout(function(){
+      $('#notes').remove();
+    }, 4000);
+   });
+</script>

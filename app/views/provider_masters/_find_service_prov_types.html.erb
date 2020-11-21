@@ -1,0 +1,60 @@
+<% if flash[:notice] %>
+  <p class="flash_notice " id = 'notes' style = "margin-top: 5px"><%= notice %></p>
+<%end%>
+
+<!-- <div class="col-md-3 col-xs-12"></div> -->
+
+<div class="col-md-12 col-xs-12">
+	<h4>Operators of <%= @Prov_type %> facility</h4>
+	
+	<div class="table-responsive">
+		<table class="table table-condensed table-bordered table-striped w3-card-4 w3-table-all">
+		  <thead>
+		    <tr class="w3-teal">
+		      <th>Provider name</th>
+		      <th>Alias/Othername</th>
+		      <th>Status</th>
+		      <th style="width: 15px">Details</th>
+		    </tr>
+		  </thead>
+		
+		  <tbody>
+		    <% @provider_masters.each do |provider_master| %>
+		      <tr>
+		        <td><%= provider_master.provider_name %></td>
+		        <td><%= provider_master.alias %></td>
+		
+		        <% if provider_master.active_status == true %>   
+		      		<td style="color: ">Active</td>
+		      		 
+		      	<%elsif provider_master.active_status == false %>
+		      		<td style="color: red">Inactive</td>
+		      		
+		        <%end%>
+		        
+		      	<td style="15px"><%= link_to 'Details', provider_details_path(:provider_id => provider_master.id), remote: true, class: "w3-btn w3-indigo w3-hover-indigo w3-small w3-round-xlarge w3-middle " %></td>
+		        <!-- <td><%#= link_to 'Destroy', service_prov_type, method: :delete, data: { confirm: 'Are you sure?' } %></td> -->
+		      </tr>
+		    <% end %>
+		  </tbody>
+		</table>
+	</div>
+	
+	<div>
+	 <%= link_to 'Back', service_prov_types_path, :remote=> true,  class: "w3-button  w3-black w3-hover-black w3-right w3-small w3-round-xxlarge w3-card" %>
+	 <%= link_to '+', new_provider_master_path(:prov_type_id => @current_prov_type_id), :remote=> true, class: "w3-button w3-circle w3-teal w3-hover-teal w3-left w3-card" %>
+	<br />
+	</div>
+	<br>
+	<%= will_paginate @provider_masters,  renderer: BootstrapPagination::Rails, previous_label: 'Older', next_lable: 'Newer', class: "w3-right pagination-sm w3-card-4", :params => { :controller => "provider_masters", :action => "find_prov_type", count: params[:count], page: params[:page] } %>
+
+</div>
+<!-- <div class="col-md-3 col-xs-12"></div> -->
+
+<script type="text/javascript">
+$(document).ready(function(){
+  setTimeout(function(){
+    $('.flash_notice').remove();
+  }, 4000);
+ })
+</script>

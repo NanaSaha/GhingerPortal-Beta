@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Drug name:</strong>
+  <%= @drug_master.drug_name %>
+</p>
+
+<p>
+  <strong>Drug alias:</strong>
+  <%= @drug_master.drug_alias %>
+</p>
+
+<p>
+  <strong>Comment:</strong>
+  <%= @drug_master.comment %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @drug_master.user_id %>
+</p>
+
+<p>
+  <strong>Active status:</strong>
+  <%= @drug_master.active_status %>
+</p>
+
+<p>
+  <strong>Del status:</strong>
+  <%= @drug_master.del_status %>
+</p>
+
+<%= link_to 'Edit', edit_drug_master_path(@drug_master) %> |
+<%= link_to 'Back', drug_masters_path %>

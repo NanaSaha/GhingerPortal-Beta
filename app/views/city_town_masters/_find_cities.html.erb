@@ -1,0 +1,69 @@
+<% if flash[:notice] %>
+  <p class="flash_notice " id = 'notes' style = "margin-top: 5px"><%= notice %></p>
+<%end%>
+
+<!-- <div class="col-md-2 col-xs-12"></div> -->
+<div class="col-md-12 col-xs-12">
+	<h4> <%= @region %>  </h4>
+	<div class="table-responsive">
+		<table class="table table-condensed table-bordered table-striped w3-card-4 ">
+		  <thead>
+		    <tr class="w3-teal">
+		      <th>City/Towm</th>
+		      <th>Status</th>
+		      <th style="width: 15px">Details</th>
+		    </tr>
+		  </thead>
+			
+		  <tbody>
+		    <% @city_town_masters.each do |city_town_master| %>
+		      <tr>
+		      	
+		        <td><%= city_town_master.city_town_name %></td>
+		  
+		        <% if city_town_master.active_status == true %>  
+		          <td style="color: ">Active</td>
+		      		
+		        <%elsif city_town_master.active_status == false %>
+		          <td style="color: red">Inactive</td>
+		      		
+		        <%end%>
+		        
+		        <td style="15px"><%= link_to 'Details', city_town_master, remote: true, class: "w3-btn w3-indigo w3-hover-indigo w3-small w3-round-xlarge w3-middle " %></td>
+		       </td>
+		        
+		      </tr>
+		    <% end %>
+		  </tbody>
+		</table>
+		
+		<%= will_paginate @city_town_masters,  renderer: BootstrapPagination::Rails, previous_label: 'Older', next_lable: 'Newer', class: "w3-right pagination-sm w3-card-4", :params => { :controller => "city_town_masters", :action => "find_cities", count: params[:count], page: params[:page] } %>
+	</div>
+	
+	<div>
+	 <%= link_to 'Back', region_masters_path, :remote=> true, class: "w3-button  w3-black w3-hover-black w3-right w3-small w3-round-xxlarge w3-card" %>
+	 <%= link_to '+', new_city_town_master_path(:region_id => @current_region_id), :remote=> true, class: "w3-button w3-circle w3-teal w3-hover-teal w3-card" %>
+	<br />
+	</div>
+<br>
+</div>
+ 
+<!-- <div class="col-md-2 col-xs-12"></div> -->
+
+<script>
+  $(function(){
+    $('.pagination a').attr('data-remote', 'true')
+  });
+
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){
+  setTimeout(function(){
+    $('#notes').remove();
+  }, 4000);
+ })
+</script>
+
+<!-- <%= link_to 'New City town master', new_city_town_master_path %> -->

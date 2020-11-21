@@ -1,0 +1,60 @@
+<div class="w3-bar w3-black">
+    <button class="w3-bar-item w3-button tablink w3-teal " onclick="openCity(event,'Pending')">Pending Registrations</button>
+    <button class="w3-bar-item w3-button tablink " onclick="openCity(event,'Approved')">Approved Registrations</button>
+    <button class="w3-bar-item w3-button tablink hidden" onclick="openCity(event,'City_Town')">City/Town</button>
+    <button class="w3-bar-item w3-button tablink hidden" onclick="openCity(event,'Suburb')">Suburb</button>
+</div>
+
+<div id="Pending" class="w3-container w3-display-container city w3-border" style="margin-bottom: 5%">
+  <span onclick="this.parentElement.style.display='none' "
+  class="w3-button w3-large w3-display-topright">&times;</span>
+  <br /><br />
+    <%= render :partial=> 'pending' %>
+</div>
+
+
+
+<div id="Approved" class="w3-container w3-display-container city w3-border"   style="display:none;  margin-bottom: 5%">
+  <span onclick="this.parentElement.style.display='none'"
+  class="w3-button w3-large w3-display-topright">&times;</span>
+  <br /><br />
+  <%= render :partial=> 'approved' %>
+</div>
+
+
+<div id="City_Town" class="w3-container w3-display-container city w3-border" style="display:none; margin-bottom: 5%">
+  <span onclick="this.parentElement.style.display='none'"
+  class="w3-button w3-large w3-display-topright">&times;</span>
+  <br /><br />
+  	<!-- <%#= render :partial=> 'cities' %> -->
+</div>
+
+
+<div id="Suburb" class="w3-container w3-display-container city w3-border" style="display:none; margin-bottom: 5%">
+  <span onclick="this.parentElement.style.display='none'"
+  class="w3-button w3-large w3-display-topright">&times;</span>
+  <br /><br />
+  	<%#= render :partial=> 'suburbs' %>
+</div>
+
+
+
+<script>
+function openCity(evt, cityName) {
+  var i, x, tablinks;
+  x = document.getElementsByClassName("city");
+  for (i = 0; i < x.length; i++) {
+      x[i].style.display = "none";
+  }
+  tablinks = document.getElementsByClassName("tablink");
+  for (i = 0; i < x.length; i++) {
+      tablinks[i].className = tablinks[i].className.replace(" w3-teal", "");
+  }
+  document.getElementById(cityName).style.display = "block";
+  evt.currentTarget.className += " w3-teal";
+}
+</script>
+
+
+
+

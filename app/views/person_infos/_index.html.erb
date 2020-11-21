@@ -1,0 +1,130 @@
+<h4>Users</h4>
+<br />
+<div class="pull-right" style = 'margin-top: -3%;'>
+	 <label class="">Display <u>No</u>: </label> 
+	  <%= select_tag :per_page, options_for_select([5,10, 20, 30, 40,50, 70,100], params[:per_page].to_i), :data => { :remote => true, 
+	 	             :url => url_for( :controller => "person_infos", :action => "index" )
+	 	             }, class: "w3-bordered w3-round-xlarge w3-btn w3-small w3-card-4", remote: true %>	                                                                                                        
+</div>
+
+<div class="pull-left" style = 'margin-top: -3%;'>
+	 <label class="">Filter by Person Type: </label>
+	  <%= select_tag :user_type_title, options_from_collection_for_select(PersonTypeMaster.all, "user_type_title", "user_type_title", @person_type), :data => {:remote => true, 
+	  	:url => url_for(:controller => "person_infos", :action => "index")}, remote: true,  class: "w3-bordered w3-round-xlarge w3-btn w3-small w3-card-4", :prompt => "Select to filter" %>
+ </div>
+ <br />
+	<p style = 'text-align: center; font-family: tahoma; font-size: 15px;'>
+   <b>Download:</b>  <%= link_to "CSV", person_infos_path(format: "csv"), :class => "w3-hover-white"%> 
+                     | <%= link_to "Excel", person_infos_path(format: "xls"), :class => "w3-hover-white" %> 
+                     | <%= link_to "CSV-all", all_person_info_excel_path(format: "csv"), :class => "w3-hover-white", method: :get%> 
+                     | <%= link_to "Excel-all", all_person_info_excel_path(format: "xls"),:class => "w3-hover-white", method: :get%>
+</p>
+<%= form_tag person_infos_path, :method => 'get', class: "form-inline w3-margin", html: { autocomplete: "off" }, remote: true, :id => "entity_search" do %>
+  <% if @person_type == 'Patient' %>
+    <%= text_field_tag :patient, params[:patient], class: "form-control w3-bordered ", :placeholder=> "Fileter by Patient Name", autocomplete: "off", id: "patient"  %>
+  <% elsif @person_type == 'Doctor' %>
+    <%= text_field_tag :doctor, params[:doctor], class: "form-control w3-bordered ", :placeholder=> "Fileter by Doctor Name", autocomplete: "off", id: "patient"  %>
+  <% elsif @person_type == 'Nurse' %>
+    <%= text_field_tag :nurse, params[:nurse], class: "form-control w3-bordered ", :placeholder=> "Fileter by Nurse Name", autocomplete: "off", id: "patient"  %>
+  <% elsif @person_type == 'Pharmacist' %>
+    <%= text_field_tag :pharmacist, params[:pharmacist], class: "form-control w3-bordered ", :placeholder=> "Fileter by Pharmacist Name", autocomplete: "off", id: "patient"  %>
+  <% elsif @person_type == 'Laboratorist' %>
+    <%= text_field_tag :laboratorist, params[:laboratorist], class: "form-control w3-bordered ", :placeholder=> "Fileter by Laboratorist Name", autocomplete: "off", id: "patient"  %>
+  <% end %>
+  <% if @person_type.present? %>
+    <%= submit_tag "Search", :name => nil,  class: "w3-btn w3-round w3-blue w3-tiny", id: "submitBtn" %>
+    <!-- <br>
+    <span>NB: <i style="color: red;"> Please type Surname first</i></span> -->
+  <% end %>
+<% end %>
+<% if @person_type.nil? %>
+  <%= link_to person_infos_path, remote: true do %>
+    <span class="fa fa-refresh fa-2x"></span>
+  <% end %>
+<% end %>
+<div class="table-responsive">
+	<table class="table table-condensed table-bordered table-striped w3-card">
+	  <thead>
+	    <tr class="w3-teal">
+	      <th>Surname</th>
+	      <th>Other names</th>
+	      <th>Person type</th>
+	      <!-- <th>Entity</th> -->
+	      <!-- <th>User</th> -->
+	      <th>Status</th>
+	      <th>Details</th>
+	      <th>Professional Info</th>
+	      <th colspan="2">Options</th>
+	    </tr>
+	  </thead>
+	
+	  <tbody>
+	    <% @person_infos.each do |person_info| %>
+	      <tr>
+	        <td><%= person_info.surname %></td>
+	        <td><%= person_info.other_names %></td>
+	        <td><%= person_info.person_type_master.user_type_title %></td>
+	        
+	       	<% if person_info.active_status == true %>  
+	      		<td style=" ">Active</td>
+	      		
+	      	<%elsif person_info.active_status == false %>
+	      		<td style="color: red">Inactive</td>
+	      		
+	        <%end%>
+	        
+	        <td style="width: 5px"><%= link_to "Details", find_persons_path(:person_id => person_info.id), remote: true, class: "w3-button w3-indigo w3-card w3-hover-indigo w3-small w3-round w3-round-xxlarge" %></td>
+	        
+	         <% if person_info.person_type_master.user_type_title == "Patient"%>
+	     		 <td style="width: 5px"><button class = "w3-button w3-white w3-card w3-hover-white w3-small w3-round w3-round-xxlarge">Not a Professional</button></td>
+		     <% else %>
+			      <td style="width: 5px">
+	        		 <%= link_to "Professional Info", find_prof_info_path(:person_id => person_info.id), remote: true, class: "w3-button w3-khaki w3-card w3-hover-khaki w3-small w3-round w3-round-xxlarge" %>
+	      		  </td>
+		     <% end %>  
+	        <!-- <td style="width: 5px"><%= link_to "Professional Info", find_prof_info_path(:person_id => person_info.id), remote: true, class: "w3-button w3-sand w3-card w3-hover-sand w3-small w3-round w3-round-xxlarge" %></td> -->
+	        
+	        <td style="width: 5px"><%= link_to 'Edit', edit_person_info_path(person_info), remote: true, class: "w3-button w3-gray w3-card w3-hover-gray w3-small w3-round w3-round-xxlarge" %></td>
+	        
+	        <td style="width: 15px">
+	           <% if person_info.active_status == false %>
+	           	 <%= link_to 'Enable', enable_player_path(:chosen =>person_info.id), data: { confirm: 'You are about to enable the selected player. Are you sure?' }, remote: true,  class: "w3-button w3-blue w3-hover-blue w3-small w3-round-xxlarge w3-card" %>
+                 
+               <% else person_info.active_status == true %>
+	              <%= link_to 'Disable', disable_player_path(:chosen => person_info.id),  data: { confirm: 'You are about to disable the selected player. Are you sure?' }, remote: true,  class: "w3-button w3-red w3-hover-red w3-small w3-round w3-round-xxlarge w3-card" %> 
+	           
+               <% end %>
+	        	
+	       </td>
+	        
+	    <% end %>
+	  </tbody>
+	</table>
+</div>
+<br>
+
+<div>
+ <%= link_to '+', new_person_info_path, :remote=> true, class: "w3-button w3-circle w3-teal w3-hover-teal w3-left w3-card-4" %>
+ <%= will_paginate @person_infos,  renderer: BootstrapPagination::Rails, previous_label: 'Older', next_lable: 'Newer', class: "w3-right pagination-sm w3-card-4", :params => { :controller => "person_infos", :action => "index", count: params[:count], page: params[:page] }, :remote => true  %>
+<br />
+</div>
+<br />
+
+<script>
+  $(function(){
+    $('.pagination a').attr('data-remote', 'true')
+  });
+
+</script>
+<script type="text/javascript">
+    if($('#user_type_title').change(function () {
+        type = $('#user_type_title').find(":selected").text();
+        console.log(type);
+        <%= @selected  %>
+
+        if(type == 'Patient'){
+            $('#patient').removeClass('hidden');
+        }
+
+    }));
+</script>

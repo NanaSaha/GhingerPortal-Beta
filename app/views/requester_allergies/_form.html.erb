@@ -1,0 +1,16 @@
+<%= simple_form_for(@requester_allergy) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :pre_appointment_id %>
+    <%= f.input :allergy_id %>
+    <%= f.input :comment %>
+    <%= f.input :user_id %>
+    <%= f.input :active_status %>
+    <%= f.input :del_status %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

@@ -1,0 +1,5 @@
+<% if @from == "confirmed_appt" %>
+    $("#Confirm").html("<%= escape_javascript(render(:partial =>"bill_info")) %>");
+<% elsif @from == "billing" %>
+    $("#All_Bill").html("<%= escape_javascript(render(:partial =>"bill_info")) %>");
+<% end %>

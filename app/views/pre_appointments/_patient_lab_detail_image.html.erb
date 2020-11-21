@@ -1,0 +1,43 @@
+<div id="id01" class="w3-modal w3-card-4" style="display: block">
+    <div class="w3-modal-content w3-animate-top w3-card-4 w3-light-gray" style="width: 40%;>
+       <% if flash[:notice] %>
+		   <p class="flash_notice " id = 'notes' style = "margin-top: 5px"><%= notice %></p>
+	   <% end %>
+	   <br />
+      <header class="w3-container"> 
+        <h4>Lab Image</h4> 
+      </header>
+      <br />
+     
+      <div class="col-md-12 col-xs-12 w3-padding">
+      	<div class="w3-container "> 	
+			 <table class="table table-condensed table-bordered table-striped">                       
+                 <tr>
+                 	<%= image_tag  @lab_detail_image.image.url(:large), class: "img-responsive w3-card", style: "width: 100%; height: 40%" %>
+                 </tr>
+			</table>
+       </div> 
+      </div>  
+      <br />
+      <footer class="w3-container">
+      	<!-- <%#= link_to "Download", @lab_detail_image.image.url(:original, false), class: "w3-button w3-gray w3-hover-gray w3-left w3-card-4 w3-small w3-round-xlarge" %> -->
+        <%= link_to 'Back', patient_lab_details_path(:appointment_id => @pre_appointment_id), :remote=> true, class: "w3-button w3-black w3-hover-black w3-right w3-card-4 w3-small w3-round-xlarge" %>
+      <br />
+      </footer>
+      <br />
+    </div>
+    <br /><br /><br />
+</div>
+
+<br /><br />
+<div class="w3-clear"></div>
+
+
+
+<script type="text/javascript">
+$(document).ready(function(){
+  setTimeout(function(){
+    $('#notes').remove();
+  }, 4000);
+ });
+</script> 

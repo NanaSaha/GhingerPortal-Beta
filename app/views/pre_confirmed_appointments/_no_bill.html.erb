@@ -1,0 +1,30 @@
+<div></div>
+<div id="id01" class="w3-modal w3-card-4" style="display: block">
+  <div class="w3-modal-content w3-animate-top w3-card-4 w3-light-gray" style="width: 40%">
+    <header class="w3-container">
+      <h4>Pre Confirmed Appointment Details</h4>
+    </header>
+    <br />
+    <!-- <div class="col-md-1 col-xs-12"></div> -->
+    <div class="col-md-12 col-xs-12 w3-padding">
+      <div class="w3-container ">
+        <p class="alert alert-danger">You cannot confirm this appointment because it has no price(s) set </p>
+      </div>
+    </div>
+    <!-- <div class="col-md-1 col-xs-12"></div> -->
+    <br />
+    <footer class="w3-container">
+      <%= link_to 'Back', pre_appointments_path, remote: true, class: "w3-button w3-black w3-hover-black w3-right w3-card-4 w3-small w3-round-xlarge" ,data: {"disable-with": "Please wait......"}%>
+      <br />
+    </footer>
+    <br />
+  </div>
+  <br />
+</div>
+<script type="text/javascript">
+  $(document).ready(function(){
+      setTimeout(function(){
+          $('#notes').remove();
+      }, 4000);
+  });
+</script>

@@ -1,0 +1,37 @@
+<br>
+<%= simple_form_for @measure_unit, :remote => true  do |f| %>
+    <div id="id01" class="w3-modal w3-card-4 w3-round-large" style="display: block;">
+      <div class="w3-modal-content w3-animate-top w3-card-4 w3-light-gray" style="width: 25%; max-height: 80%; overflow-y: auto;">
+        <div style="max-width: 70%; text-align: center; margin-left: 15%; margin-top: 15px">
+
+          <% if flash[:notice] %>
+              <p class="flash_notice " id = 'notes' style = ""><%= notice %></p>
+          <% end %>
+
+        </div>
+        <header class="w3-container">
+          <h4>Add Unit</h4>
+        </header>
+        <div class="w3-container" >
+          <div class="form-inputs">
+            <%= f.input :unit_desc %>
+            <%= f.input :unit_alias %>
+            <%= f.label :comment, "Comment"%>
+            <%= f.text_area :comment, :rows=> 5, style: "width: 100%;"%>
+            <%= f.input :user_id, as: :hidden, input_html: {value: current_user.id } %>
+            <%= f.input :active_status, as: :hidden, input_html: {value: 1} %>
+            <%= f.input :del_status, as: :hidden, input_html: {value: 0}  %>
+          </div>
+        </div>
+        <br>
+        <footer class="w3-container">
+          <%= f.button :submit, class: "w3-button w3-teal w3-hover-teal w3-right w3-card-4 w3-small w3-round-xlarge", value: "Submit" %>
+
+          <span class="w3-button w3-black w3-hover-black w3-left w3-card-4 w3-small w3-round-xlarge" onclick="document.getElementById('id01').style.display='none'">Back</span>
+          <br />
+        </footer>
+<% end %>
+<br />
+</div>
+<br />
+</div>

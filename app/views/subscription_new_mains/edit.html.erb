@@ -1,0 +1,39 @@
+<br />
+<div class="row">
+  <div class="col-md-3 col-xs-12"></div>
+  <div class="col-md-6 col-xs-12 w3-card-4 w3-round-large" >
+    <h4>Edit Subscription</h4>
+    <%= simple_form_for(@subscription_new_main) do |f| %>
+      <%= f.error_notification %>
+      <div class="w3-container" >
+        <div class="form-inputs">
+          <%= f.input :f_name %>
+          <%= f.input :middle_name %>
+          <%= f.input :last_name %>
+          <%= f.input :phone_number %>
+          <%= f.input :email %>
+          <%= f.input :gender %>
+          <%= f.input :marital_status %>
+          <%= f.input :religion %>
+          <%= f.input :address %>
+          <%= f.input :emergency_name %>
+          <%= f.input :emergency_phone %>
+          <%= f.input :emergency_email %>
+          <%= f.input :emergency_address %>
+          <%= f.input :active_status, as: :hidden, input_html: {value: 1} %>
+          <%= f.input :amount %>
+          <%= f.input :paid_status, as: :hidden, input_html: {value: 0} %>
+        </div>
+        <div class="form-actions">
+          <%= f.button :submit, class: "w3-right w3-button w3-small w3-round-large w3-teal w3-hover-teal", value: "Submit" %>
+          <%= link_to 'Back', subscription_new_mains_path, class: "w3-left w3-button w3-small w3-round-large w3-blue w3-hover-blue" %>
+        </div>
+      <% end %>
+    </div>
+    <br>
+    <br>
+    <br>
+  </div>
+  <div class="col-md-3 col-xs-12"></div>
+</div>
+<br />

@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  confirmed_appt_id: 1
+  patient_id: 1
+  doctor_id: 1
+  clinical_complaints: MyText
+  clinical_examinations: MyText
+  working_diagnosis: MyText
+  investigation_rquired: MyText
+  treatments: MyText
+  follow_up_plan: MyString
+
+two:
+  confirmed_appt_id: 1
+  patient_id: 1
+  doctor_id: 1
+  clinical_complaints: MyText
+  clinical_examinations: MyText
+  working_diagnosis: MyText
+  investigation_rquired: MyText
+  treatments: MyText
+  follow_up_plan: MyString

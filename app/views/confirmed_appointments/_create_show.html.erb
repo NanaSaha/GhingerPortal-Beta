@@ -1,0 +1,109 @@
+<div></div>
+<div id="id01" class="w3-modal w3-card-4" style="display: block">
+  <div class="w3-modal-content w3-animate-top w3-card-4 w3-light-gray" style="width: 40%; max-height: 80%; overflow: auto;">
+    <% if flash[:notice] %>
+      <p class="flash_notice " id = 'notes' style = "margin-top: 5px"><%= notice %></p>
+    <% end %>
+    <header class="w3-container">
+      <h4>Confirmed Appointment Details</h4>
+    </header>
+    <br />
+    <!-- <div class="col-md-1 col-xs-12"></div> -->
+    <div class="col-md-12 col-xs-12 w3-padding">
+      <div class="w3-container ">
+        <table class="table table-condensed table-bordered table-striped">
+          <tr>
+            <td class="w3-teal" style="width: 40%"><strong>Requester </strong></td>
+            <td style="padding-left: 6%"><%= @confirmed_appointment.pre_appointment.person_info.surname if @confirmed_appointment.pre_appointment.person_info %> <%= @confirmed_appointment.pre_appointment.person_info.other_names if @confirmed_appointment.pre_appointment.person_info %></td>
+          </tr>
+          <tr>
+            <td class="w3-teal" style="width: 40%"><strong>Location </strong></td>
+            <td style="padding-left: 6%"><%= @confirmed_appointment.suburb_master.suburb_name if @confirmed_appointment.suburb_master %></td>
+          </tr>
+          <tr>
+            <td class="w3-teal" ><strong>Service Provider </strong></td>
+            <td style="padding-left: 6%"><%=  @confirmed_appointment.provider_master.provider_name if @confirmed_appointment.provider_master%></td>
+          </tr>
+          <tr>
+            <td class="w3-teal"><strong>Request Category </strong></td>
+            <td style="padding-left: 6%"><%= @confirmed_appointment.pre_appointment.request_category.category if @confirmed_appointment.pre_appointment.request_category %></td>
+          </tr>
+          <tr>
+            <td class="w3-teal" ><strong>Beneficiary </strong></td>
+            <td style="padding-left: 6%""><%= @confirmed_appointment.pre_appointment.beneficiary_name %></td>
+          </tr>
+          <tr>
+            <td class="w3-teal" ><strong>Appointment Type </strong></td>
+            <td style="padding-left: 6%"><%=  @confirmed_appointment.pre_appointment.appointment_type.title %></td>
+          </tr>
+          <tr>
+            <td class="w3-teal" ><strong>Confirmed Date and Time </strong></td>
+            <td style="padding-left: 6%"><%= @confirmed_appointment.confirmed_date.strftime("%F %R") if @confirmed_appointment.confirmed_date %></td>
+          </tr>
+          <tr>
+            <td class="w3-teal" ><strong>Detailed Complaint </strong></td>
+            <td style="padding-left: 6%"><%= raw @confirmed_appointment.complaint_desc %></td>
+          </tr>
+          <tr>
+            <td class="w3-teal" ><strong> Detailed Previous Medical History </strong></td>
+            <td style="padding-left: 6%"><%= raw @confirmed_appointment.pre_appointment.prev_medical_history %></td>
+          </tr>
+          <tr>
+            <td class="w3-teal" ><strong>Remark </strong></td>
+            <td style="padding-left: 6%"><%= raw @confirmed_appointment.comment %></td>
+          </tr>
+          <% if @confirmed_appointment.pre_appointment.src == 'PTL'%>
+            <tr>
+              <td class="w3-teal"><strong>Source </strong></td>
+              <td style="padding-left: 6%"> Portal </td>
+            </tr>
+          <% elsif @confirmed_appointment.pre_appointment.src == 'APP' %>
+            <tr>
+              <td class="w3-teal"><strong>Source </strong></td>
+              <td style="padding-left: 6%"> Mobile App</td>
+            </tr>
+          <% elsif @confirmed_appointment.pre_appointment.src == 'USS' %>
+            <tr>
+              <td class="w3-teal"><strong>Source </strong></td>
+              <td style="padding-left: 6%"> USSD</td>
+            </tr>
+          <% elsif @confirmed_appointment.pre_appointment.src == 'WEB' %>
+            <tr>
+              <td class="w3-teal"><strong>Source </strong></td>
+              <td style="padding-left: 6%"> Web Access</td>
+            </tr>
+          <%end%>
+          <% if @confirmed_appointment.active_status == true %>
+            <tr>
+              <td class="w3-teal"><strong>Status </strong></td>
+              <td style="padding-left: 6%"> Active </td>
+            </tr>
+          <%elsif @confirmed_appointment.active_status == false %>
+            <tr>
+              <td class="w3-teal"><strong>Status </strong></td>
+              <td style="padding-left: 6%; color: red">Inactive</td>
+            </tr>
+          <% end %>
+          <tr>
+            <td class="w3-teal" ><strong>Confirmed By </strong></td>
+            <td style="padding-left: 6%"><%= @confirmed_appointment.user.person_info.other_names if @confirmed_appointment.user  %> <%= @confirmed_appointment.user.person_info.surname if @confirmed_appointment.user  %></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <br />
+    <footer class="w3-container">
+      <%= link_to 'Back', pre_appointments_path, :remote=> true, class: "w3-button w3-black w3-hover-black w3-right w3-card-4 w3-small w3-round-xlarge" ,data: {"disable-with": "Please wait......"}%>
+      <br />
+    </footer>
+    <br />
+  </div>
+  <br />
+</div>
+<script type="text/javascript">
+  $(document).ready(function(){
+    setTimeout(function(){
+      $('#notes').remove();
+    }, 4000);
+   });
+</script>

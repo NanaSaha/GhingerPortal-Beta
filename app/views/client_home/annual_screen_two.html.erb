@@ -1,0 +1,972 @@
+<div class="main-bg">
+
+        <div class="sub-main-w3">
+                <div class="bg-content-w3pvt">
+                
+                  <div class="top-content-style">
+                        <h1 class="panel-title">Add Annual Screening Two Adult</h1>
+                  </div>
+
+  
+                  <div class="panel-heading">
+                    <h1><b>BASIC INFORMATION OF THE BENEFICIARY</b></h1>
+                         </div>
+
+                        
+
+                  <div class="panel-body">
+                        <form  method="post" action="<%= annual_user_info_two_path %>">
+
+
+
+                                <div class="row">
+
+
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                  
+                                            </div>
+                                        </div>
+
+                                        
+                                        <div class="col-md-4">
+                                                <div class="form-group">
+                                                 
+                                                        <label for="sub_self">Who is the Subscription for?</label>
+                                                        <select name="sub_self" value=""  class="form-control input-sm">
+                                                          <option value="">--Select--</option>
+                                                          <option value="self">Self</option>
+                                                          <option value="beneficiary">Beneficiary</option>
+                                                        </select>
+        
+                                                </div>
+                                            </div>
+
+                                        
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                  
+                                            </div>
+                                        </div>
+                                      </div>
+
+
+
+                                <br>
+
+
+
+
+                            <div class="row">
+
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                    <label>First Name*(Couple 1)</label>
+                                  <input type="text" name="first_name" value="" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '';}" required=true class="form-control input-sm" placeholder="">
+                                    </div>
+                                </div>
+
+
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                            <label>Middle Name(Couple 1)</label>
+                                        <input type="text" name="middle_name" value=""  class="form-control input-sm" placeholder="">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                        <div class="form-group">
+                                                <label>Last Name*(Couple 1)</label>
+                                            <input type="text" name="last_name" value="" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '';}" required=true class="form-control input-sm" placeholder="">
+                                        </div>
+                                    </div>
+
+
+                            </div>
+
+
+
+
+                            <div class="row">
+
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                        <label>First Name*(Couple 2)</label>
+                                      <input type="text" name="f_name_second" value="" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '';}" required=true class="form-control input-sm" placeholder="">
+                                        </div>
+                                    </div>
+    
+    
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                                <label>Middle Name(Couple 2)</label>
+                                            <input type="text" name="m_name_second" value="" class="form-control input-sm" placeholder="">
+                                        </div>
+                                    </div>
+    
+                                    <div class="col-md-4">
+                                            <div class="form-group">
+                                                    <label>Last Name*(Couple 2)</label>
+                                                <input type="text" name="l_name_second" value="" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '';}" required=true class="form-control input-sm" placeholder="">
+                                            </div>
+                                        </div>
+    
+    
+                                </div>
+        
+                          
+        
+                            <div class="row">
+
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                            <label>Email*(Couple 1)</label>
+                                        <input type="email" name="email" value="" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '';}" required=true class="form-control input-sm" placeholder="">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                            <label>PhoneNumber*(Couple 1)</label>
+                                        <input type="number" name="phone" value="" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '';}" required=true class="form-control input-sm" placeholder="">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                        <div class="form-group">
+                                         
+                                                <label for="gender">Gender(Couple 1)</label>
+                                                <select name="gender" value="" class="form-control input-sm">
+                                                  <option value="">--Select--</option>
+                                                  <option value="male">Male</option>
+                                                  <option value="female">Female</option>
+                                                </select>
+
+                                        </div>
+                                    </div>
+
+
+                            </div>
+
+
+
+
+                            <div class="row">
+
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                            <label>Email*(Couple 2)</label>
+                                        <input type="email2" name="email2" value="" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '';}" required=true class="form-control input-sm" placeholder="">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                            <label>PhoneNumber*(Couple 2)</label>
+                                        <input type="number" name="phone2" value="" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '';}" required=true class="form-control input-sm" placeholder="">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                        <div class="form-group">
+                                         
+                                                <label for="gender2">Gender(Couple 2)</label>
+                                                <select name="gender2" value="" class="form-control input-sm">
+                                                  <option value="">--Select--</option>
+                                                  <option value="male">Male</option>
+                                                  <option value="female">Female</option>
+                                                </select>
+
+                                        </div>
+                                    </div>
+
+
+                            </div>
+
+
+
+                                    <div class="row">
+
+
+                                            <div class="col-md-4">
+                                                    <div class="form-group">
+                                                     
+                                                            <label for="marital_status">Marital Status(Couple 1)</label>
+                                                            <select name="marital_status" value="marital_status" class="form-control input-sm">
+                                                              <option value="">--Select--</option>
+                                                              <option value="single">Single</option>
+                                                              <option value="married">Married</option>
+                                                              <option value="divorced">Divorced</option>
+                                                              <option value="widowed">Widowed</option>
+                                                              <option value="other">Other</option>
+                                                            </select>
+            
+                                                    </div>
+                                                </div>
+
+
+
+                                                <div class="col-md-4">
+                                                        <div class="form-group">
+                                                         
+                                                                <label for="religion">Religion(Couple 1)</label>
+                                                                <select name="religion" value="" class="form-control input-sm">
+                                                                  <option value="">--Select--</option>
+                                                                  <option value="christianity">Christianity</option>
+                                                                  <option value="islam">Islam</option>
+                                                                  <option value="other">Other</option>
+                                                               
+                                                                </select>
+                
+                                                        </div>
+                                                    </div>
+            
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                        <label>Residential Address(Couple 1)</label>
+                                                    <input type="address" name="address" value="" class="form-control input-sm" placeholder="">
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+
+
+
+
+                                        <div class="row">
+
+
+                                            <div class="col-md-4">
+                                                    <div class="form-group">
+                                                     
+                                                            <label for="marital_status2">Marital Status(Couple 2)</label>
+                                                            <select name="marital_status2" value="marital_status2" class="form-control input-sm">
+                                                              <option value="">--Select--</option>
+                                                              <option value="single">Single</option>
+                                                              <option value="married">Married</option>
+                                                              <option value="divorced">Divorced</option>
+                                                              <option value="widowed">Widowed</option>
+                                                              <option value="other">Other</option>
+                                                            </select>
+            
+                                                    </div>
+                                                </div>
+
+
+
+                                                <div class="col-md-4">
+                                                        <div class="form-group">
+                                                         
+                                                                <label for="religion2">Religion(Couple 2)</label>
+                                                                <select name="religion2" value="" class="form-control input-sm">
+                                                                  <option value="">--Select--</option>
+                                                                  <option value="christianity">Christianity</option>
+                                                                  <option value="islam">Islam</option>
+                                                                  <option value="other">Other</option>
+                                                               
+                                                                </select>
+                
+                                                        </div>
+                                                    </div>
+            
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                        <label>Residential Address(Couple 2)</label>
+                                                    <input type="address_second" name="address_second" value="" class="form-control input-sm" placeholder="">
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+
+
+
+
+                                            <div class="row">
+
+
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                                <label>Date of Birth(Couple 1)</label>
+                                                            <input type="date" name="dob" value="" class="form-control input-sm" placeholder="">
+                                                        </div>
+                                                    </div>
+            
+                                                    
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                                <label style="color: red">OR</label>
+                                                            
+                                                        </div>
+                                                    </div>
+            
+                                                    
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                                <label>Age(Couple 1)</label>
+                                                            <input type="number" name="age" value="" class="form-control input-sm" placeholder="">
+                                                        </div>
+                                                    </div>
+                                                  </div>
+
+
+                                             
+
+                                            <div class="row">
+
+
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                            <label>Date of Birth(Couple 2)</label>
+                                                        <input type="date" name="dob2" value="" class="form-control input-sm" placeholder="">
+                                                    </div>
+                                                </div>
+        
+                                                
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                            <label style="color: red">OR</label>
+                                                        
+                                                    </div>
+                                                </div>
+        
+                                                
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                            <label>Age(Couple 2)</label>
+                                                        <input type="number" name="age2" value="" class="form-control input-sm" placeholder="">
+                                                    </div>
+                                                </div>
+                                              </div>
+
+                                              <br>
+
+                          
+                                            <div class="panel-heading">
+                                                <h1 class="panel-title">EMERGENCY DETAILS (NEXT OF KIN)</h1>
+                                            </div>
+
+
+                                 <div class="row">
+
+                                           <div class="col-md-4">
+                                                <div class="form-group">
+                                                        <label>Emergency Name</label>
+                                                    <input type="emergency_name" name="emergency_name" value="" class="form-control input-sm" placeholder="">
+                                                </div>
+                                            </div>
+
+
+
+                                               <div class="col-md-4">
+                                                    <div class="form-group">
+                                                            <label>Emergency Phone</label>
+                                                        <input type="number" name="emergency_phone" value="" class="form-control input-sm" placeholder="">
+                                                    </div>
+                                                </div>
+
+
+
+                                              <div class="col-md-4">
+                                                    <div class="form-group">
+                                                            <label>Emergency Email</label>
+                                                        <input type="emergency_email" name="emergency_email" value="" class="form-control input-sm" placeholder="">
+                                                    </div>
+                                                </div>
+
+                                             
+                                                <div class="col-md-12">
+                                                        <div class="form-group">
+                                                                <label>Emergency Residential Address</label>
+                                                            <input type="emergency_address" name="emergency_address" value="" class="form-control input-sm" placeholder="">
+                                                        </div>
+                                                    </div>
+
+
+                                       </div>
+
+
+
+
+                                       <br>
+
+                          
+                                       <div class="panel-heading">
+                                           <h1 class="panel-title">SUBSCRIPTION INFORMATION</h1>
+                                       </div>
+
+
+                            <div class="row">
+
+                                      <div class="col-md-4">
+                                           <div class="form-group">
+                                                   <label>Selected Service</label>
+                                               <input type="sub_name" name="sub_name" value="AnnualScreeningTwoAdult" class="form-control input-sm" placeholder="" disabled>
+                                           </div>
+                                       </div>
+
+
+
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                             
+                                                    <label for="amount">Duration/Amount*</label>
+                                                    <select name="amount" value="amount" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '';}" required=true class="form-control input-sm">
+                                                      <option value="">--Select--</option>
+                                                      <option value="950">Pay Once GHC 950</option>
+                                                     
+                                                     
+                                                   
+                                                    </select>
+    
+                                            </div>
+                                        </div>
+
+
+
+                      
+
+
+                                  </div>
+
+                                  <div class="row">
+                                        <div class="col-md-6">
+                                                <input type="submit" value="Submit" class="btn btn-success btn-block">
+                                        </div>
+
+                                        <div class="col-md-6">
+                                                <a class="btn btn-danger btn-block" href="/home/annual_screening/">Back</a>
+                                               
+                                        </div>
+
+                                  </div>
+                                
+
+                            
+                          
+                         
+                        
+                        </form>
+                    </div>
+
+
+
+   
+      
+ </div>
+</div>
+</div>
+
+    
+      
+      
+      
+      <style type="text/css">
+        /*--
+        Author: W3layouts
+        Author URL: http://w3layouts.com
+        License: Creative Commons Attribution 3.0 Unported
+        License URL: http://creativecommons.org/licenses/by/3.0/
+        --*/
+        
+        /* reset */
+        html,
+        body,
+        div,
+        span,
+        applet,
+        object,
+        iframe,
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6,
+        p,
+        blockquote,
+        pre,
+        a,
+        abbr,
+        acronym,
+        address,
+        big,
+        cite,
+        code,
+        del,
+        dfn,
+        em,
+        img,
+        ins,
+        kbd,
+        q,
+        s,
+        samp,
+        small,
+        strike,
+        strong,
+        sub,
+        sup,
+        tt,
+        var,
+        b,
+        u,
+        i,
+        dl,
+        dt,
+        dd,
+        ol,
+        nav ul,
+        nav li,
+        fieldset,
+        form,
+        label,
+        legend,
+        table,
+        caption,
+        tbody,
+        tfoot,
+        thead,
+        tr,
+        th,
+        td,
+        article,
+        aside,
+        canvas,
+        details,
+        embed,
+        figure,
+        figcaption,
+        copyright,
+        header,
+        hgroup,
+        menu,
+        nav,
+        output,
+        ruby,
+        section,
+        summary,
+        time,
+        mark,
+        audio,
+        video {
+            margin: 0;
+            padding: 0;
+            border: 0;
+            font-size: 100%;
+            font: inherit;
+            vertical-align: baseline;
+        }
+        
+        article,
+        aside,
+        details,
+        figcaption,
+        figure,
+        copyright,
+        header,
+        hgroup,
+        menu,
+        nav,
+        section {
+            display: block;
+        }
+        
+        ol,
+        ul {
+            list-style: none;
+            margin: 0px;
+            padding: 0px;
+        }
+        
+        blockquote,
+        q {
+            quotes: none;
+        }
+        
+        blockquote:before,
+        blockquote:after,
+        q:before,
+        q:after {
+            content: '';
+            content: none;
+        }
+        
+        table {
+            border-collapse: collapse;
+            border-spacing: 0;
+        }
+        
+        /* start editing from here */
+        a {
+            text-decoration: none;
+        }
+        
+        .txt-rt {
+            text-align: right;
+        }
+        
+        /* text align right */
+        .txt-lt {
+            text-align: left;
+        }
+        
+        /* text align left */
+        .txt-center {
+            text-align: center;
+        }
+        
+        /* text align center */
+        .float-rt {
+            float: right;
+        }
+        
+        /* float right */
+        .float-lt {
+            float: left;
+        }
+        
+        /* float left */
+        .clear {
+            clear: both;
+        }
+        
+        /* clear float */
+        .pos-relative {
+            position: relative;
+        }
+        
+        /* Position Relative */
+        .pos-absolute {
+            position: absolute;
+        }
+        
+        /* Position Absolute */
+        .vertical-base {
+            vertical-align: baseline;
+        }
+        
+        /* vertical align baseline */
+        .vertical-top {
+            vertical-align: top;
+        }
+        
+        /* vertical align top */
+        nav.vertical ul li {
+            display: block;
+        }
+        
+        /* vertical menu */
+        nav.horizontal ul li {
+            display: inline-block;
+        }
+        
+        /* horizontal menu */
+        img {
+            max-width: 100%;
+        }
+        
+        /* //end reset */
+        body {
+            font-size: 100%;
+            font-family: 'Source Sans Pro', sans-serif;
+        }
+        
+        .main-bg {
+            background: url(/assets/footer_bg.png) no-repeat center;
+            background-size: cover;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            -ms-background-size: cover;
+            min-height: 100vh;
+        }
+        
+        /* title */
+        h1 {
+            font-size: 2.8vw;
+            color: #fff;
+            text-align: center;
+            padding: 1.5vw 1vw 2vw;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+        
+        /* //title */
+        
+        /* content */
+        .sub-main-w3 {
+            margin: 1.5vw 3vw;
+        }
+        
+        .bg-content-w3pvt {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: #fff;
+            text-align: center;
+        }
+        
+        .top-content-style {
+            padding: 2vw 2vw 2vw;
+            background: #52c936;
+            color: #fff;
+        }
+        
+        .top-content-style img {
+            -webkit-border-radius: 20%;
+            -o-border-radius: 20%;
+            -ms-border-radius: 20%;
+            -moz-border-radius: 20%;
+            border-radius: 20%;
+        }
+        
+        .sub-main-w3 form {
+            background: #ffff;
+            padding: 2em;
+            -webkit-box-shadow: 2px 5px 16px 2px rgba(16, 16, 16, 0.18);
+            -moz-box-shadow: 2px 5px 16px 2px rgba(16, 16, 16, 0.18);
+            box-shadow: 2px 5px 16px 2px rgba(16, 16, 16, 0.18);
+            margin: -2.5em 2.5em 2em;
+            -webkit-border-radius: 4px;
+            -o-border-radius: 4px;
+            -ms-border-radius: 4px;
+            -moz-border-radius: 4px;
+            border-radius: 4px;
+        }
+        
+        p.legend {
+            color: #4e4d4d;
+            font-size: 24px;
+            text-align: center;
+            margin-bottom: 1.2em;
+        }
+        
+        p.legend span {
+            color: #000;
+            margin-left: 10px;
+        }
+        
+        .input {
+            position: relative;
+            margin: 20px auto;
+            width: 100%
+        }
+        
+        .input span {
+            position: absolute;
+            display: block;
+            color: #52c936;
+            left: 10px;
+            top: 12px;
+            font-size: 16px;
+        }
+        
+        .input input {
+            width: 100%;
+            padding: 13px 10px 13px 34px;
+            display: block;
+            border: none;
+            border: 1px solid #52c936;
+            color: #000;
+            box-sizing: border-box;
+            font-size: 13px;
+            outline: none;
+            letter-spacing: 1px;
+            background: #fff;
+            -webkit-box-shadow: 2px 5px 16px 2px rgba(16, 16, 16, 0.18);
+            -moz-box-shadow: 2px 5px 16px 2px rgba(16, 16, 16, 0.18);
+            box-shadow: 2px 5px 16px 2px rgba(16, 16, 16, 0.18);
+        }
+        
+        .submit {
+            width: 55px;
+            height: 45px;
+            display: block;
+            margin: 2.5em auto 0;
+            background: #52c936;
+            -webkit-border-radius: 10px;
+            -o-border-radius: 10px;
+            -ms-border-radius: 10px;
+            -moz-border-radius: 10px;
+            border-radius: 10px;
+            border: none;
+            cursor: pointer;
+            -webkit-transition: 0.5s all;
+            -o-transition: 0.5s all;
+            -moz-transition: 0.5s all;
+            -ms-transition: 0.5s all;
+            transition: 0.5s all;
+        }
+        
+        .submit span {
+            color: #fff;
+            font-size: 20px;
+        }
+        
+        .submit:hover {
+            opacity: .8;
+            -webkit-transition: 0.5s all;
+            -o-transition: 0.5s all;
+            -moz-transition: 0.5s all;
+            -ms-transition: 0.5s all;
+            transition: 0.5s all;
+        }
+        
+        a.bottom-text-w3ls {
+            color: #757474;
+            font-size: 16px;
+            display: inline-block;
+            margin: 0em 1em 2em;
+            letter-spacing: 1px;
+        }
+        
+        /* //content */
+        
+        /* copyright */
+        .copyright {
+            margin-top: 3.08vw;
+            padding-bottom: 1.5vw;
+        }
+        
+        .copyright h2 {
+            font-size: 16px;
+            color: #fff;
+            letter-spacing: 1px;
+            text-align: center;
+            line-height: 1.8;
+        }
+        
+        .copyright h2 a {
+            color: #1cc7d0;
+            -webkit-transition: 0.5s all;
+            -o-transition: 0.5s all;
+            -moz-transition: 0.5s all;
+            -ms-transition: 0.5s all;
+            transition: 0.5s all;
+        }
+        
+        .copyright h2 a:hover {
+            opacity:.8;
+            -webkit-transition: 0.5s all;
+            -o-transition: 0.5s all;
+            -moz-transition: 0.5s all;
+            -ms-transition: 0.5s all;
+            transition: 0.5s all;
+        }
+        
+        /* //copyright */
+        
+        /* responsive */
+        @media(max-width:1280px) {
+            .top-content-style {
+                padding: 3vw 4vw 5vw;
+            }
+        }
+        
+        @media(max-width:1080px) {
+            h1 {
+                font-size: 3.5vw;
+            }
+        }
+        
+        @media(max-width:991px) {
+            h1 {
+                font-size: 4vw;
+            }
+        
+            .top-content-style {
+                padding: 3vw 4vw 6vw;
+            }
+        }
+        
+        @media(max-width:800px) {
+            h1 {
+                font-size: 5vw;
+                padding: 2.5vw 1vw 3vw;
+            }
+        
+            .top-content-style {
+                padding: 4vw 4vw 9vw;
+            }
+        
+            .copyright {
+                margin-top: 3em;
+                padding-bottom: 1.5em;
+            }
+        }
+        
+        @media(max-width:640px) {
+            h1 {
+                font-size: 6vw;
+                padding: 3vw 1vw 4vw;
+            }
+        }
+        
+        @media(max-width:600px) {
+            .copyright h2 {
+                letter-spacing: 1px;
+            }
+        }
+        
+        @media(max-width:480px) {
+            h1 {
+                font-size: 2em;
+                letter-spacing: 1px;
+            }
+        
+            .top-content-style {
+                padding: 2em 1em 4em;
+            }
+        
+            .copyright h2 {
+                font-size: 15px;
+            }
+        
+            .copyright {
+                margin-top: 2em;
+                padding-bottom: 1em;
+            }
+        
+            p.legend {
+                font-size: 23px;
+            }
+        
+            a.bottom-text-w3ls {
+                font-size: 15px;
+            }
+        }
+        
+        @media(max-width:384px) {
+            .sub-main-w3 form {
+                margin: -2.5em 2em 2em;
+            }
+        
+            h1 {
+                padding: 5vw 1vw 6vw;
+            }
+        }
+        
+        @media(max-width:320px) {
+            h1 {
+                font-size: 1.7em;
+            }
+        
+            .sub-main-w3 form {
+                margin: -2em 1em 1.5em;
+                padding: 1.5em;
+            }
+        
+            .top-content-style {
+                padding: 1.5em 1em 3em;
+            }
+        
+            .copyright h2 {
+                font-size: 14px;
+            }
+        }
+        
+        /* //responsive */
+        </style>
+        
+        

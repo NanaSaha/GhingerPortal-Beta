@@ -1,0 +1,37 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Medication Details</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Confirmed appt</th>
+      <th>Drug</th>
+      <th>Comment</th>
+      <th>User</th>
+      <th>Active status</th>
+      <th>Del status</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @medication_details.each do |medication_detail| %>
+      <tr>
+        <td><%= medication_detail.confirmed_appt_id %></td>
+        <td><%= medication_detail.drug_id %></td>
+        <td><%= medication_detail.comment %></td>
+        <td><%= medication_detail.user_id %></td>
+        <td><%= medication_detail.active_status %></td>
+        <td><%= medication_detail.del_status %></td>
+        <td><%= link_to 'Show', medication_detail %></td>
+        <td><%= link_to 'Edit', edit_medication_detail_path(medication_detail) %></td>
+        <td><%= link_to 'Destroy', medication_detail, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Medication detail', new_medication_detail_path %>

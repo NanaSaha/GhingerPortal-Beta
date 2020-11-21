@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Pre appointment:</strong>
+  <%= @lab_detail.pre_appointment_id %>
+</p>
+
+<p>
+  <strong>Lab service:</strong>
+  <%= @lab_detail.lab_service_id %>
+</p>
+
+<p>
+  <strong>Comment:</strong>
+  <%= @lab_detail.comment %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @lab_detail.user_id %>
+</p>
+
+<p>
+  <strong>Active status:</strong>
+  <%= @lab_detail.active_status %>
+</p>
+
+<p>
+  <strong>Del status:</strong>
+  <%= @lab_detail.del_status %>
+</p>
+
+<%= link_to 'Edit', edit_lab_detail_path(@lab_detail) %> |
+<%= link_to 'Back', lab_details_path %>

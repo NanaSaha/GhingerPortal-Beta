@@ -1,0 +1,2 @@
+module PreConfirmedAppointmentsHelper
+end

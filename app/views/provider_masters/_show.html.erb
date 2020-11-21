@@ -1,0 +1,53 @@
+<div></div>
+<div id="id01" class="w3-modal w3-card-4" style="display: block">
+    <div class="w3-modal-content w3-animate-top w3-card-4 w3-light-gray" style="width: 40%">
+    	<% if flash[:notice] %>
+		  <p class="flash_notice " id = 'notes' style = "margin-top: 5px"><%= notice %></p>
+		<%end%>
+      <header class="w3-container"> 
+        <h4>Service Details</h4> 
+      </header>
+      <br />
+      <!-- <div class="col-md-1 col-xs-12"></div> -->
+      <div class="col-md-12 col-xs-12 w3-padding">
+      	<div class="w3-container "> 	
+			<table class="table table-condensed table-bordered table-striped">
+				 <tr><td class="w3-teal"><strong>Provider: </strong></td><td style="padding-left: 6%""><%= @provider_master.provider_name %></td></tr>
+				 <tr><td class="w3-teal"><strong>Alias/Othernames: </strong></td><td style="padding-left: 6%""><%= @provider_master.alias %></td></tr>
+				 <tr><td class="w3-teal"><strong>Provider Type: </strong></td><td style="padding-left: 6%""><%= @provider_master.service_prov_type.service_prov_type_title if @provider_master.service_prov_type %></td></tr>
+				 
+				 <tr><td class="w3-teal" ><strong>Remark: </strong></td><td style="padding-left: 6%""><%= @provider_master.comment %></td></tr>
+				 <!-- <tr><td class="w3-teal"><strong>Entity: </strong></td><td style="padding-left: 6%""><%= @provider_master.entity_id %></td></tr> -->
+				 <tr><td class="w3-teal" ><strong>Added By: </strong></td><td style="padding-left: 6%""><%= @provider_master.user.person_info.surname if @provider_master.user %> <%= @provider_master.user.person_info.other_names if @provider_master.user %></td></tr>
+				 
+		
+				 <% if @provider_master.active_status == true %>  
+		      		<tr><td class="w3-teal"><strong>Status: </strong></td><td style="padding-left: 6%"> Active </td></tr>
+		      		
+		      	 <%elsif @provider_master.active_status == false %>
+	 	      		<tr><td class="w3-teal"><strong>Status: </strong></td><td style="padding-left: 6%; color: red">Inactive</td></tr>
+		         <%end%>
+		         	
+			</table>
+			<!-- <%#= link_to 'Extra Info', provider_details_path(:provider_id => @provider_master.id), remote: true, class: "w3-right w3-button w3-small w3-round-large w3-green w3-hover-green" %> -->
+			<!-- <%#= link_to 'Back', provider_masters_path, remote: true, class: "w3-left w3-button w3-small w3-round-large w3-blue w3-hover-blue" %> -->
+        </div>
+      </div> 
+      <!-- <div class="col-md-1 col-xs-12"></div> -->
+      <br />
+      <footer class="w3-container">
+        <%#= link_to 'Back', find_prov_type_path(:prov_type_id => @provider_master.service_prov_type.id), :remote=> true, class: "w3-button w3-black w3-hover-black w3-right w3-card-4 w3-small w3-round-xlarge" %>
+      <br />
+      </footer>
+      <br />
+    </div>
+    <br />
+</div>
+
+<script type="text/javascript">
+$(document).ready(function(){
+  setTimeout(function(){
+    $('#notes').remove();
+  }, 4000);
+ })
+</script> 

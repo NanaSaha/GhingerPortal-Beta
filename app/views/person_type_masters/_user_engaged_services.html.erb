@@ -1,0 +1,79 @@
+ <h4>Personnel Engaged Services</h4>
+<div class="pull-right" style = 'margin-top: -3%;'>
+	 <label class="">Display <u>No</u>: </label> 
+	  <%= select_tag :per_page, options_for_select([5,10, 20, 30, 40,50, 70,100], params[:per_page].to_i), :data => { :remote => true, 
+	 	             :url => url_for( :controller => "person_infos", :action => "index" )
+	 	             }, class: "w3-bordered w3-round-xlarge w3-btn w3-small w3-card-4", remote: true %>	                                                                                                        
+</div>
+
+<div class="pull-left" style = 'margin-top: -3%;'>
+	 <label class="">Filter by Person Type: </label> 
+	  
+	  <%= select_tag :user_type_title, options_from_collection_for_select(PersonTypeMaster.all, "user_type_title", "user_type_title", @person_type), :data => {:remote => true, 
+	  	:url => url_for(:controller => "person_infos", :action => "index")}, remote: true,  class: "w3-bordered w3-round-xlarge w3-btn w3-small w3-card-4", :prompt => "Select to filter" %>
+	 	      	                                                                                                        
+ </div>
+ <br />
+
+<div class="table-responsive">
+	<table class="table table-condensed table-bordered table-striped w3-card">
+	  <thead>
+	    <tr class="w3-teal">
+	      <th>Personnel</th>
+          <th>User service</th>
+	      <th>Status</th>
+	      <th>Details</th>
+	      <th colspan="2">Options</th>
+	    </tr>
+	  </thead>
+	 
+	  <tbody>
+	    <% @engaged_user_services.each do |engaged_user_service| %>
+	      <tr>
+	        <td><%= engaged_user_service.person_id %></td>
+            <td><%= engaged_user_service.user_service_id %></td>
+	       
+	       	<% if engaged_user_service.active_status == true %>  
+	      		<td style="color: ">Active</td>
+	      		 
+	      	<%elsif engaged_user_service.active_status == false %>
+	      		<td style="color: red">Inactive</td>
+	      		
+	        <%end%>
+	        
+	        <td style="width: 5px"><%= link_to "Details", engaged_user_service , remote: true, class: "w3-button w3-indigo w3-card w3-hover-indigo w3-small w3-round w3-round-xxlarge" %></td>
+	        
+	        
+	        <td style="width: 5px"><%= link_to 'Edit', edit_engaged_user_service_path(engaged_user_service), remote: true, class: "w3-button w3-gray w3-card w3-hover-gray w3-small w3-round w3-round-xxlarge" %></td>
+	        
+	        
+	        <td style="width: 15px">
+	           <% if engaged_user_service.active_status == false %>
+	           	 <%= link_to 'Enable', enable_engaged_user_service_path(:chosen =>engaged_user_service.id), data: { confirm: 'You are about to enable the selected user service. Are you sure?' }, remote: true,  class: "w3-button w3-blue w3-hover-blue w3-small w3-round-xxlarge w3-card" %>
+                 
+               <% else engaged_user_service.active_status == true %>
+	              <%= link_to 'Disable', disable_engaged_user_service_path(:chosen => engaged_user_service.id),  data: { confirm: 'You are about to disable the selected user service. Are you sure?' }, remote: true,  class: "w3-button w3-red w3-hover-red w3-small w3-round w3-round-xxlarge w3-card" %> 
+	           
+               <% end %>
+	        	
+	       </td>
+	        
+	    <% end %>
+	  </tbody>
+	</table>
+</div>
+<br>
+
+<div>
+ <%= link_to '+', new_engaged_user_service_path, :remote=> true, class: "w3-button w3-circle w3-teal w3-hover-teal w3-left w3-card-4" %>
+ <%= will_paginate @engaged_user_services,  renderer: BootstrapPagination::Rails, previous_label: 'Older', next_lable: 'Newer', class: "w3-right pagination-sm w3-card-4", :params => { :controller => "engaged_user_services", :action => "index", count: params[:count], page: params[:page] }, :remote => true  %>
+<br />
+</div>
+<br />
+
+<script>
+  $(function(){
+    $('.pagination a').attr('data-remote', 'true')
+  });
+
+</script>

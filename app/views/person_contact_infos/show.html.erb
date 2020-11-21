@@ -1,0 +1,54 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Person:</strong>
+  <%= @person_contact_info.person_id %>
+</p>
+
+<p>
+  <strong>Contact number:</strong>
+  <%= @person_contact_info.contact_number %>
+</p>
+
+<p>
+  <strong>Email:</strong>
+  <%= @person_contact_info.email %>
+</p>
+
+<p>
+  <strong>Postal address:</strong>
+  <%= @person_contact_info.postal_address %>
+</p>
+
+<p>
+  <strong>Location address:</strong>
+  <%= @person_contact_info.location_address %>
+</p>
+
+<p>
+  <strong>Comment:</strong>
+  <%= @person_contact_info.comment %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @person_contact_info.user_id %>
+</p>
+
+<p>
+  <strong>Entity:</strong>
+  <%= @person_contact_info.entity_id %>
+</p>
+
+<p>
+  <strong>Active status:</strong>
+  <%= @person_contact_info.active_status %>
+</p>
+
+<p>
+  <strong>Del status:</strong>
+  <%= @person_contact_info.del_status %>
+</p>
+
+<%= link_to 'Edit', edit_person_contact_info_path(@person_contact_info) %> |
+<%= link_to 'Back', person_contact_infos_path %>

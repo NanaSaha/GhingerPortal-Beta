@@ -1,0 +1,79 @@
+
+<h4>Human Parts</h4>
+<div class="pull-right" style = 'margin-top: -3%; '>
+	  <label class="">Display <u>No</u>: </label> 
+	     <!-- <%#= select_tag :count, options_for_select([5,10,15,20,25,30], params[:count].to_i), :onchange => "if(this.value){ window.location='?count='+this.value ;}" %> -->
+	   <%= select_tag :per_page, options_for_select([5,10, 20, 30, 40,50, 70,100], params[:per_page].to_i), :data => { :remote => true, 
+	 	            :url => url_for( :controller => "affected_system_masters", :action => "index" )
+	 	             }, :onchange => "if(this.value){window.location='?per_page='+this.value;}", class: "w3-bordered w3-round-xlarge w3-btn w3-small w3-card-4" %>	
+</div>
+<div class="pull-left" style = 'margin-top: -3%;'>
+	 <label class="">Filter by: </label> 
+	  <%= select_tag :title, options_from_collection_for_select(AffectedSystemMaster.all, "title", "title", @part), :data => {
+	  	:url => url_for(:controller => "affected_system_masters", :action => "index")}, :onchange => "if(this.value){window.location='?title='+this.value;}",  class: "w3-bordered w3-round-xlarge w3-btn w3-small w3-card-4", :prompt=> "Select to filter" %>
+	 	      	                                                                                                        
+ </div>
+
+<br /> 
+<div class="table-responsive">
+	<table class="table table-condensed table-bordered table-striped w3-card">
+	  <thead>
+	    <tr class="w3-teal">
+	      <th>Part</th>
+	      <th>Remark</th>
+	      <!-- <th>User</th>
+	      <th>Entity</th> -->
+	      <th>Status</th>
+	      <!-- <th>Del status</th> -->
+	      <th colspan="2" style="width: 15px">Options</th>
+	    </tr> 
+	  </thead>
+	
+	  <tbody>
+	    <% @affected_system_masters.each do |affected_system_master| %>
+	      <tr>
+	        <td><%= affected_system_master.title %></td>
+	        <td><%= affected_system_master.comment %></td>
+	        <!-- <td><%= affected_system_master.user_id %></td>
+	        <td><%= affected_system_master.entity_id %></td> -->
+	        <% if affected_system_master.active_status == true %>  
+	      		<td style="color: ">Active</td>
+	      		
+	      	<%elsif affected_system_master.active_status == false %>
+	      		<td style="color: red">Inactive</td>
+	      		
+	        <%end%>
+	        
+	        <!-- <td><%= affected_system_master.active_status %></td> -->
+	        <!-- <td><%= affected_system_master.del_status %></td> -->
+	        <!-- <td style="width: 5px"><%= link_to 'Show', affected_system_master %></td> -->
+	        <td style="width: 15px"><%= link_to 'Edit', edit_affected_system_master_path(affected_system_master), class: "w3-button w3-gray w3-card w3-hover-gray w3-small w3-round w3-round-xxlarge" %></td>
+	        <!-- <td style="width: 5px"><%= link_to 'Destroy', affected_system_master, method: :delete, data: { confirm: 'Are you sure?' } %></td> -->
+	      
+	      <td style="width: 15px">
+	           <% if affected_system_master.active_status == false %>
+	           	 <%= link_to 'Enable', enable_part_path(:chosen => affected_system_master.id), data: { confirm: 'You are about to enable the selected human part, do you want to continue?' },  class: "w3-button w3-blue w3-hover-blue w3-small w3-round-xxlarge w3-card" %>
+                  <!-- <span onclick="document.getElementById('confirm_enable').style.display='block'" class="w3-button w3-blue w3-hover-blue w3-small w3-round-xxlarge w3-card">Enable</span> -->
+               
+               <% else affected_system_master.active_status == true %>
+	              <%= link_to 'Disable', disable_part_path(:chosen => affected_system_master.id), data: { confirm: 'You are about to disable the selected human part, do you want to continue?' },  class: "w3-button w3-red w3-hover-red w3-small w3-round w3-round-xxlarge w3-card" %> 
+	            
+	               <!-- <span onclick="document.getElementById('confirm_disable').style.display='block'" class="w3-button w3-red w3-hover-red w3-small w3-round w3-round-xxlarge w3-card"> Disable</span> -->
+               
+               <% end %>
+	        	
+	       </td>
+	      	
+	      </tr>
+	    <% end %>
+	  </tbody>
+	</table>
+</div>
+
+<div>
+ <%= link_to '+', new_affected_system_master_path, class: "w3-button w3-circle w3-teal w3-hover-teal w3-left w3-card-4" %>
+ <%= will_paginate @affected_system_masters,  renderer: BootstrapPagination::Rails, previous_label: 'Older', next_lable: 'Newer', class: "w3-right pagination-sm w3-card-4" %>
+<br />
+</div>
+<br />
+

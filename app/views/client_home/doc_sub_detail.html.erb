@@ -1,0 +1,73 @@
+<br />
+<div class="row">
+	<div class="col-md-3 col-xs-12"></div>
+	<div class="col-md-6 col-xs-12 w3-card-4 w3-round-large">
+		<!-- <br /> -->
+        <h4>Subscription Details</h4>
+        
+        <% @sub = SubscriptionNewMain.where(id: params[:id])[0] %>
+
+    <table class="table table-condensed table-bordered table-striped">
+        <tr><td class="w3-teal"><strong>Full Name: </strong></td><td style="padding-left: 6%""><%= @sub.f_name+' '+@sub.middle_name+' '+@sub.last_name %></td></tr>
+        <tr><td class="w3-teal" ><strong>Phone Number: </strong></td><td style="padding-left: 6%""><%= @sub.phone_number %></td></tr>
+        <tr><td class="w3-teal" ><strong>Email: </strong></td><td style="padding-left: 6%""><%= @sub.email %></td></tr>
+        <tr><td class="w3-teal" ><strong>Subscription: </strong></td><td style="padding-left: 6%""><%= @sub.sub_name %></td></tr>
+        <tr><td class="w3-teal" ><strong>Amount GHC: </strong></td><td style="padding-left: 6%""><%= @sub.amount %></td></tr>
+        
+
+        <tr><td class="w3-teal" ><strong>Gender: </strong></td><td style="padding-left: 6%""><%= @sub.gender %></td></tr>
+        <tr><td class="w3-teal" ><strong>Marital Status: </strong></td><td style="padding-left: 6%""><%= @sub.marital_status %></td></tr>
+        <tr><td class="w3-teal" ><strong>Religion: </strong></td><td style="padding-left: 6%""><%= @sub.religion %></td></tr>
+
+        <tr><td class="w3-teal" ><strong>Subscription Initial: </strong></td><td style="padding-left: 6%""><%= @sub.sub_initial %></td></tr>
+        <tr><td class="w3-teal" ><strong>Address: </strong></td><td style="padding-left: 6%""><%= @sub.address %></td></tr>
+        
+        <tr><td class="w3-teal" ><strong>Emergency Name: </strong></td><td style="padding-left: 6%""><%= @sub.emergency_name %></td></tr>
+        <tr><td class="w3-teal" ><strong>Emergency Phone: </strong></td><td style="padding-left: 6%""><%= @sub.emergency_phone %></td></tr>
+        <tr><td class="w3-teal" ><strong>Emergency Email: </strong></td><td style="padding-left: 6%""><%= @sub.emergency_email %></td></tr>
+        <tr><td class="w3-teal" ><strong>Emergency Address: </strong></td><td style="padding-left: 6%""><%= @sub.emergency_address %></td></tr>
+        
+        <tr><td class="w3-teal" ><strong>Doctor: </strong></td><td style="padding-left: 6%""><%= @sub.person_info.surname+''+@sub.person_info.other_names if @sub.person_info %></td></tr>
+        
+        
+        
+			 <% if @sub.status == true %>  
+       <tr><td class="w3-teal"><strong>Assigned Status: </strong></td><td style="padding-left: 6%"> Assigned </td></tr>
+       
+      <%elsif @sub.status == false %>
+       <tr><td class="w3-teal"><strong>Assigned Status: </strong></td><td style="padding-left: 6%; color: red">Not Assigned</td></tr>
+      <%end%>	
+
+      <% if @sub.paid_status == true %>  
+      <tr><td class="w3-teal"><strong>Paid Status: </strong></td><td style="padding-left: 6%"> Paid </td></tr>
+      
+     <%elsif @sub.paid_status == false %>
+      <tr><td class="w3-teal"><strong>Paid Status: </strong></td><td style="padding-left: 6%; color: red">Not Paid</td></tr>
+     <%end%>	
+
+     
+
+      
+
+    </table>
+    <div class="w3-container"> 
+
+        <%= link_to 'Back', doctor_subscription_path, class: "w3-left w3-button w3-small w3-round-large w3-blue w3-hover-blue" %>
+        <%= link_to 'View remarks', subscription_remarks_path(sub_id: @sub), class: "w3-right w3-button w3-small w3-round-large w3-green w3-hover-green" %>
+    </div>
+	   <br /><br />  <br /><br />
+	</div>
+	<div class="col-md-3 col-xs-12"></div> 
+</div>
+<br />
+<br /><br />
+     
+
+
+
+
+
+
+
+
+

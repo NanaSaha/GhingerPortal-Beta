@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  condition_name: MyString
+  comment: MyString
+  user_id: 1
+  active_status: false
+  del_status: false
+
+two:
+  condition_name: MyString
+  comment: MyString
+  user_id: 1
+  active_status: false
+  del_status: false

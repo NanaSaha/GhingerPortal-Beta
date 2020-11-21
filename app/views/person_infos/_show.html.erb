@@ -1,0 +1,43 @@
+<div></div>
+<div id="id01" class="w3-modal w3-card-4" style="display: block">
+    <div class="w3-modal-content w3-animate-opacity w3-card-4 w3-light-gray" style="width: 40%">
+    	<div style="max-width: 70%; text-align: center; margin-left: 15%; margin-top: 15px">
+	    	<% if flash[:notice] %>
+			  <p class="flash_notice " id = 'notes' style = ""><%= notice %></p>
+			<%end%>
+    	</div>
+    	
+		
+      <header class="w3-container"> 
+        <h4>Player Detail</h4> 
+      </header>
+      	<div class="w3-container"> 	
+	      	  <table class="table table-condensed table-bordered table-striped w3-card">
+				 <tr><td class="w3-teal"><strong>Surname: </strong></td><td style="padding-left: 6%""><%= @person_info.surname %>  </td></tr>
+				 <tr><td class="w3-teal" ><strong>Othername(s): </strong></td><td style="padding-left: 6%""><%= @person_info.other_names %> </td></tr>				 
+				 <tr><td class="w3-teal"><strong>Person Type: </strong></td><td style="padding-left: 6%""><%= @person_info.person_type_master.user_type_title %></td></tr>			 
+				  <tr><td class="w3-teal" ><strong>Contact: </strong></td><td style="padding-left: 6%""><%= @person_info.person_contact_infos[0].contact_number %> </td></tr>
+				  <tr><td class="w3-teal" ><strong>Email: </strong></td><td style="padding-left: 6%""><%= @person_info.person_contact_infos[0].email %> </tr>	
+				 <tr><td class="w3-teal" ><strong>Postal Address: </strong></td><td style="padding-left: 6%""><%= @person_info.person_contact_infos[0].postal_address %> </td></tr>
+				 <tr><td class="w3-teal" ><strong>Location Address: </strong></td><td style="padding-left: 6%""><%= @person_info.person_contact_infos[0].location_address %> </td></tr>		
+			  </table>
+        </div>
+      
+      <br />
+      <footer class="w3-container">
+        <%= link_to 'Back', person_infos_path, :remote=> true, class: "w3-button w3-black w3-hover-black w3-right w3-card-4 w3-small w3-round-xlarge" %>
+      <br />
+      </footer>
+      <br />
+    </div>
+    <br />
+</div>
+
+<script type="text/javascript">
+$(document).ready(function(){
+  setTimeout(function(){
+    $('#notes').remove();
+  }, 3000);
+ })
+</script>
+

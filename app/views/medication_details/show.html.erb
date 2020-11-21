@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Confirmed appt:</strong>
+  <%= @medication_detail.confirmed_appt_id %>
+</p>
+
+<p>
+  <strong>Drug:</strong>
+  <%= @medication_detail.drug_id %>
+</p>
+
+<p>
+  <strong>Comment:</strong>
+  <%= @medication_detail.comment %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @medication_detail.user_id %>
+</p>
+
+<p>
+  <strong>Active status:</strong>
+  <%= @medication_detail.active_status %>
+</p>
+
+<p>
+  <strong>Del status:</strong>
+  <%= @medication_detail.del_status %>
+</p>
+
+<%= link_to 'Edit', edit_medication_detail_path(@medication_detail) %> |
+<%= link_to 'Back', medication_details_path %>

@@ -1,0 +1,88 @@
+<div class="w3-bar w3-black">
+	<button class="w3-bar-item w3-button tablink  hidden" onclick="openCity(event,'G_Appt');">App</button>
+    <!-- <button class="w3-bar-item w3-button tablink w3-teal " onclick="openCity(event,'Pre_appointment');">Pre Appointments</button>
+    <button class="w3-bar-item w3-button tablink " onclick="openCity(event,'Confirm');">Confirmed Appointments</button>  
+    <button class="w3-bar-item w3-button tablink" onclick="openCity(event,'PDS');">Confirmed PDS</button> -->
+ </div>
+
+
+<div id="G_App" class="w3-container w3-display-container city w3-border" style="display:none; margin-bottom: 5%">
+  <span onclick="this.parentElement.style.display='none'"
+  class="w3-button w3-large w3-display-topright">&times;</span>
+  <br /><br />
+    <%= render :partial=> 'doctor_appointments' %>
+</div>
+
+
+
+<br /><br />
+<div class="clearfix"></div>
+
+<script>
+function openCity(evt, cityName) {
+  var i, x, tablinks;
+  x = document.getElementsByClassName("city");
+  for (i = 0; i < x.length; i++) {
+      x[i].style.display = "none";
+  }
+  tablinks = document.getElementsByClassName("tablink");
+  for (i = 0; i < x.length; i++) {
+      tablinks[i].className = tablinks[i].className.replace(" w3-teal", "");
+  }
+  document.getElementById(cityName).style.display = "block";
+  evt.currentTarget.className += " w3-teal";
+}
+</script>
+
+
+
+
+
+
+
+
+<!-- <p id="notice"><%= notice %></p>
+
+<h1>Listing Confirmed Appointments</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Pre appointment</th>
+      <th>Provider</th>
+      <th>Complaint desc</th>
+      <th>Confirmed date</th>
+      <th>Confirmed time</th>
+      <th>Comment</th>
+      <th>User</th>
+      <th>Entity</th>
+      <th>Active status</th>
+      <th>Del status</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @confirmed_appointments.each do |confirmed_appointment| %>
+      <tr>
+        <td><%= confirmed_appointment.pre_appointment_id %></td>
+        <td><%= confirmed_appointment.provider_id %></td>
+        <td><%= confirmed_appointment.complaint_desc %></td>
+        <td><%= confirmed_appointment.confirmed_date %></td>
+        <td><%= confirmed_appointment.confirmed_time %></td>
+        <td><%= confirmed_appointment.comment %></td>
+        <td><%= confirmed_appointment.user_id %></td>
+        <td><%= confirmed_appointment.entity_id %></td>
+        <td><%= confirmed_appointment.active_status %></td>
+        <td><%= confirmed_appointment.del_status %></td>
+        <td><%= link_to 'Show', confirmed_appointment %></td>
+        <td><%= link_to 'Edit', edit_confirmed_appointment_path(confirmed_appointment) %></td>
+        <td><%= link_to 'Destroy', confirmed_appointment, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Confirmed appointment', new_confirmed_appointment_path %> -->

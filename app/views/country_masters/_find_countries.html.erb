@@ -1,0 +1,55 @@
+<% if flash[:notice] %>
+  <p class="flash_notice " id = 'notes' style = "margin-top: 5px"><%= notice %></p>
+<%end%>
+<!-- <div class="col-md-1 col-xs-12"></div> -->
+
+<div class="col-md-12 col-xs-12">
+	<h4> <%= @country %>  </h4>
+	<div class="table-responsive">
+	<table class="table table-condensed table-bordered table-striped w3-card-4">
+	  <thead>
+	    <tr class="w3-teal">
+	      <th>Region/state name</th> 
+	      <th>Status</th>
+	      <th style="width: 15px">Details</th>
+	    </tr>
+	  </thead>
+	
+	  <tbody>
+	    <% @region_masters.each do |region_master| %>
+	      <tr>
+	        <td style="50px"><%= region_master.region_state_name %></td>
+	        
+	        <% if region_master.active_status == true %>  
+		       <td style="50px">Active</td>
+		      		  
+		    <%elsif region_master.active_status == false %>
+		       <td style="color: red; width: 50px">Inactive</td>  		
+		    <%end%>
+		    
+		     <td style="15px"><%= link_to 'Details', region_master, remote: true, class: "w3-btn w3-indigo w3-hover-indigo w3-small w3-round-xlarge w3-middle" %></td>
+	      </tr>
+	    <% end %>
+	  </tbody>
+	</table>
+	
+	 <%= will_paginate @region_masters,  renderer: BootstrapPagination::Rails, previous_label: 'Older', next_lable: 'Newer', class: "w3-right pagination-sm w3-card-4", :params => { :controller => "country_masters", :action => "find_countries", count: params[:count], page: params[:page] } %>
+	</div> 
+	
+	
+	<div>
+	  <%= link_to 'Back', country_masters_path, :remote=> true, class: "w3-button  w3-black w3-hover-black w3-right w3-small w3-round-xxlarge w3-card" %>
+	  <%= link_to '+', new_region_master_path(:country_id => @current_country_id), :remote=> true, class: "w3-button w3-circle w3-teal w3-hover-teal w3-left w3-card" %>
+	<br />
+	</div>
+	<br>
+</div>
+
+<script>
+  $(function(){
+    $('.pagination a').attr('data-remote', 'true')
+  });
+
+</script>
+<!-- <div class="col-md-1 col-xs-12"></div> -->
+<!-- <%= link_to 'New Region master', new_region_master_path %> -->

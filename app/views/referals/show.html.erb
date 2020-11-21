@@ -1,0 +1,44 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Surname:</strong>
+  <%= @referal.surname %>
+</p>
+
+<p>
+  <strong>Other names:</strong>
+  <%= @referal.other_names %>
+</p>
+
+<p>
+  <strong>Dob:</strong>
+  <%= @referal.dob %>
+</p>
+
+<p>
+  <strong>Contact:</strong>
+  <%= @referal.contact %>
+</p>
+
+<p>
+  <strong>Refered by:</strong>
+  <%= @referal.refered_by %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @referal.user_id %>
+</p>
+
+<p>
+  <strong>Active status:</strong>
+  <%= @referal.active_status %>
+</p>
+
+<p>
+  <strong>Del status:</strong>
+  <%= @referal.del_status %>
+</p>
+
+<%= link_to 'Edit', edit_referal_path(@referal) %> |
+<%= link_to 'Back', referals_path %>

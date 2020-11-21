@@ -1,0 +1,35 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  service_prov_id: 1
+  suburb_id: 1
+  contact_number1: MyString
+  contact_number2: MyString
+  postal_address: MyString
+  location_address: MyString
+  contact_person_name: MyString
+  web_url: MyString
+  longitude: MyString
+  latitude: MyString
+  comment: MyString
+  entity_id: 1
+  user_id: 1
+  active_status: false
+  del_status: false
+
+two:
+  service_prov_id: 1
+  suburb_id: 1
+  contact_number1: MyString
+  contact_number2: MyString
+  postal_address: MyString
+  location_address: MyString
+  contact_person_name: MyString
+  web_url: MyString
+  longitude: MyString
+  latitude: MyString
+  comment: MyString
+  entity_id: 1
+  user_id: 1
+  active_status: false
+  del_status: false

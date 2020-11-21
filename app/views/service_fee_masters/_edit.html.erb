@@ -1,0 +1,90 @@
+<br>
+<%= simple_form_for @service_fee_master, :remote => true  do |f| %>
+    <div id="id01" class="w3-modal w3-card-4 w3-round-large" style="display: block;">
+      <div class="w3-modal-content w3-animate-top w3-card-4 w3-light-gray" style="width: 30%; max-height: 80%; overflow-y: auto;">
+        <div style="max-width: 70%; text-align: center; margin-left: 15%; margin-top: 15px">
+          <header class="w3-container">
+            <h4>Service Price</h4>
+          </header>
+          <% if flash[:notice] %>
+              <p class="flash_notice " id = 'notes' style = ""><%= notice %></p>
+          <% end %>
+        </div>
+        <div class="w3-container" >
+          <div class="form-inputs">
+            <%= f.input :appt_type_id, collection: AppointmentType.where("appointment_types.ref_id !=? and appointment_types.ref_id !=? and appointment_types.ref_id !=?", "MA", "PD", "MD"), label_method: :title, value_method: :ref_id, input_html:{id: "appt_type"} %>
+              <span class="hidden" id="service">
+                <%= f.input :service_id, collection:  @lab_list,  label_method: :first, value_method: :last, input_html:{class:"combobox form-control", data: { placeholder: "Select lab service" } } %>
+              </span>
+            <%= f.input :req_urgency, collection: RequestUrgency.all, label_method: :urgency, value_method: :ref_id %>
+            <%= f.input :fee %>
+            <%= f.label :comment, "Comment"%>
+            <%= f.text_area :comment, :rows=> 5, style: "width: 100%;"%>
+            <%#= f.input :user_id, as: :hidden, input_html: {value: current_user.id } %>
+            <%##= f.input :active_status, as: :hidden, input_html: {value: 1} %>
+            <%#= f.input :del_status, as: :hidden, input_html: {value: 0}  %>
+          </div>
+        </div>
+        <br>
+        <footer class="w3-container">
+          <%= f.button :submit, class: "w3-button w3-teal w3-hover-teal w3-right w3-card-4 w3-small w3-round-xlarge", value: "Submit" %>
+
+          <span class="w3-button w3-black w3-hover-black w3-left w3-card-4 w3-small w3-round-xlarge" onclick="document.getElementById('id01').style.display='none'">Back</span>
+          <br />
+        </footer>
+<% end %>
+<br />
+</div>
+<br />
+</div>
+
+<script>
+    $(document).ready(function () {
+        var appt_type;
+        appt_type = document.getElementById("appt_type").value;
+        if(appt_type == "LA"){
+            $("#service").removeClass("hidden");
+        }
+        else
+        {
+            $("#service").addClass("hidden");
+            $("#service").value = " ";
+//          document.getElementById("service").value = " ";
+        }
+
+        $("#appt_type").change(function () {
+//          alert("changed");
+            appt_type = document.getElementById("appt_type").value;
+//          alert(appt_type);
+            if(appt_type == "LA"){
+                $("#service").removeClass("hidden");
+            }
+            else
+            {
+                $("#service").addClass("hidden");
+                $("#service").value = " ";
+//              document.getElementById("service").value = " ";
+            }
+        });
+    })
+</script>
+<style>
+    .input-group{
+        width: 100%;
+    }
+    .typeahead{
+        width: 100%;
+    }
+
+</style>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('form').attr('autocomplete', 'off');
+
+        $('.combobox').combobox();
+
+        $('span.input-group-addon').addClass("hidden");
+
+    });
+</script>

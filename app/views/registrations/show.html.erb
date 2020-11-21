@@ -1,0 +1,55 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Surname:</strong>
+  <%= @registration.surname %>
+</p>
+
+<p>
+  <strong>Other names:</strong>
+  <%= @registration.other_names %>
+</p>
+
+<p>
+  <strong>Mobile number:</strong>
+  <%= @registration.mobile_number %>
+</p>
+
+<p>
+  <strong>Password:</strong>
+  <%= @registration.password %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @registration.status %>
+</p>
+
+<p>
+  <strong>Telco:</strong>
+  <%= @registration.telco %>
+</p>
+
+<p>
+  <strong>Src:</strong>
+  <%= @registration.src %>
+</p>
+
+<p>
+  <strong>Verified:</strong>
+  <%= @registration.verified %>
+</p>
+
+<p>
+  <strong>Email:</strong>
+  <%= @registration.email %>
+</p>
+
+
+<p>
+  <strong>User type:</strong>
+  <%= @registration.user_type %>
+</p>
+
+<%= link_to 'Edit', edit_registration_path(@registration) %> |
+<%= link_to 'Back', registrations_path %>

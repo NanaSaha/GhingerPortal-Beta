@@ -1,0 +1,35 @@
+
+<br />
+<div class="row">
+	<div class="col-md-3 col-xs-12"></div>
+	<div class="col-md-6 col-xs-12 w3-card-4 w3-round-large">
+		<!-- <br /> -->
+		<h4>User Service Details</h4>
+		<table class="table table-condensed table-bordered table-striped">
+			 <tr><td class="w3-teal"><strong>User Servie: </strong></td><td style="padding-left: 6%""><%= @user_service.service_desc %></td></tr>
+			 <tr><td class="w3-teal"><strong>Alias: </strong></td><td style="padding-left: 6%""><%= @user_service.service_alias %></td></tr>
+			 <tr><td class="w3-teal" ><strong>Remark: </strong></td><td style="padding-left: 6%""><%= @user_service.comment %></td></tr>
+			 <tr><td class="w3-teal" ><strong>Added By: </strong></td><td style="padding-left: 6%""><%= @user_service.user_id %></td></tr>
+			 	
+			 <% if @user_service.active_status == true %>  
+	      		<tr><td class="w3-teal"><strong>Status: </strong></td><td style="padding-left: 6%"> Active </td></tr>
+	      		
+			 <% elsif @user_service.active_status == false %>
+			      		<tr><td class="w3-teal"><strong>Status: </strong></td><td style="padding-left: 6%; color: red">Inactive</td></tr>
+			 <% end %>	
+		</table>
+				
+		<%= link_to 'Back', user_services_path , class: "w3-left w3-button w3-small w3-round-large w3-blue w3-hover-blue" %>
+	   <br /><br />
+	</div>
+	<div class="col-md-3 col-xs-12"></div> 
+</div>
+<br />  
+
+<script type="text/javascript">
+$(document).ready(function(){
+  setTimeout(function(){
+    $('#notes').remove();
+  }, 4000);
+ });
+</script>

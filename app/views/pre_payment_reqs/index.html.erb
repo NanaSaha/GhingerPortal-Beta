@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Pre Payment Reqs</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Billing info</th>
+      <th>Amount</th>
+      <th>Reference</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @pre_payment_reqs.each do |pre_payment_req| %>
+      <tr>
+        <td><%= pre_payment_req.billing_info_id %></td>
+        <td><%= pre_payment_req.amount %></td>
+        <td><%= pre_payment_req.reference %></td>
+        <td><%= link_to 'Show', pre_payment_req %></td>
+        <td><%= link_to 'Edit', edit_pre_payment_req_path(pre_payment_req) %></td>
+        <td><%= link_to 'Destroy', pre_payment_req, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Pre payment req', new_pre_payment_req_path %>

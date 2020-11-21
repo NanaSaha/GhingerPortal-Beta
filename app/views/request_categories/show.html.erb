@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Category:</strong>
+  <%= @request_category.category %>
+</p>
+
+<p>
+  <strong>Ref:</strong>
+  <%= @request_category.ref_id %>
+</p>
+
+<%= link_to 'Edit', edit_request_category_path(@request_category) %> |
+<%= link_to 'Back', request_categories_path %>

@@ -1,0 +1,77 @@
+<!-- <%= @patient_video_appointments.inspect %> -->
+<%  if  @patient_video_appointments.blank?%>
+	<p class="alert alert-danger" id = '' style = "margin-top: 5px"><%= flash.now[:notice] = "Sorry you do not have any appointment" %></p>
+<% else %>
+	<h4>Video Appointments by <br />
+		<%= @patient_video_appointments[0].person_info.surname %> <%= @patient_video_appointments[0].person_info.other_names %>
+	</h4>
+	<div class = "table-responsive">
+		<table class="table table-condensed table-bordered w3-striped w3-card-4 w3-hoverable">
+		  <thead>	  
+			    <tr class="w3-black w3-card">
+			    	<th>N<u>o</u></th>      
+				    <th>Date/Time</th>	      
+			        <th>Confirm Status</th>
+				    <th>Attend Status</th>
+				    <th>Source</th>
+				    <th></th>
+			    </tr> 
+			    
+			  </thead> 
+			  <tbody>   
+				 <%  @patient_video_appointments.each_with_index do | patient_video_appointment, index| %>
+					   <tr class="w3-hover-pale-green">
+					   		<td style="width: 10%;"><%= index+=1%></td>
+					   		<td style="width: %;"><%= patient_video_appointment.created_at.strftime("%F %R") %></td>
+					   		<% if patient_video_appointment.confirm_status == true %>
+					   			<td>Confirmed</td>
+					   		<%elsif patient_video_appointment.confirm_status == false %>
+					   			<td>Unconfirmed</td>
+					   		<% end %>
+					   		
+					   		<% if patient_video_appointment.confirmed_appointments[0] %>
+						   		<% if patient_video_appointment.confirmed_appointments[0].attended_to == true %>
+		         					<td style="width: %;">Attended to</td>
+		         				<% elsif patient_video_appointment.confirmed_appointments[0].attended_to == false %>
+		         					<td style="width: %;">Unattended to</td>
+		         				<%end%>
+		         			<%elsif patient_video_appointment.confirmed_appointments[0].nil? %>
+		         				<td style="width: %;">Unconfirmed</td> 
+	         				<%end%>
+	         				
+	         				<% if patient_video_appointment.src == 'PTL'%>
+	         					 <td style="width: %;">Portal</td> 				     
+							<% elsif patient_video_appointment.src == 'APP' %>
+							     <td style="width: %;">Mobile App</td>  
+							<% elsif patient_video_appointment.src == 'USS' %>
+							 	 <td style="width: %;">USSD</td> 
+							<% elsif patient_video_appointment.src == 'WEB' %>
+							     <td style="width: %;">Web Access</td> 
+							<%end%>
+	         				
+	         				<td style="width: 15%"><%= link_to "Details", patient_video_details_path(:appointment_id => patient_video_appointment.id ), remote: true, class: "w3-button w3-green w3-hover-green  w3-card w3-small w3-round w3-round-xxlarge" %></td>
+					   </tr> 
+				 <% end %>
+			  </tbody>		   
+		</table>
+	</div>
+	
+	<%= will_paginate @patient_video_appointments,  renderer: BootstrapPagination::Rails, previous_label: 'Older', next_lable: 'Newer', class: "w3-right pagination-sm w3-card-4", remote: true, :params => { :controller => "pre_appointments", :action => "my_appointment", count: params[:count], page: params[:page] }  %>
+
+<% end %>
+<script type="text/javascript">
+$(document).ready(function(){
+  setTimeout(function(){
+    $('#notes').remove();
+  }, 4000);
+ });
+</script>
+<script>
+  $(function(){
+    $('.pagination a').attr('data-remote', 'true');
+  });
+
+</script>
+
+
+

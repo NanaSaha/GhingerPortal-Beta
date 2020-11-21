@@ -1,0 +1,25 @@
+<%= simple_form_for(@service_prov_extra_info) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :service_prov_id %>
+    <%= f.input :suburb_id %>
+    <%= f.input :contact_number1 %>
+    <%= f.input :contact_number2 %>
+    <%= f.input :postal_address %>
+    <%= f.input :location_address %>
+    <%= f.input :contact_person_name %>
+    <%= f.input :web_url %>
+    <%= f.input :longitude %>
+    <%= f.input :latitude %>
+    <%= f.input :comment %>
+    <%= f.input :entity_id %>
+    <%= f.input :user_id %>
+    <%= f.input :active_status %>
+    <%= f.input :del_status %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

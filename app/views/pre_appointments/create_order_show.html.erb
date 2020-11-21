@@ -1,0 +1,100 @@
+<div></div>
+<div id="id01" class="w3-modal w3-card-4" style="display: block">
+    <div class="w3-modal-content w3-animate-top w3-card-4 w3-light-gray" style="width: 40%">
+       <% if flash[:notice] %>
+		   <p class="flash_notice " id = 'notes' style = "margin-top: 5px"><%= notice %></p>
+	   <% end %>
+      <header class="w3-container"> 
+        <h4>Pre Appointment Details</h4> 
+      </header>
+      <br />
+      <!-- <div class="col-md-1 col-xs-12"></div> -->
+      <div class="col-md-12 col-xs-12 w3-padding">
+      	<div class="w3-container "> 	
+			 <table class="table table-condensed table-bordered table-striped">
+			 	 <tr><td class="w3-teal" style="width: 40%"><strong>Location </strong></td><td style="padding-left: 6%"><%= @pre_appointment.suburb_master.suburb_name if @pre_appointment.suburb_master %></td></tr>
+				 <tr><td class="w3-teal" style="width: 40%"><strong>Requester </strong></td><td style="padding-left: 6%"><%= @pre_appointment.person_info.surname if @pre_appointment.person_info %> <%= @pre_appointment.person_info.other_names if @pre_appointment.person_info%></td></tr>
+				 <tr><td class="w3-teal" ><strong>Service Provider </strong></td><td style="padding-left: 6%"><%=  @pre_appointment.provider_master.provider_name if @pre_appointment.provider_master%></td></tr>
+				 <tr><td class="w3-teal"><strong>Request Category </strong></td><td style="padding-left: 6%"><%= @pre_appointment.request_category.category if @pre_appointment.request_category %></td></tr>
+			     <tr><td class="w3-teal" ><strong>Beneficiary </strong></td><td style="padding-left: 6%""><%= @pre_appointment.beneficiary_name %></td></tr>
+                 <tr><td class="w3-teal" ><strong>Request Urgency  </strong></td><td style="padding-left: 6%"><%=  @pre_appointment.request_urgency.urgency if @pre_appointment.request_urgency %></td></tr>
+                 
+                 <tr><td class="w3-teal" ><strong>Appointment Type </strong></td><td style="padding-left: 6%"><%=  @pre_appointment.appointment_type.title if @pre_appointment.appointment_type %></td></tr>
+                 <% if @pre_appointment.appointment_type_id == 'PD'%>
+                 	<tr><td class="w3-teal" ><strong>Personal Doctor </strong></td><td style="padding-left: 6%"><%=  @pre_appointment.pd_name %></td></tr>
+                 <%end%>
+                 
+                 <tr><td class="w3-teal" ><strong>Proposed Date and Time </strong></td><td style="padding-left: 6%"><%= @pre_appointment.proposed_date.strftime("%F %R") if @pre_appointment.proposed_date %></td></tr>
+                 <tr><td class="w3-teal" ><strong>Complaint </strong></td><td style="padding-left: 6%"><%= raw @pre_appointment.complaint_desc %></td></tr>
+                 <tr><td class="w3-teal" ><strong>Previous Medical History </strong></td><td style="padding-left: 6%"><%= raw @pre_appointment.prev_medical_history %></td></tr>  
+                 <tr><td class="w3-teal" ><strong>Allergies </strong></td><td style="padding-left: 6%"><%= @pre_appointment.allergies %></td></tr>               	
+                
+                
+                 <tr><td class="w3-teal" ><strong>Remark </strong></td><td style="padding-left: 6%"><%= raw @pre_appointment.comment %></td></tr>
+                 
+				 <% if @pre_appointment.src == 'PTL'%>
+				     <tr><td class="w3-teal"><strong>Source </strong></td><td style="padding-left: 6%"> Portal </td></tr>				     
+				 <% elsif @pre_appointment.src == 'APP' %>
+				     <tr><td class="w3-teal"><strong>Source </strong></td><td style="padding-left: 6%"> Mobile App</td></tr>
+				 <% elsif @pre_appointment.src == 'USS' %>
+				 	 <tr><td class="w3-teal"><strong>Source </strong></td><td style="padding-left: 6%"> USSD</td></tr>
+				 <% elsif @pre_appointment.src == 'WEB' %>
+				     <tr><td class="w3-teal"><strong>Source </strong></td><td style="padding-left: 6%"> Web Access</td></tr>
+				 <%end%>
+				            
+				                  
+                 <% if @pre_appointment.active_status == true %>  
+	      		    <tr><td class="w3-teal"><strong>Status </strong></td><td style="padding-left: 6%"> Active </td></tr>		
+                 <%elsif @pre_appointment.active_status == false %>
+                     <tr><td class="w3-teal"><strong>Status </strong></td><td style="padding-left: 6%; color: red">Inactive</td></tr>
+                 <% end %>
+                                 
+                 <%if @pre_appointment.confirm_status == true  %>
+                    <tr><td class="w3-teal" ><strong>Confirm Status </strong></td><td style="padding-left: 6%">Confirmed</td></tr>           
+                 <% elsif @pre_appointment.confirm_status == false %>
+                 	<tr><td class="w3-teal" ><strong>Confirm Status </strong></td><td style="padding-left: 6%">Unconfirmed</td></tr>
+                 <% end %>
+                 
+		 
+			</table>
+       </div> 
+      </div>  
+      <!-- <div class="col-md-1 col-xs-12"></div> -->
+      <br />
+      <footer class="w3-container">
+        <!-- <%= link_to 'Allergies', find_allergies_path(:requester_id => @pre_appointment.requester_id, :pre_appointment_id => @pre_appointment.id), :remote=> true, class: "w3-button w3-green w3-hover-green w3-left w3-card-4 w3-small w3-round-xlarge" %>
+       
+        <% if @pre_appointment.appointment_type_id == "LA" %>
+            <%= link_to 'Lab Details', find_lab_details_path(:pre_appointment_id => @pre_appointment.id), :remote=> true, class: "w3-button w3-blue w3-hover-blue w3-left w3-card-4 w3-small w3-round-xlarge", style: "margin-left: 5%" %>
+        
+        <% @pre_appointment.lab_detail_images.each do |image| %>
+	           <% if image.pre_appointment_id == @pre_appointment.id %> 
+	        	   <%= link_to 'Lab Image', find_lab_detail_image_path(:pre_appointment_id => @pre_appointment.id), :remote=> true, class: "w3-button w3-khaki w3-hover-khaki w3-left w3-card-4 w3-small w3-round-xlarge", style: "margin-left: 5%" %>
+	           <%end%>
+        <%end%>
+        
+        <%end%> -->  
+        
+        
+         
+              
+        <%= link_to 'Back', find_patient_details_path(:chosen => @patient_id, :doc => @doctor_id ), class: "w3-button w3-black w3-hover-black w3-right w3-card-4 w3-small w3-round-xlarge" %>
+      <br />
+      </footer>
+      <br />
+    </div>
+    <br />
+</div>
+
+
+
+
+<script type="text/javascript">
+$(document).ready(function(){
+  setTimeout(function(){
+    $('#notes').remove();
+  }, 4000);
+ });
+</script> 
+
+

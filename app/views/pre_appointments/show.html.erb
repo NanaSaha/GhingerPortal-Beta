@@ -1,0 +1,74 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Provider:</strong>
+  <%= @pre_appointment.provider_id %>
+</p>
+
+<p>
+  <strong>Requester:</strong>
+  <%= @pre_appointment.requester_id %>
+</p>
+
+<p>
+  <strong>Requester cat:</strong>
+  <%= @pre_appointment.requester_cat %>
+</p>
+
+<p>
+  <strong>Beneficiary name:</strong>
+  <%= @pre_appointment.beneficiary_name %>
+</p>
+
+<p>
+  <strong>Appointment type:</strong>
+  <%= @pre_appointment.appointment_type_id %>
+</p>
+
+<p>
+  <strong>Proposed date:</strong>
+  <%= @pre_appointment.proposed_date %>
+</p>
+
+<p>
+  <strong>Proposed time:</strong>
+  <%= @pre_appointment.proposed_time %>
+</p>
+
+<p>
+  <strong>Complaint desc:</strong>
+  <%= @pre_appointment.complaint_desc %>
+</p>
+
+<p>
+  <strong>Prev medical history:</strong>
+  <%= @pre_appointment.prev_medical_history %>
+</p>
+
+<p>
+  <strong>Req urgency:</strong>
+  <%= @pre_appointment.req_urgency %>
+</p>
+
+<p>
+  <strong>Comment:</strong>
+  <%= @pre_appointment.comment %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @pre_appointment.user_id %>
+</p>
+
+<p>
+  <strong>Active status:</strong>
+  <%= @pre_appointment.active_status %>
+</p>
+
+<p>
+  <strong>Del status:</strong>
+  <%= @pre_appointment.del_status %>
+</p>
+
+<%= link_to 'Edit', edit_pre_appointment_path(@pre_appointment) %> |
+<%= link_to 'Back', pre_appointments_path %>

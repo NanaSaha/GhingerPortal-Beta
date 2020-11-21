@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Unit desc:</strong>
+  <%= @measure_unit.unit_desc %>
+</p>
+
+<p>
+  <strong>Unit alias:</strong>
+  <%= @measure_unit.unit_alias %>
+</p>
+
+<p>
+  <strong>Comment:</strong>
+  <%= @measure_unit.comment %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @measure_unit.user_id %>
+</p>
+
+<p>
+  <strong>Active status:</strong>
+  <%= @measure_unit.active_status %>
+</p>
+
+<p>
+  <strong>Del status:</strong>
+  <%= @measure_unit.del_status %>
+</p>
+
+<%= link_to 'Edit', edit_measure_unit_path(@measure_unit) %> |
+<%= link_to 'Back', measure_units_path %>

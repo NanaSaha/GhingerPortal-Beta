@@ -1,0 +1,92 @@
+<%= simple_form_for(@requester_allergy, remote: true) do |f| %>
+  <%= f.error_notification %>
+<div></div>
+<div id="id01" class="w3-modal w3-card-4" style="display: block">
+    <div class="w3-modal-content w3-animate-right w3-card-4 w3-light-gray" style="width: 40%; max-height: 80%; overflow-y: auto;">
+      <div style="max-width: 70%; text-align: center; margin-left: 15%; margin-top: 15px">
+	       <% if flash.now[:notice] %>
+			  <p class="flash_notice "  style = ""><b><%= notice %></b></p>
+		   <% end %>
+    	</div>
+
+      <header class="w3-container"> 
+        <h4>Add allergy(s) to the select Pre Appointment</h4> 
+        <p><b style="color: red">NB: </b> Please select allergies that are new not checked<br /><br />
+        	<b style="color: red">Allergies by Patient:</b>
+        	<% if @patient_allergies.nil? %>
+        	    No allergies
+             <%else%>
+        	    <%= @patient_allergies %>
+        	<%end%>
+        </p>
+      </header>
+      <br />
+      <!-- <div class="col-md-1 col-xs-12"></div> -->
+      <div class="col-md-12 col-xs-12 w3-padding">
+      	<div class="w3-container "> 	
+      		<% count = 1 %> 
+      		
+      		<% unless @allergies_masters.nil? %>
+      		
+      		  <%= f.input :pre_appointment_id, as: :hidden, input_html: {value: @pre_appointment_id} %>
+      		  <%= f.input :requester_id, as: :hidden, input_html: {value: @requester_id} %>
+      		
+      		
+	      		<% @allergies_masters.each do |allergy_master| %>
+				 <table class="table table-condensed table-bordered table-striped">	
+				 	<tr>
+				 		<td style="width: 5%"><%= "#{count}. " %></td>
+	         			<td style="width: 90%">&nbsp;<%= "#{allergy_master.title}" %></td>	
+				 	    
+				 	    <td >
+				 	    	
+					 	    <% if @allegy_list.include? allergy_master.id %>
+					 	    	<input type="checkbox" name="allergy_id[<%=count%>[checkbox]]" checked="checked" />
+					 	    <% else %>
+					 	    	<input type="checkbox" name="allergy_id[<%=count%>[checkbox]]"/>
+					 	    <%end%>	
+					 	      	    	 
+					 	    <input type="hidden" name="allergy_id[<%=count%>[id]]" value="<%= allergy_master.id %>">
+					 	    <% count += 1 %>
+				 	    </td>
+				 	
+				 	</tr>	
+				 	
+					<% end %>
+				
+						</table>
+			        </div>
+			      </div> 
+			      <footer class="w3-container">
+			      	<!-- <%#= will_paginate @allergies_masters,  renderer: BootstrapPagination::Rails, previous_label: 'Older', next_lable: 'Newer', class: "w3-right pagination-sm w3-card-4", :params => { :controller => "requester_allergies", :action => "add_requester_allergy", count: params[:count], page: params[:page] }  %> -->
+			     
+					<div class="w3-clear"></div>
+			      	<%= f.button :submit, class: "w3-left w3-button w3-small w3-round-large w3-teal w3-hover-teal w3-card-4 w3-round-xlarge w3-small", value: "Update" %>
+			        <%= link_to 'Back', pre_appointments_path, :remote=> true, class: "w3-button w3-black w3-hover-black w3-right w3-card-4 w3-small w3-round-xlarge" %>
+			       <br />
+			      </footer>
+			      <br />
+	      <% end %>
+      <%end%>
+      
+    </div>
+    <br />
+</div>
+
+
+<script>
+  $(function(){
+    $('.pagination a').attr('data-remote', 'true')
+  });
+
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){
+  setTimeout(function(){
+    $('#notes').remove();
+  }, 4000);
+ });
+</script> 
+

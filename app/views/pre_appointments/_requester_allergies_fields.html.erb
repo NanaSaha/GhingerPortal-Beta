@@ -1,0 +1,19 @@
+<br>
+<div class="nested-fields">
+    <h4>Requester Allergies</h4>
+    <%= f.input :pre_appointment_id, as: :hidden, collection: PreAppointment.all, label_method: :requester_cat, value_method: :id %>
+    
+    <%#= f.label :allergy_ids, 'Allergies' %>
+    <%#= f.input :allergy_ids, collection:   AllergiesMaster.all, label_method: :title, value_method: :id %>
+    
+    <%#= f.collection_select(:allergy_ids, AllergiesMaster.order(:title), :id, :title, {}, {multiple: true, class: 'form-control'}) %>
+    <%= select_tag "allergy_ids", options_from_collection_for_select(AllergiesMaster.all,"id","title"), :multiple => true, :allergy_ids => "id", :class => "form-control chosen-select" %>
+  
+    
+    <%= f.label :comment, "Remark" %>
+    <%= f.text_area :comment, :class => "tinymce", :rows=> 7 %> 
+    
+    <%= f.input :user_id, as: :hidden %>
+    <%= f.input :active_status, as: :hidden, input_html: {value: 1} %>
+    <%= f.input :del_status, as: :hidden, input_html: {value: 0}  %> 
+</div>

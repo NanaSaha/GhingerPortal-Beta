@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  confirmed_appointment_id: 1
+  condition_id: 1
+  allergy_id: false
+  comment: MyString
+  user_id: 1
+  entity: 1
+  active_status: false
+  del_status: false
+
+two:
+  confirmed_appointment_id: 1
+  condition_id: 1
+  allergy_id: false
+  comment: MyString
+  user_id: 1
+  entity: 1
+  active_status: false
+  del_status: false

@@ -1,0 +1,41 @@
+<% if flash[:notice] %>
+  <p class="flash_notice " id = 'notes' style = "margin-top: 5px"><%= notice %></p>
+<%end%>
+
+<br />
+<div class="row">
+	<div class="col-md-3 col-xs-12"></div>
+	<div class="col-md-6 col-xs-12 w3-card-4 w3-round-large">
+		<!-- <br /> -->
+		<h4>Country Details</h4>
+		<table class="table table-condensed table-bordered table-striped">
+			 <tr><td class="w3-teal"><strong>Country: </strong></td><td style="padding-left: 6%""><%= @country_master.country_name %></td></tr>
+			 <tr><td class="w3-teal" ><strong>Remark: </strong></td><td style="padding-left: 6%""><%= @country_master.comment %></td></tr>
+			 <!-- <tr><td class="w3-teal"><strong>Entity: </strong></td><td style="padding-left: 6%""><%= @country_master.entity_id %></td></tr> -->
+			 <tr><td class="w3-teal" ><strong>Added By: </strong></td><td style="padding-left: 6%""><%= @country_master.users.person_info.surname if @country_master.users %> <%= @country_master.users.person_info.other_names if @country_master.users %></td></tr>
+			 
+	
+			 <% if @country_master.active_status == true %>  
+	      		<tr><td class="w3-teal"><strong>Status: </strong></td><td style="padding-left: 6%"> Active </td></tr>
+	      		
+	      	 <%elsif @country_master.active_status == false %>
+	      		<tr><td class="w3-teal"><strong>Status: </strong></td><td style="padding-left: 6%; color: red">Inactive</td></tr>
+	         <%end%>	
+		</table>
+		
+		
+		<!-- <%= link_to 'Edit', edit_country_master_path(@country_master), class: "w3-right w3-button w3-small w3-round-large w3-green w3-hover-green" %> -->
+		<%= link_to 'Back', country_masters_path, class: "w3-left w3-button w3-small w3-round-large w3-blue w3-hover-blue" %>
+	   <br /><br />
+	</div>
+	<div class="col-md-3 col-xs-12"></div> 
+</div>
+<br />
+
+<script type="text/javascript">
+$(document).ready(function(){
+  setTimeout(function(){
+    $('#notes').remove();
+  }, 4000);
+ })
+</script>

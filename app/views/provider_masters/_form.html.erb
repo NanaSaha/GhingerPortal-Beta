@@ -1,0 +1,63 @@
+<%= simple_form_for(@provider_master, remote: true) do |f| %>
+  <%= f.error_notification %>
+
+	  <div class="form-inputs">
+	    <%= f.input :provider_name %>
+	    <%= f.input :alias %>
+	    <%= f.input :provider_type_id, as: :hidden, input_html: {value: @current_prov_type_id } %>
+	    
+	   <!-- <%#= f.label :comment, 'Comment' %> -->
+	   <!-- <%#= f.text_area :comment, :class => "tinymce",  rows: "5" %> -->
+	    
+	    <%= f.input :comment, label: "Remark" %> 
+	    <%= f.input :entity_id, as: :hidden %>
+	    <%= f.input :user_id, as: :hidden, input_html: {value: current_user.id} %>
+	    <%= f.input :active_status, as: :hidden, input_html: {value: 1} %>
+	    <%= f.input :change_status, as: :hidden, input_html: {value: 0} %>
+	  </div>
+  
+		<div class="extra">			
+			<%= link_to_add_association 'Add Extra Info', f, :service_prov_extra_infos, force_non_association_create: true, data: { association_insertion_node: '.extra', association_insertion_method: :append }, class: "w3-middle w3-button w3-small w3-round-large w3-indigo w3-hover-indigo hidden"%>
+			<%= f.simple_fields_for :service_prov_extra_infos do |extra| %>
+				 <%= render  'service_prov_extra_info_fields', f: extra %>			 
+			<%end%>
+		</div>
+		
+	<br />
+	<div class="clearfix w3-clear"></div>
+  <div class="form-actions">
+  	<!-- <%#= link_to_add_association 'Extra', f, :service_prov_extra_infos, force_non_association_create: true, data: { association_insertion_node: '.extra', association_insertion_method: :append }, class: 'extra-btn' %> -->
+    <%= link_to 'Back', find_prov_type_path(:prov_type_id => @current_prov_type_id), remote: true, class: "w3-left w3-button w3-small w3-round-large w3-blue w3-hover-blue" %>
+    <%= f.button :submit, class: "w3-right w3-button w3-small w3-round-large w3-teal w3-hover-teal", value: "Add Provider" %>
+  </div>
+
+  <div class="w3-clear" style="margin-bottom: -30px"></div>
+<% end %>
+
+<%= tinymce %>
+<br /><br />
+
+<script>
+	// $(".extra-btn").click(function (){
+		// $(this).hide()
+	// });
+</script>
+<br />
+<script>
+	
+ $(document).on('turbolinks:load', function () {
+   tinymce.remove();
+   tinymce.init({selector:'.tinymce'});
+});
+ 
+</script>
+
+<script>
+	
+ $(document).on('turbolinks:load', function () {
+   tinymce.remove();
+   tinymce.init({selector:'.tinymce'});
+});
+ 
+</script>
+

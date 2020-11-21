@@ -1,0 +1,44 @@
+<div class="nested-fields">
+	<h4>Contact Information</h4>
+	
+	
+	  <%= f.input :person_id, as: :hidden, collection: PersonInfo.all, label_method: :surname, value_method: :id %>
+	
+	<div class="w3-left", style="width: 45%">
+		<% if @suburb_id.nil? %>
+			<%= f.input :suburb_id, label: 'Location', collection: SuburbMaster.all, label_method: :suburb_name,  value_method: :id %>
+		<% else %>
+			<%= f.input :suburb_id, label: 'Location', collection: SuburbMaster.all, label_method: :suburb_name, :selected => @suburb_id, value_method: :id %>
+		<%end%>
+	</div>
+	
+	<div class="w3-right", style="width: 45%"> 
+      <%= f.input :email %> 
+    </div>
+    
+    <div class="w3-left", style="width: 45%">
+    	<%= f.input :contact_number, input_html: {value: @contact} %>     
+    </div>
+    
+    <div class="w3-right", style="width: 45%"> 
+      <%= f.label :postal_address, "Postal Address"%>
+      <%= f.text_area :postal_address, rows: 3 %>
+    </div>
+    
+    <div class="w3-left", style="width: 45%">
+      <%= f.label :location_address, "Location Address"%>
+      <%= f.text_area :location_address, rows: 3 %>
+    </div>
+    
+    <div class="w3-right", style="width: 45%">
+       <%= f.input :comment, label: "Remark" %>
+    </div>
+     
+    <%= f.input :user_id, as: :hidden, input_html: {value: current_user.id} %>
+    <%= f.input :entity_id, as: :hidden %>
+    <%= f.input :active_status, as: :hidden, input_html: {value: 1} %>
+    <%= f.input :del_status, as: :hidden, input_html: {value: 0} %>
+		
+</div>
+<br />
+<div class="w3-clear clearfix"></div>

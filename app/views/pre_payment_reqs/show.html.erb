@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Billing info:</strong>
+  <%= @pre_payment_req.billing_info_id %>
+</p>
+
+<p>
+  <strong>Amount:</strong>
+  <%= @pre_payment_req.amount %>
+</p>
+
+<p>
+  <strong>Reference:</strong>
+  <%= @pre_payment_req.reference %>
+</p>
+
+<%= link_to 'Edit', edit_pre_payment_req_path(@pre_payment_req) %> |
+<%= link_to 'Back', pre_payment_reqs_path %>

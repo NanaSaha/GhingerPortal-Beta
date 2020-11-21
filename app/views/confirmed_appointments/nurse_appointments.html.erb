@@ -1,0 +1,63 @@
+<div class="w3-clear" style="margin-bottom: 3%;"></div>
+<div class="container" style="min-width: 75%; margin-left: 2%"> 
+	<div class="col-md-2 colxs-12 col-sm-12"></div>
+	<div class="col-md-10 colxs-12 col-sm-12" style="width: ">
+		<div class = "table-responsive">
+			<table class="table table-condensed table-bordered w3-striped w3-card-4 w3-hoverable">
+				  <thead>
+				  <%  if @nurse_appointments.blank?%>
+					    <p class="alert alert-danger" id = '' style = "margin-top: 5px"><%= flash.now[:notice] = "Sorry you do not have any appointment" %></p>
+				  	
+				  <% else %>
+				    <tr class="w3-black w3-card">
+				    	<th>N<u>o</u></th>
+				        <th>Patient Name</th>
+				        <th>Patient Contact</th>
+				        <th>Appt Type</th>	      
+					    <th>Date/Time</th>	      
+				        <th>Accept Status</th>
+					    <th>Attend Status</th>
+				    </tr> 
+				   
+				  </thead> 
+				  <tbody>  
+
+				 <% @nurse_appointments.each_with_index do |nurse_appointment,index| %>
+			        <tr class="w3-hover-pale-green">
+			        	<td style="width: 5%;"><%= index+=1%></td>
+			            <td><%= nurse_appointment.patient.surname %> <%= nurse_appointment.patient.other_names %></td>
+				       	<td><%= nurse_appointment.patient.person_contact_infos.last.contact_number %></td>
+				        <td><%= nurse_appointment.pre_appointment.appointment_type.title %></td>
+				        <td style="width: 15%;"><%= nurse_appointment.confirmed_date.strftime("%F %R") %></td>
+		         		<td style="width: 10%;">Accepted</td>
+		         	 
+		         		<% if nurse_appointment.attended_to == true %>
+		         			<!-- <td style="width: 10%;">Attended to</td> -->
+		         		   <td  style="width: 10%" >  
+			         		 <%= select_tag :attend_to, options_for_select(['Attended to','Not attended to' ], params[:attend_to]), :data => { :remote => true,
+								:url => update_attend_status_path(:appt_id => nurse_appointment.id )
+							  }, class: "w3-bordered w3-round-xlarge w3-btn w3-small w3-card-4", remote: true %> 
+		         		   </td>
+		         		<%elsif nurse_appointment.attended_to == false %>
+		         			<!-- <td style="width: 10%;">Unattended to</td> -->
+		         		   <td style="width: 10%">
+		         		   	  <%= select_tag :attend_to, options_for_select(['Not attended to','Attended to' ], params[:attend_to]), :data => { :remote => true,
+								:url => update_attend_status_path(:appt_id => nurse_appointment.id )
+							  }, class: "w3-bordered w3-round-xlarge w3-btn w3-small w3-card-4", remote: true %> 
+		         		   </td>
+		         		  
+		         		<%end%>  
+			        	 
+			        </tr> 
+			          
+			       <% end %>
+				<% end %> 
+	      
+			  </tbody>
+			</table>	
+		</div>
+	</div> 
+
+
+	<div class="col-md-2 colxs-12 col-sm-12"></div>
+</div>

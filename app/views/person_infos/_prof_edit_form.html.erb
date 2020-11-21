@@ -1,0 +1,63 @@
+<br />
+<%= simple_form_for(@person_info) do |f| %>
+  <%= f.error_notification %>   
+ 
+<div id="id01" class="w3-modal w3-card-4" style="display: block">
+    <div class="w3-modal-content w3-animate-top w3-card-4 w3-light-gray" style="width: 35%; max-height: 80%; overflow-y: auto;">
+      <header class="w3-container"> 
+        <h4>Edit Profile</h4> 
+      </header>
+      <br />
+      <!-- <div class="col-md-1 col-xs-12"></div> -->
+      <div class="col-md-12 col-xs-12 w3-padding">
+      	<div class="w3-container "> 	
+		  <div class="form-inputs">
+		    <%= f.input :surname %>
+		    <%= f.input :other_names %>
+		    <%= f.input :dob, label: "Date of Birth", as: :string, input_html: {id: "datepicker", class: ""} %>
+		    <%= f.input :person_type_id, collection: @person_type_masters, label_method: "user_type_title", value_method: :id %>
+		    <%= f.input :entity_id, as: :hidden %>
+		    <%= f.input :user_id, as: :hidden, input_html: {value: current_user.id} %>
+		    <!-- <%#= f.input :active_status, as: :hidden, input_html: {value: 1} %> -->
+		    <!-- <%#= f.input :del_status, as: :hidden, input_html: {value: 0} %> -->
+		  </div>
+		  
+		   <div class="extra">			
+				<%= link_to_add_association 'Contact Info', f, :person_contact_infos, force_non_association_create: true, data: { association_insertion_node: '.extra', association_insertion_method: :append }, class: "w3-middle w3-button w3-small w3-round-large w3-indigo w3-hover-indigo hidden"%>
+				<%= f.simple_fields_for :person_contact_infos do |extra| %>
+					 <%= render  'person_contact_info_fields', f: extra %>			 
+				<%end%>
+		
+		        <!-- <br /> -->
+		       <!-- <b style="color: red">Please leave password fields blank if you don't want to change password</b> -->
+				<%= link_to_add_association 'Users', f, :users, force_non_association_create: true, data: { association_insertion_node: '.extra', association_insertion_method: :append }, class: "w3-middle w3-button w3-small w3-round-large w3-indigo w3-hover-indigo hidden"%>
+			    <%= f.simple_fields_for :users do |extra| %>
+				 <%= render  'user_edit_fields', f: extra %>			 
+		       <%end%>	      
+		   </div>		 
+		 <br />
+ 
+        </div> 
+        
+      </div>  
+      <!-- <div class="col-md-1 col-xs-12"></div> -->
+      <br />
+      <footer class="w3-container">     
+          <div class="form-actions">
+		  	<%= link_to 'Back', current_user, class: "w3-left w3-button w3-small w3-round-large w3-blue w3-hover-blue" %>
+		    <%= f.button :submit, class: "w3-right w3-button w3-small w3-round-large w3-teal w3-hover-teal", value: "Update" %>
+		  <br /><br />
+		  </div>
+      </footer>
+      <% end %>
+      <br />
+    </div>
+    <br />
+</div>
+ <script>
+  $( function() {
+    $( "#datepicker" ).datepicker({
+    	dateFormat : 'yy-mm-dd'
+    });
+  } );
+ </script>

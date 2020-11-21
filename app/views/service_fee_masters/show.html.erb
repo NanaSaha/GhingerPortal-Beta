@@ -1,0 +1,49 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Appt type:</strong>
+  <%= @service_fee_master.appt_type_id %>
+</p>
+
+<p>
+  <strong>Service:</strong>
+  <%= @service_fee_master.service_id %>
+</p>
+
+<p>
+  <strong>Req urgency:</strong>
+  <%= @service_fee_master.req_urgency %>
+</p>
+
+<p>
+  <strong>Fee:</strong>
+  <%= @service_fee_master.fee %>
+</p>
+
+<p>
+  <strong>Fee:</strong>
+  <%= @service_fee_master.fee %>
+</p>
+
+<p>
+  <strong>Comment:</strong>
+  <%= @service_fee_master.comment %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @service_fee_master.user_id %>
+</p>
+
+<p>
+  <strong>Active status:</strong>
+  <%= @service_fee_master.active_status %>
+</p>
+
+<p>
+  <strong>Del status:</strong>
+  <%= @service_fee_master.del_status %>
+</p>
+
+<%= link_to 'Edit', edit_service_fee_master_path(@service_fee_master) %> |
+<%= link_to 'Back', service_fee_masters_path %>

@@ -1,0 +1,19 @@
+<%= simple_form_for(@profesional_group) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :group_name, label: "Group Name" %>
+    <%= f.input :comment %>
+    <%= f.input :user_id, as: :hidden %>
+    <%= f.input :entity_id, as: :hidden %>
+    <%= f.input :active_status, as: :hidden, input_html: {value: 1} %>
+    <%= f.input :del_status, as: :hidden, input_html: {value: 0} %>
+  </div>
+
+  <div class="form-actions">
+    <%= link_to 'Back', profesional_groups_path, class: "w3-left w3-button w3-small w3-round-large w3-blue w3-hover-blue" %>
+    <%= f.button :submit, class: "w3-right w3-button w3-small w3-round-large w3-teal w3-hover-teal", value: "Add" %>
+    <br />
+  </div>
+<% end %>
+<br />

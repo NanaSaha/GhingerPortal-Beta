@@ -1,0 +1,159 @@
+<br>
+<%= simple_form_for(@patient_med_record) do |f| %>
+  <%= f.error_notification %>
+  <%= tinymce_assets %>
+
+ <script type="text/javascript">
+  	$(document).ready(function(){
+  		tinymce.init({
+		  selector: '.tinymce',  // change this value according to your HTML
+		  branding: false,
+		  resize: false,
+		  theme: 'modern',
+		  statusbar: false
+		});
+  	})
+  </script>
+ 
+<div id="id01" class="w3-modal w3-card-4 w3-round-large" style="display: block;">
+    <div class="w3-modal-content w3-animate-left w3-card-4 w3-light-gray" style="width: 55%; max-height: 80%; overflow-y: auto; back">
+    	<div style="max-width: 70%; text-align: center; margin-left: 15%; margin-top: 15px">
+      
+	    	<% if flash[:notice] %>
+                <p class="flash_notice " id = 'notes' style = ""><%= notice %></p>
+	  	<% end %>		  	
+    	</div>	   
+      <header class="w3-container">  
+        <h4><%= @confirmed_appt.pre_appointment.appointment_type.title %></h4> 
+      </header>
+      <div class="col-md-4">
+      	
+      </div>
+      <div class="col-md-8">              
+           <div class="w3-container" > 				 		      	            
+               <div class="form-inputs">
+               	<%= f.input :confirmed_appt_id, as: :hidden, input_html: {value: @confirmed_appt_id} %>
+			<%= f.input :patient_id, as: :hidden, input_html: {value: @patient_id} %>
+			<%= f.input :doctor_id, as: :hidden, input_html: {value: @doctor_id} %>
+		    	<%= f.input :active_status, as: :hidden, input_html: {value: true} %>
+		    	<%= f.input :del_status, as: :hidden, input_html: {value: false} %>
+		    	<%= f.input :order_status, as: :hidden, input_html: {value: false} %>
+               	
+               	<% if @appointment_type_id == "PDDP"%>
+               		<div id="more" class="newMed">
+               		<span class="w3-left" style="width: 45%">
+               			<%= f.input :medicine, as: :array, label: "Medicine" %>
+               		</span>
+               		<span class="w3-right" style="width: 45%">
+               			<%= f.input :dosage, as: :array, label: 'Dosage' %>
+               		</span>
+               		<span class="w3-left" style="width: 45%">
+               			<%= f.input :frequency, as: :array, label: 'Frequency per day' %>
+               		</span>
+               		<span class="w3-right" style="width: 45%">
+               			<%= f.input :no_of_days, as: :array, label: "Number of Days" %>
+               		</span>
+              		</div>
+               		<span class="w3-btn btn-small w3-round-xlarge w3-small w3-green w3-hover-green w3-right w3-padding-bottom w3-margin-bottom w3-border-bottom" id="add">Add More</span>
+               	
+               	<%else%>               				    		   	
+			       <%= f.label :clinical_complaints, "Clinical Complaints"%>
+			    	<%= f.text_area :clinical_complaints, :class => "tinymce", :rows=> 7 %>
+				<br />
+			    	<%= f.label :clinical_examinations, "Clinical Examination"%>
+			    	<%= f.text_area :clinical_examinations, :class => "tinymce", :rows=> 7 %>
+			    	<br />
+				<%= f.label :working_diagnosis, "Working Diagnosis"%>
+			    	<%= f.text_area :working_diagnosis, :class => "tinymce", :rows=> 7 %>
+				<br />
+				<%= f.label :investigation_rquired, "Investigation Required"%>
+				<%= f.text_area :investigation_rquired, :class => "tinymce", :rows=> 7 %>
+				<br />
+				<%= f.label :treatments, "Treatment"%>
+				<%= f.text_area :treatments, :class => "tinymce", :rows=> 7 %>
+				<br />
+				<%= f.label :follow_up_plan, "Follow Up Plan"%>
+				<%= f.text_area :follow_up_plan, :class => "tinymce", :rows=> 7 %>
+				<br />	  
+				<p><b style="color:red">Note: </b><span style="font-weight: bold">Please order your Investigation/Treatment after saving this document</span></p>     
+              	<%end%>
+               </div>
+           </div>
+          </div> 
+        <br>
+      <footer class="w3-container">
+       	<%= f.button :submit, class: "w3-button w3-teal w3-hover-teal w3-right w3-card-4 w3-small w3-round-xlarge", value: "Save" %>
+        <%= link_to 'Back', patient_confirmed_unattended_to_appt_path(:doctor_id => @doctor_id, patient_id:  @patient_id),  class: "w3-button w3-black w3-hover-black w3-left w3-card-4 w3-small w3-round-xlarge" %>
+      <br />
+      </footer>
+      <% end %>
+      <br />
+    </div>
+    <br />
+</div>
+
+<%= tinymce %>
+
+<script type="text/javascript">
+$(document).ready(function(){
+  setTimeout(function(){
+    $('#notes').remove();
+  }, 3000);
+  });
+</script>
+
+
+<style>
+	.input-group{
+		width: 100%;
+	}
+  .typeahead{
+    width: 100%;
+  }
+  
+</style>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+         $('form').attr('autocomplete', 'off');
+        
+         $('.combobox').combobox();
+
+   $('span.input-group-addon').addClass("hidden");
+  
+    });
+</script>
+
+
+<script type="text/javascript">
+ $(function () {
+   $('#datetimepicker4').datetimepicker({
+   	 format: "YYYY-MM-DD HH:mm",
+   	 minDate: new Date()
+   });   
+  });
+</script>
+
+
+<script type="text/javascript">
+	$(document).ready(function(){
+	     $("#add").on('click', function (e) {
+	        e.preventDefault();
+	        var $self = $(this);
+	        console.log($self);
+	         $self.before($self.prev('#more').clone());
+	        	        	      
+	        //$self.remove();
+	    });	        
+	});
+</script>
+<script type="text/javascript">
+
+</script>
+
+
+
+
+
+
+

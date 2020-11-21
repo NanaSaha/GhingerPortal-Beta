@@ -1,0 +1,69 @@
+<% if flash[:notice] %>
+  <p class="flash_notice " id = 'notes' style = "margin-top: 5px"><%= notice %></p>
+<%end%>
+<br />
+<div class="row">
+	<div class="col-md-12 col-xs-12 w3-round-large">
+     <div class="table-responsive">
+    	  <h4>Service Provider Extra Information</h4>		
+		<table class="table table-condensed table-bordered table-striped w3-card-4 w3-table-all">
+		  <thead>
+		    <tr class="w3-teal">
+		      <th style="font-size: 12px">Provider name</th>
+		      <th style="font-size: 12px">Location</th>
+		      <th style="font-size: 12px">Contact Number 1</th>
+		      <th style="font-size: 12px">Contact Number 2</th>
+		      <th style="font-size: 12px">Postal Address</th>
+		      <th style="font-size: 12px">Location Address</th>
+		      <th style="font-size: 12px">Contact Person's Name</th>
+		      <th style="font-size: 12px">Website url</th>
+		      <th style="font-size: 12px">Longitude</th>
+		      <th style="font-size: 12px">Latitude</th>
+		      <th style="font-size: 12px">Remark</th>
+		      <th style="font-size: 12px">Status</th>
+		    </tr>
+		  </thead>
+		
+		  <tbody>
+		      <tr>
+		        <td><%= @service_prov_extra_info.provider_master.provider_name %></td>
+		        <td><%= @service_prov_extra_info.suburb_master.suburb_name %></td>
+		        <td><%= @service_prov_extra_info.contact_number1 %></td>
+		        <td><%= @service_prov_extra_info.contact_number2 %></td>
+		        <td><%= @service_prov_extra_info.postal_address %></td>
+		        <td><%= @service_prov_extra_info.location_address %></td>
+		        <td><%= @service_prov_extra_info.contact_person_name %></td>
+		        <td><%= @service_prov_extra_info.web_url %></td>
+		        <td><%= @service_prov_extra_info.longitude %></td>
+		        <td><%= @service_prov_extra_info.latitude %></td>
+		        <td><%= @service_prov_extra_info.comment %></td>
+		        
+		        <% if @service_prov_extra_info.provider_master.active_status == true %>  
+	      		   <td> Active </td>
+	      		
+	      	   <%elsif @service_prov_extra_info.provider_master.active_status == false %>
+	      		  <td > Inactive</td>
+	           <%end%>
+		        
+		      </tr>
+		  </tbody>
+		</table>
+	</div>
+		<%= link_to 'Back', service_prov_types_path, remote: true, class: "w3-left w3-button w3-small w3-round-large w3-blue w3-hover-blue" %>	
+	  <br /><br />
+	</div>
+	<!-- <div class="col-md-3 col-xs-12"></div>  -->
+</div>
+<br />
+
+<script type="text/javascript">
+$(document).ready(function(){
+  setTimeout(function(){
+    $('#notes').remove();
+  }, 4000);
+ })
+</script>
+
+
+<%#= link_to 'Edit', edit_service_prov_extra_info_path(@service_prov_extra_info) %> 
+<%#= link_to 'Back', service_prov_extra_infos_path %>

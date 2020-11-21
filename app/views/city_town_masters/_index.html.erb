@@ -1,0 +1,110 @@
+<% if flash[:notice] %>
+  <p class="flash_notice " id = 'notes' style = "margin-top: 5px"><%= notice %></p>
+<%end%>
+
+
+<h4>Available Towns</h4>
+<br />
+<p style = 'text-align: center; font-family: tahoma; font-size: 15px;'>
+   <b>Download:</b>  <%= link_to "CSV", city_town_masters_path(format: "csv" ), :class => "w3-hover-white" %> 
+                     | <%= link_to "Excel", city_town_masters_path(format: "xls"), :class => "w3-hover-white" %> 
+                     | <%= link_to "CSV-all", all_city_excel_path(format: "csv"), :class => "w3-hover-white", method: :get%> 
+                     | <%= link_to "Excel-all", all_city_excel_path(format: "xls"),:class => "w3-hover-white", method: :get%>
+</p>
+
+<div class="pull-right" style = 'margin-top: -3%;'>
+	 <label class="">Display <u>No</u>: </label> 
+	  <%= select_tag :per_page, options_for_select([5,10, 20, 30, 40,50, 70,100], params[:per_page].to_i), :data => { :remote => true, 
+	 	             :url => url_for( :controller => "city_town_masters", :action => "index" )
+	 	             }, class: "w3-bordered w3-round-xlarge w3-btn w3-small w3-card-4", remote: true %>	                                                                                                        
+</div>
+
+<div class="pull-left" style = 'margin-top: -3%;'>
+	 <label class="">Filter by Region/State: </label> 
+	  <!-- <%= select("country_name", "country_name", CountryMaster.all.collect(&:country_name))  %> -->
+	  <%= select_tag :region_state_name, options_from_collection_for_select(RegionMaster.all, "region_state_name", "region_state_name", @region_name), :data => {:remote => true, 
+	  	:url => url_for(:controller => "city_town_masters", :action => "index")}, remote: true,  class: "w3-bordered w3-round-xlarge w3-btn w3-small w3-card-4", :prompt=> "Select to filter" %>
+	 	      	                                                                                                        
+ </div>
+
+ <br />
+<div class="table-responsive">
+	<table class="table table-condensed table-bordered table-striped">
+	  <thead>
+	    <tr class="w3-teal">
+	      <th>City town name</th>
+	      <th>Region</th>
+	      <th>Remark</th>
+	      <!-- <th>Entity</th> -->
+	      <th>Added by</th>
+	      <th>Status</th>
+	      <th>Suburbs</th>
+	      <th colspan="2">Options</th>
+	    </tr>
+	  </thead>
+	
+	  <tbody>
+	    <% @city_town_masters.each do |city_town_master| %>
+	      <tr>
+	        <td><%= city_town_master.city_town_name %></td>
+	        <td><%= city_town_master.region_master.region_state_name if city_town_master.region_master %></td>
+	        <td><%= city_town_master.comment %></td>
+	        <!-- <td><%= city_town_master.entity_id %></td> -->
+	        <td><%= city_town_master.user.person_info.surname if city_town_master.user %> <%= city_town_master.user.person_info.other_names if city_town_master.user %></td>
+	        
+	        <% if city_town_master.active_status == true %>  
+	          <td style="">Active</td>
+	      		
+	       <%elsif city_town_master.active_status == false %> 
+	          <td style="color: red">Inactive</td>
+	      		
+	       <%end%>
+	        
+	        <!-- <td><%= city_town_master.active_status %></td> -->
+	         <td style="width: 5px"><%= link_to "Suburbs", find_suburbs_path(:city_id => city_town_master.id), remote: true, class: "w3-button w3-indigo w3-hover-indigo w3-card w3-small w3-round w3-round-xxlarge" %></td> 
+	        <!-- <td style="width: 5px"><%#= link_to 'view', city_town_master, remote: true, class: "w3-button w3-indigo w3-hover-indigo w3-card w3-small w3-round w3-round-xxlarge" %></td> -->
+	        <td style="width: 5px"><%= link_to 'Edit', edit_city_town_master_path(city_town_master), remote: true, class: "w3-button w3-gray w3-card w3-hover-gray w3-small w3-round w3-round-xxlarge" %></td>
+	        
+	         <td style="width: 15px">
+	       <% if city_town_master.active_status == false %>
+	          <%= link_to 'Enable', enable_city_path(:chosen => city_town_master.id), data: { confirm: 'You are about to enable the selected city. Do you want to continue?' }, remote: true,  class: "w3-button w3-blue w3-hover-blue w3-small w3-round-xxlarge w3-card" %>
+               
+           <% else city_town_master.active_status == true %>
+	           <%= link_to 'Disable', disable_city_path(:chosen => city_town_master.id), data: { confirm: 'You are about to disable the selected city. Do you want to continue?' }, remote: true,  class: "w3-button w3-red w3-hover-red w3-small w3-round w3-round-xxlarge w3-card" %> 
+	          
+           <% end %>
+	        	
+	        	
+	       </td>
+	        <!-- <td><%= link_to 'Destroy', city_town_master, method: :delete, data: { confirm: 'Are you sure?' } %></td> -->
+	      </tr>
+	    <% end %>
+	  </tbody>
+	</table>
+</div>
+  
+<div>
+ <!-- <%#= link_to '+', new_city_town_master_path, :remote=> true, class: "w3-button w3-circle w3-teal w3-hover-teal w3-left w3-card-4" %> -->
+ <%= will_paginate @city_town_masters,  renderer: BootstrapPagination::Rails, previous_label: 'Older', next_lable: 'Newer', class: "w3-right pagination-sm w3-card-4", :params => { :controller => "city_town_masters", :action => "index", count: params[:count], page: params[:page] } %>
+</div>
+<br>
+
+
+<script type="text/javascript">
+$(document).ready(function(){
+  setTimeout(function(){
+    $('#notes').remove();
+  }, 4000);
+ })
+</script>
+
+<script>
+  $(function(){
+    $('.pagination a').attr('data-remote', 'true')
+  });
+
+</script>
+
+
+
+<!-- <%= link_to 'New City town master', new_city_town_master_path %> -->

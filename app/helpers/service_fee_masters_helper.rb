@@ -1,0 +1,2 @@
+module ServiceFeeMastersHelper
+end

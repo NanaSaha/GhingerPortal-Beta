@@ -1,0 +1,67 @@
+<div></div>
+<div id="id01" class="w3-modal w3-card-4" style="display: block">
+    <div class="w3-modal-content w3-animate-top w3-card-4 w3-white" style="width: 40%">
+       <% if flash[:notice] %>
+		   <p class="alert alert-info" id = 'notes' style = "margin-top: 5px"><%= notice %></p>
+	   <% end %> 
+      <header class="w3-container"> 
+        <h4><%= @unordered_records[0].patient.surname %> <%= @unordered_records[0].patient.other_names %></h4> 
+      </header>
+      <br />
+      <!-- <div class="col-md-1 col-xs-12"></div> -->
+      <div class="col-md-12 col-xs-12 w3-padding">
+      	<div class="w3-container "> 
+      	  <h5><b style="color: blue"><u>Unordered Medical Records</u></b></h5>
+      	  <div class="w3-clear"></div>
+      	   <table class="table table-condensed table-striped w3-card">
+      	    	<thead>
+			    <tr class="">
+			       <th>Appt Type</th>
+			       <th>Record Date</th> 
+			       <th></th>
+			    </tr> 
+			  </thead>		      
+		      <tbody>
+		      	<% @unordered_records.each_with_index do |unordered_record, index| %>
+		      	<tr>
+		      	 	<td> <%= index+1 %>. <%= unordered_record.confirmed_appointment.pre_appointment.appointment_type.title %> </td>
+		      	 	<td><%= unordered_record.created_at.strftime("%F %R") %> </td>
+		      	 	<td><%= link_to "Order", order_treatment_path(:record_id => unordered_record.id, :patient_id => @patient_id, :doctor_id => @doctor_id), class: "w3-button w3-sand w3-hover-sand w3-card-4 w3-small w3-round-xlarge", data: { confirm: 'Investigation/Treatment once oredered, is not reversible. Do you want to order?' } %> </td>
+		      	 </tr>     	     	    
+      	        <% end %>
+		      </tbody>
+		       
+			</table> 
+			
+       </div> 
+      </div>        
+
+		      <footer class="w3-container"> 
+		      	<%#= will_paginate @previous_encounters, renderer: BootstrapPagination::Rails, previous_label: 'Older', next_lable: 'Newer', class: "w3-right pagination-sm w3-card-4", :params => { :controller => "confirmed_appointments", :action => "find_patient_details", count: params[:count], page: params[:page] }  %>  
+		       <div class="w3-clear"></div>
+		       
+		       <%= link_to 'Back', find_patient_details_path(:chosen => @patient_id, :doc => @doctor_id ), class: "w3-button w3-black w3-hover-black  w3-card-4 w3-small w3-round-xlarge w3-right" %>
+		      </footer>
+     
+      <br />
+    </div>
+    <br />
+</div>
+
+
+<script type="text/javascript">
+$(document).ready(function(){
+  setTimeout(function(){
+    $('#notes').remove();
+  }, 4000);
+ });
+</script> 
+
+<script>
+  $(function(){
+    // $('.pagination a').attr('data-remote', 'true');
+  });
+
+</script>
+
+

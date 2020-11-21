@@ -1,0 +1,1 @@
+json.partial! "confirmed_personal_doctor_services/confirmed_personal_doctor_service", confirmed_personal_doctor_service: @confirmed_personal_doctor_service

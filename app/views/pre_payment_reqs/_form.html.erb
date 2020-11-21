@@ -1,0 +1,13 @@
+<%= simple_form_for(@pre_payment_req) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :billing_info_id %>
+    <%= f.input :amount %>
+    <%= f.input :reference %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

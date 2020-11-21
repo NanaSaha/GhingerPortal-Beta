@@ -1,0 +1,2 @@
+module PersonInfoExtrasHelper
+end

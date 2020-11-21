@@ -1,0 +1,80 @@
+<div></div>
+<% if @src == "details" %>
+    <div id="ImageModal" class="w3-modal w3-card-4" style="display: block">
+      <div class="w3-modal-content w3-animate-top w3-card-4 w3-light-gray" style="width: 40%; max-height: 70%; overflow: auto;">
+        <header class="w3-container">
+          <h4>
+            <%if @appt_type == "LA" %>
+              Lab Image
+            <%elsif  @appt_type == "MD"%>
+              Medication Image
+            <%end %>
+          </h4>
+
+        </header>
+        <br />
+
+        <!-- <div class="col-md-1 col-xs-12"></div> -->
+        <div class="col-md-12 col-xs-12 w3-padding">
+          <div class="w3-container w3-padding">
+            <% if @image.present? %>
+              <%= image_tag(@image, class: "centerImage", onclick: " document.getElementById('modal01').style.display='block' ") %>
+            <% else %>
+              <div class="alert alert-info" style="text-align: center;">
+                <h5>Has no image uploaded</h5>
+              </div>
+            <% end %>
+            </div>
+        </div>
+        <br />
+        <footer class="w3-container">
+          <button onclick="document.getElementById('ImageModal').style.display='none'" class="w3-button w3-black w3-hover-black w3-right w3-card-4 w3-small w3-round-xlarge">Back</button>
+          <br />
+        </footer>
+        <br />
+      </div>
+      <br />
+    </div>
+<% elsif  @src == 'confirmed_appt'%>
+  <div class="w3-container w3-padding">
+    <% if @image.present? %>
+      <%= image_tag(@image, class: "centerImage", onclick: " document.getElementById('modal01').style.display='block' ") %>
+    <% else %>
+      <div class="alert alert-info" style="text-align: center;">
+        <h5>Has no image uploaded</h5>
+      </div>
+    <% end %>
+  </div>
+<%end %>
+<div id="modal01" class="w3-modal" onclick="this.style.display='none'">
+  <span class="w3-button w3-hover-red w3-xlarge w3-display-topright">&times;</span>
+  <div class="w3-modal-content w3-animate-zoom" style="">
+    <%= image_tag(@image, width: 900, height: 480) %>
+  </div>
+</div>
+
+
+
+
+
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        setTimeout(function(){
+            $('#notes').remove();
+        }, 4000);
+    });
+</script>
+
+<style>
+  .centerImage {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    /*width: 50%;*/
+    width: 480px;
+    height: 250px;
+    cursor:zoom-in;
+  }
+</style>
+

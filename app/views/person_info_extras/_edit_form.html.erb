@@ -1,0 +1,148 @@
+<br />
+<%= simple_form_for(@person_info_extra, remote: true) do |f| %>
+  <%= f.error_notification %>
+  <%= tinymce_assets %>
+  <div id="id01" class="w3-modal w3-card-4 w3-round-large" style="display: block;">
+    <div class="w3-modal-content w3-animate-bottom w3-card-4 w3-light-gray" style="width: 33%; max-height: 80%; overflow-y: auto;">
+    	<div style="max-width: 70%; text-align: center; margin-left: 15%; margin-top: 15px">
+      
+	    	<!-- <% if flash[:notice] %>
+               <p class="flash_notice " id = 'notes' style = ""><%= notice %></p>
+		  	 <% end %> -->
+		  	
+    	</div>	
+      <header class="w3-container"> 
+        <h4>Edit Professional Information</h4> 
+      </header>          
+           <div class="w3-container" > 						      	
+              
+               <div class="form-inputs">
+                   <%= f.input :person_id, as: :hidden, input_html: {value: @person_id} %> 
+				    <%= f.input :specialty_id, collection:  @the_list,  label_method: :first, value_method: :last, input_html:{class:"combobox form-control", data: { placeholder: "Type to select a specialty from the dropdown" } } %>
+				    <%= f.input :specialty_duration, label: "Specialty Duration(years)", :placeholder => "Please add Months/Years to the duration" %> 
+				    <%= f.input :profession_group_id, label: "Medical Regulator", collection:  @group,  label_method: :first, value_method: :last, input_html:{class:"combobox form-control", data: { placeholder: "Type to select a professional group from the dropdown" } } %>
+				    <%= f.input :licence_number, :placeholder => "Enter the medical licence number" %>
+				    <%= f.input :hospital_name, label: "Place of Work", :placeholder => "Enter the medical licence number" %>
+				    <!-- <%= f.input :comment, label: "Remark", :class => "tinymce", :rows=> 7 %> -->
+				    <%= f.input :user_id, as: :hidden %>
+				    <%= f.input :entity_id, as: :hidden %>  
+				    <%= f.input :active_status, as: :hidden, input_html: {value: 1} %>
+				    <%= f.input :del_status, as: :hidden, input_html: {value: 0} %>
+				    
+				    <%= f.input :has_specialty, :label => "Are you a specialist?", input_html: { :id => "has_specialty", :text_align=> "center"} %> 
+				  	
+				  	<div id="foreign" class="hidden">
+					    <%= f.input :forign_training, label: "Foreign Training", input_html: { :id => "forign_training", :text_align=> "center"} %>     
+					    <%= f.input :foreign_institution_desc, label: "Foreign Medical Board", :placeholder => "Enter foreign medical board", input_html: {:id => "foreign_inst", :required=> true} %>
+					    <%= f.input :foreign_licence_number, label: "Foreign Licence Number", :placeholder => "Enter the foreign medical licence number", input_html: {:id => "foreign_licence", :required=> true} %>
+				    </div> 
+				    
+				    <% @foreign_inst = @person_info_extra.foreign_institution_desc if @person_info_extra.persisted? %> 
+				    <% @foreign_licence_num = @person_info_extra.foreign_licence_number if @person_info_extra.persisted? %> 
+				    
+				   <%= f.label :comment, "Remark"%>
+                   <%= f.text_area :comment, :class => "tinymce", :rows=> 7 %>
+				    
+              </div>
+           </div>
+        <br>
+      <footer class="w3-container">
+       	<%= f.button :submit, class: "w3-button w3-teal w3-hover-teal w3-left w3-card-4 w3-small w3-round-xlarge", value: "Update" %>
+        <%= link_to 'Back', find_prof_info_path(:person_id => @person_id), :remote=> true, class: "w3-button w3-black w3-hover-black w3-right w3-card-4 w3-small w3-round-xlarge" %>
+        <br />
+      </footer>
+      <% end %>
+      <br />
+    </div>
+    <br />
+</div>
+
+<%= tinymce %>
+
+<script type="text/javascript">
+$(document).ready(function(){
+  setTimeout(function(){
+    $('#notes').remove();
+  }, 3000);
+  });
+</script>
+
+<script type="text/javascript">
+ $(function () {
+   $('#datetimepicker4').datetimepicker({
+   	 format: "YYYY-MM-DD HH:mm"
+   });
+    
+  });
+</script>
+<script type="text/javascript">
+    $(document).ready(function(){
+         $('form').attr('autocomplete', 'off');
+        
+         $('.combobox').combobox();
+
+   $('span.input-group-addon').addClass("hidden");
+  
+    });
+</script>
+
+<style>
+	.input-group{
+		width: 100%;
+	}
+  .typeahead{
+    width: 100%;
+  }
+  
+</style>
+ 
+<script type="text/javascript">
+// get the values of foreign inst and foreign licence number 
+	 $(document).ready(function() {	 	
+	 	//on load
+	 	if ($("#has_specialty").is(":checked")) {
+	 	  	console.log('This is the if');
+	 	    $("#foreign").removeClass("hidden");
+	 	    document.getElementById("forign_training").checked = true;
+	 	    document.getElementById("foreign_licence").required = true;
+	 	    	 	    
+		 }
+		  else
+		 { 
+		     console.log('This is the else');
+		 	 $("#foreign").addClass("hidden");
+		 	 document.getElementById("forign_training").checked = false;
+		 	 // document.getElementById("foreign_licence").disabled = true;
+		 	 document.getElementById("foreign_licence").required = false;
+		 }
+	 	
+		
+	 	
+	 	$("#has_specialty").change(function(){
+	 		if ($("#has_specialty").is(":checked")) {
+		 	  	console.log('This is the if');
+		 	  	$("#foreign").removeClass("hidden");
+	 	  	    document.getElementById("forign_training").checked = true;
+	 	  		document.getElementById("foreign_licence").disabled = false;
+	 	  		document.getElementById("foreign_inst").disabled = false;
+	 	  		document.getElementById("foreign_licence").required = true;
+	 	  		document.getElementById("foreign_inst").value = '<%= @foreign_inst %>';
+	 	  		document.getElementById("foreign_licence").value = '<%= @foreign_licence_num %>';
+		 	 }
+		 	  else   
+		 	  { 
+		 	  	console.log('This is the else');
+		 	  	 $("#foreign").addClass("hidden");
+		 	  	 document.getElementById("forign_training").checked = false;
+		 	  	 // document.getElementById("foreign_licence").disabled = true;
+		 	  	 // document.getElementById("foreign_inst").disabled = true;
+		 	  	 document.getElementById("foreign_licence").required = false;
+		 	  	  
+		 	  	 document.getElementById("foreign_licence").value = "";  
+		 	  	 document.getElementById("foreign_inst").value = "";
+		 	 }
+	 	});
+	 	  
+	 }); 
+
+</script>  

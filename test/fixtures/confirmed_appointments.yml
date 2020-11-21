@@ -1,0 +1,25 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  pre_appointment_id: 1
+  provider_id: 1
+  complaint_desc: MyString
+  confirmed_date: 2017-11-13 18:10:34
+  confirmed_time: 2017-11-13 18:10:34
+  comment: MyString
+  user_id: 1
+  entity_id: 1
+  active_status: false
+  del_status: false
+
+two:
+  pre_appointment_id: 1
+  provider_id: 1
+  complaint_desc: MyString
+  confirmed_date: 2017-11-13 18:10:34
+  confirmed_time: 2017-11-13 18:10:34
+  comment: MyString
+  user_id: 1
+  entity_id: 1
+  active_status: false
+  del_status: false

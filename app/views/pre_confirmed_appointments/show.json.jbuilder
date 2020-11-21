@@ -1,0 +1,1 @@
+json.partial! "pre_confirmed_appointments/pre_confirmed_appointment", pre_confirmed_appointment: @pre_confirmed_appointment

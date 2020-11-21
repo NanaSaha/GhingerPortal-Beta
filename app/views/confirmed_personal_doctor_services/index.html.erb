@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Confirmed Personal Doctor Services</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Doctor</th>
+      <th>Patient</th>
+      <th>Comment</th>
+      <th>Entity</th>
+      <th>User</th>
+      <th>Active status</th>
+      <th>Del status</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @confirmed_personal_doctor_services.each do |confirmed_personal_doctor_service| %>
+      <tr>
+        <td><%= confirmed_personal_doctor_service.doctor_id %></td>
+        <td><%= confirmed_personal_doctor_service.patient_id %></td>
+        <td><%= confirmed_personal_doctor_service.comment %></td>
+        <td><%= confirmed_personal_doctor_service.entity_id %></td>
+        <td><%= confirmed_personal_doctor_service.user_id %></td>
+        <td><%= confirmed_personal_doctor_service.active_status %></td>
+        <td><%= confirmed_personal_doctor_service.del_status %></td>
+        <td><%= link_to 'Show', confirmed_personal_doctor_service %></td>
+        <td><%= link_to 'Edit', edit_confirmed_personal_doctor_service_path(confirmed_personal_doctor_service) %></td>
+        <td><%= link_to 'Destroy', confirmed_personal_doctor_service, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Confirmed personal doctor service', new_confirmed_personal_doctor_service_path %>

@@ -1,0 +1,68 @@
+<div></div>
+<div id="id01" class="w3-modal w3-card-4" style="display: block">
+  <div class="w3-modal-content w3-animate-top w3-card-4 w3-light-white" style="width: 40%">
+    <% if flash[:notice] %>
+        <p class="flash_notice " id = 'notes' style = "margin-top: 5px"><%= notice %></p>
+    <% end %>
+
+    <% if @requester_allergy.present? %>
+        <div class="w3-container"> </div><br />
+
+        <footer class="w3-container">
+          <%= link_to 'Back', pre_appointment_url(:id => @pre_appointment_id), :remote=> true, class: "w3-button w3-black w3-hover-black w3-right w3-card-4 w3-small w3-round-xlarge" %>
+          <br />
+        </footer>
+        <br />
+
+    <% else %>
+        <header class="w3-container">
+          <h4>Medication Details</h4>
+        </header>
+        <br />
+        <!-- <div class="col-md-1 col-xs-12"></div> -->
+        <div class="col-md-12 col-xs-12 w3-padding">
+          <div class="w3-container ">
+            <table class="table table-condensed table-bordered table-striped">
+              <thead>
+              <tr class= "w3-teal">
+                <th>S/N</th>
+                <th>Drug</th>
+                <th>Price ($)</th>
+              </tr>
+              </thead>
+
+              <tbody>
+              <% @med_details.each_with_index do |med_detail, index| %>
+                  <%#= med_detail.inspect %>
+                  <tr>
+                    <td><%= index+1 %></td>
+                    <td><%= med_detail.drug_master.drug_name %></td>
+                    <td><%= med_detail.drug_master.drug_prices[0].price %></td>
+                  </tr>
+              <% end %>
+              </tbody>
+
+            </table>
+          </div>
+        </div>
+        <!-- <div class="col-md-1 col-xs-12"></div> -->
+        <br />
+        <footer class="w3-container">
+          <%= link_to 'Back', confirmed_appointment_path(:id => @med_details[0].confirmed_appt_id ), :remote=> true, class: "w3-button w3-black w3-hover-black w3-right w3-card-4 w3-small w3-round-xlarge" %>
+          <br />
+        </footer>
+        <br />
+        </div>
+        <br />
+        </div>
+
+    <%end%>
+
+
+    <script type="text/javascript">
+        $(document).ready(function(){
+            setTimeout(function(){
+                $('#notes').remove();
+            }, 7000);
+        });
+    </script>

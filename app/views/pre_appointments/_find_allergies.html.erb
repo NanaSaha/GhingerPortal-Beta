@@ -1,0 +1,61 @@
+<div></div>
+<div id="id01" class="w3-modal w3-card-4" style="display: block">
+    <div class="w3-modal-content w3-animate-right w3-card-4 w3-light-gray" style="width: 40%">
+      <div style="max-width: 70%; text-align: center; margin-left: 15%; margin-top: 15px">
+	   <% if flash.now[:notice] %>
+			   <p class="flash_notice "  style = ""><b><%= notice %></b></p>
+		  <% end %>
+    	</div>
+    		
+      <% if @requester_allergy.nil? %>
+           <div class="w3-container"> </div><br />   
+
+		      <footer class="w3-container">
+		      	 <%= link_to 'Add Allergy', add_requester_allergy_path(:requester_id => @requester_id), :remote=> true, class: "w3-button w3-blue w3-hover-blue w3-left w3-card-4 w3-small w3-round-xlarge" %>
+		     	<%= link_to 'Back', pre_appointment_url(:id => @pre_appointment_id), :remote=> true, class: "w3-button w3-black w3-hover-black w3-right w3-card-4 w3-small w3-round-xlarge" %>
+		      <br />
+		      </footer>
+		      <br />
+	   <% else %>
+      <header class="w3-container">    
+        <h4>Requester Allergies</h4> 
+        
+      </header>
+      <br />
+      <div class="col-md-12 col-xs-12 w3-padding">
+      	<div class="w3-container "> 
+      			
+			 <table class="table table-condensed table-bordered table-striped">
+				<% @requester_allergies.each_with_index do |requester_allergy, index| %>
+				 <tr>
+				 	<td style="width: 2px"><%= index + 1 %></td>
+				 	<td><%= requester_allergy.allergies_master.title %></td>
+				 </tr>
+				 <%end%>
+			</table>
+        </div>
+      </div>    
+      <br />
+      <footer class="w3-container">
+        <%= link_to 'Edit', edit_allergy_path(:requester_id => @requester_id, :id => @pre_appointment_id), :remote=> true, class: "w3-button w3-blue w3-hover-blue w3-left w3-card-4 w3-small w3-round-xlarge" %>
+        <%= link_to 'Back', pre_appointment_url(:id => @pre_appointment_id), :remote=> true, class: "w3-button w3-black w3-hover-black w3-right w3-card-4 w3-small w3-round-xlarge" %>
+      <br />
+      </footer>
+     
+      <br />
+      
+ <% end %>
+    </div>
+    <br />
+</div>
+
+
+
+<!-- 
+<script type="text/javascript">
+$(document).ready(function(){
+  setTimeout(function(){
+    $('#notes').remove();
+  }, 4000);
+ });
+</script>  -->

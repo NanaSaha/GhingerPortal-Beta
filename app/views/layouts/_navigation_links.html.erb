@@ -1,0 +1,105 @@
+<br />
+<legend></legend>
+<%= link_to admin_root_path, class: "w3-bar-item w3-button w3-hover-none" do %>
+  <i class="fa fa-tachometer" aria-hidden="true" style="color: white"></i> <span style="margin-left: px;"><b style="color: white">Dashboard</b></span>
+<% end %>
+<legend></legend>
+<%= link_to registrations_path, class: "w3-bar-item w3-button w3-hover-none" do %>
+  <i class="fa fa-user-plus" aria-hidden="true" style="color: white"></i> <span style="margin-left:10px;"><b style="color: white">Registrations</b></span>
+<% end %>
+<legend></legend>
+<%= link_to subscription_new_mains_path, class: "w3-bar-item w3-button w3-hover-none" do %>
+  <i class="fa fa-users" aria-hidden="true" style="color: white"></i> <span style="margin-left:10px;"><b style="color: white">Subscriptions</b></span>
+<% end %>
+<legend></legend>
+<legend></legend>
+<%= link_to appointment_types_path, class: "w3-bar-item w3-button w3-hover-none" do %>
+  <i class="fa fa-clock-o" aria-hidden="true" style="color: white"></i> <span style="margin-left:10px;"><b style="color: white">Appointments</b></span>
+<% end %>
+<legend></legend>
+<legend></legend>
+<%= link_to subs_payments_path, class: "w3-bar-item w3-button w3-hover-none" do %>
+  <i class="fa fa-users" aria-hidden="true" style="color: white"></i> <span style="margin-left:10px;"><b style="color: white">Payments</b></span>
+<% end %>
+<legend></legend>
+<%= link_to feedbacks_path, class: "w3-bar-item w3-button w3-hover-none" do %>
+  <i class="fa fa-comments-o" aria-hidden="true" style="color: white"></i> <span style="margin-left:10px;"><b style="color: white">Feedbacks</b></span>
+<% end %>
+<legend></legend>
+<%= link_to country_masters_path, class: "w3-bar-item w3-button w3-hover-none" do %>
+  <i class="fa fa-map-marker" aria-hidden="true" style="color: white"></i> <span style="margin-left:10px;"><b style="color: white">Locations</b></span>
+<% end %>
+<legend></legend>
+<%= link_to service_prov_types_path, class: "w3-bar-item w3-button w3-hover-none" do %>
+  <i class="fa fa-medkit" aria-hidden="true" style="color: white"></i> <span style="margin-left: 10px"><b style="color: white">Service Providers</b></span>
+<% end %>
+<legend></legend>
+<legend></legend>
+<%= link_to person_type_masters_path, class: "w3-bar-item w3-button w3-hover-none" do %>
+  <i class="fa fa-users" aria-hidden="true" style="color: white"></i> <span style="margin-left:10px;"><b style="color: white">Personnel/Users</b></span>
+<% end %>
+<legend></legend>
+<%= link_to referals_path, class: "w3-bar-item w3-button w3-hover-none" do %>
+  <i class="fa fa-wheelchair" aria-hidden="true" style="color: white"></i> <span style="margin-left:10px;"><b style="color: white">Referals</b></span>
+<% end %>
+<legend></legend>
+<li class="dropdown">
+  <ul class="dropdown-menu my-menu w3-card w3-dropdown-content w3-bar-block"  style = "background: #1f1e1e; margin-bottom: 30%; overflow: auto;">
+    <li >
+      <%= link_to lab_services_path, class: "w3-bar-item w3-hover-none" do %>
+        <i class="fa fa-wheelchair" aria-hidden="true" style="color: white"></i> <span style="margin-left:10px;" id="w3-bar-item"><b style="color: white">Lab Services</b></span>
+      <% end %>
+    </li>
+    <li>
+      <%= link_to allergies_masters_path, class: "w3-bar-item w3-hover-none" do %>
+        <i class="fa fa-arrows-alt" aria-hidden="true" style="color: white"></i> <span style="margin-left:10px;"><b style="color: white">Allergies</b></span>
+      <% end %>
+    </li>
+    <li>
+      <%= link_to condition_masters_path, class: "w3-bar-item w3-hover-none" do %>
+        <i class="fa fa-thermometer-quarter" aria-hidden="true" style="color: white"></i> <span style="margin-left:10px;"><b style="color: white">Conditions</b></span>
+      <% end %>
+    </li>
+    <li>
+      <%= link_to specialty_masters_path, class: "w3-bar-item w3-hover-none" do %>
+        <i class="fa fa-user-md" aria-hidden="true" style="color: white"></i> <span style="margin-left:10px;"><b style="color: white">Specialties</b></span>
+      <% end %>
+    </li>
+    <li>
+      <%= link_to profesional_groups_path, class: "w3-bar-item w3-hover-none" do %>
+        <i class="fa fa-handshake-o" aria-hidden="true" style="color: white"></i> <span style="margin-left:10px;"><b style="color: white">Prof Groups</b></span>
+      <% end %>
+    </li>
+    <li>
+      <%= link_to roles_path, class: "w3-bar-item w3-hover-none" do %>
+        <i class="fa fa-user-secret" aria-hidden="true" style="color: white"></i> <span style="margin-left:10px;"><b style="color: white">User Roles</b></span>
+      <% end %>
+    </li>
+    <li>
+      <%= link_to permissions_path, class: "w3-bar-item w3-hover-none" do %>
+        <i class="fa fa-pencil-square-o" aria-hidden="true" style="color: white"></i> <span style="margin-left:10px;"><b style="color: white">Permissions</b></span>
+      <% end %>
+    </li>
+    <li>
+      <%= link_to user_services_path, class: "w3-bar-item w3-hover-none" do %>
+        <i class="fa fa-heartbeat" aria-hidden="true" style="color: white"></i> <span style="margin-left:px;"><b style="color: white">User Services</b></span>
+      <% end %>
+    </li>
+  </ul>
+  <br />
+</li>
+<br />
+<div class="w3-class"></div>
+<script type="text/javascript">
+  $(document).ready(function(){
+  	$(".item-child").click(function() {
+  	      // e.preventDefault();
+  	     // alert("hello");
+  
+  	       document.getElementsByClassName("my-menu").css("display", "block");
+  	       // $(".my-menu").css("display", "block");
+  	       // $(".my-menu").css("background-color", "red");
+  	  });
+  
+  })
+</script>

@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  confirmed_pds_id: 1
+  prev_med_histry: MyString
+  user_id: 1
+  active_status: false
+  del_status: false
+
+two:
+  confirmed_pds_id: 1
+  prev_med_histry: MyString
+  user_id: 1
+  active_status: false
+  del_status: false

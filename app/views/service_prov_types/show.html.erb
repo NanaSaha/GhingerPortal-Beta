@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Service prov type title:</strong>
+  <%= @service_prov_type.service_prov_type_title %>
+</p>
+
+<p>
+  <strong>Comment:</strong>
+  <%= @service_prov_type.comment %>
+</p>
+
+<p>
+  <strong>Entity:</strong>
+  <%= @service_prov_type.entity_id %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @service_prov_type.user_id %>
+</p>
+
+<p>
+  <strong>Active status:</strong>
+  <%= @service_prov_type.active_status %>
+</p>
+
+<p>
+  <strong>Change status:</strong>
+  <%= @service_prov_type.change_status %>
+</p>
+
+<%= link_to 'Edit', edit_service_prov_type_path(@service_prov_type) %> |
+<%= link_to 'Back', service_prov_types_path %>

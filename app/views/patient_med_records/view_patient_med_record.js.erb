@@ -1,0 +1,8 @@
+<% if @appt_type == 'MD'%>
+	$("#showDetails").html("<%= escape_javascript(render(:partial =>"record_details")) %>"); 
+<% elsif @appt_type == 'VC'%>
+	$("#showDetails").html("<%= escape_javascript(render(:partial =>"record_details")) %>"); 
+<% elsif @appt_type == 'HC'%>
+	$("#showDetails").html("<%= escape_javascript(render(:partial =>"record_details")) %>"); 
+<%end%>
+

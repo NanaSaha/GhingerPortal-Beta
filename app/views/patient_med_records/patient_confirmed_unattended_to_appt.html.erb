@@ -1,0 +1,54 @@
+<div class="container" style="min-width: 75%; margin-left: 2%"> 
+	<div class="col-md-2 colxs-12 col-sm-12"></div>
+	<div class="col-md-10 colxs-12 col-sm-12">
+	<div class = "table-responsive">
+		<% if flash[:notice] %>
+		  <p class="flash_notice " id = 'notes' style = "margin-top: 5px"><%= notice %></p>
+		<% end %>
+		
+		 <%  if @patient_unattended_appts.blank?%>
+			    <p class="alert alert-info" id = '' style = "margin-top: 5px"><%= flash.now[:notice] = "There are no pending appointments." %></p>
+		  	
+		  <% else %>
+		<h4>Unattended Appointment(s) for<br /> <%= @patient_unattended_appts[0].patient.surname  %> <%= @patient_unattended_appts[0].patient.other_names %></h4>
+		
+		<table class="table table-condensed table-bordered w3-striped w3-card-4 w3-hoverable">
+		  <thead>
+		 
+		    <tr class="w3-black w3-card">
+		    	<th>N<u>o</u></th>
+		        <th>Appt Type</th>
+		        <th>Date and Time</th>
+		        <th>Patient Contact</th>
+		        
+		        <th colspan=""></th>	      
+			    <!--<th>Date/Time</th>	      
+		        <th>Accept Status</th>
+			    <th>Attend Status</th> -->
+		    </tr> 
+		   
+		  </thead> 
+		  <tbody>  
+	
+			 <% @patient_unattended_appts.each_with_index do |patient_appointment, index| %>
+		        <tr class="w3-hover-pale-green">
+		        	<td style="width: 5%;"><%= index+=1%></td>
+		            <td><%= patient_appointment.pre_appointment.appointment_type.title if patient_appointment.pre_appointment %> </td>
+		            <td><%= patient_appointment.confirmed_date.strftime("%F %R")  if patient_appointment.confirmed_date%></td>
+			       	<td><%= patient_appointment.patient.person_contact_infos.last.contact_number  if patient_appointment.patient%></td>
+			      
+			        <td style="width: 5px"><%= link_to "Attend To", new_patient_med_record_path(:chosen => patient_appointment.patient_id, :doc => @doctor_id, :comfirmed_appt_id => patient_appointment.id ), class: "w3-button w3-indigo w3-hover-indigo w3-card w3-small w3-round w3-round-xxlarge" %></td>
+			        <!-- <td style="width: 5%"> <%= link_to 'Delete', disable_personal_patient_path(:chosen => patient_appointment.id), data: { confirm: 'You are about to delete the selected personal patient, do you want to continue?' },  class: "w3-button w3-red w3-hover-red w3-small w3-round w3-round-xxlarge w3-card" %> </td> -->
+			        			       
+		        </tr>  
+		          
+		       <% end %>
+			<% end %> 
+		      
+		  </tbody>
+		</table>
+	</div>
+	 <%= link_to 'Back', find_patient_details_path(:chosen => @patient_id, :doc => @doctor_id), class: "w3-button w3-black w3-hover-black  w3-card-4 w3-small w3-round-xlarge w3-right" %>
+	</div>
+	<div class="col-md-2 colxs-12 col-sm-12"></div>
+</div>

@@ -1,0 +1,58 @@
+<h4>Permissions</h4>
+<br />
+<div class="pull-right" style = 'margin-top: -3%; '>
+	  <label class="">Display <u>No</u>: </label> 
+	     <!-- <%#= select_tag :count, options_for_select([5,10,15,20,25,30], params[:count].to_i), :onchange => "if(this.value){ window.location='?count='+this.value ;}" %> -->
+	   <%= select_tag :per_page, options_for_select([10, 20, 30, 40,50, 70,100], params[:per_page].to_i), :data => { :remote => true, 
+	 	            :url => url_for( :controller => "permissions", :action => "index" )
+	 	             }, :onchange => "if(this.value){window.location='?per_page='+this.value;}", class: "w3-bordered w3-round-xlarge w3-btn w3-small w3-card-4" %>	
+</div>
+<!-- <div class="pull-left" style = 'margin-top: -3%;'>
+	 <label class="">Filter by: </label> 
+	  <%= select_tag :name , options_from_collection_for_select(Role.all, "name", "name", @name ), :data => {
+	  	:url => url_for(:controller => "roles", :action => "index")}, :onchange => "if(this.value){window.location='?name='+this.value;}",  class: "w3-bordered w3-round-xlarge w3-btn w3-small w3-card-4", :prompt=> "Select to filter" %>
+	 	      	                                                                                                        
+ </div> -->
+<br />
+<p style = 'text-align: center; font-family: tahoma; font-size: 15px;'>
+   <b>Download:</b>  <%= link_to "CSV", permissions_path(format: "csv"), :class => "w3-hover-white"%> 
+                     | <%= link_to "Excel",  permissions_path(format: "xls"), :class => "w3-hover-white" %> 
+                     | <%= link_to "CSV-all", all_permission_excel_path(format: "csv"), :class => "w3-hover-white", method: :get%> 
+                     | <%= link_to "Excel-all", all_permission_excel_path(format: "xls"),:class => "w3-hover-white", method: :get%>
+</p>
+
+<div class = "table-responsive">
+		<table class="table table-condensed table-bordered table-striped w3-card">
+		  <thead>
+		    <tr class="w3-teal">
+		      <th>Subject Class</th>
+		      <th>Action</th>
+		      <th>Name</th>
+		      <th>Description</th>
+		      <th>Edit</th>
+		      <!-- <th colspan="2">Options</th> -->
+		    </tr>
+		  </thead>
+		
+		  <tbody>
+		    <% @permissions.each do |permission| %>
+		      <tr>
+		        <td><%= permission.subject_class %></td>
+		        <td><%= permission.action %></td>
+		        <td><%= permission.name %></td>
+		        <td><%= permission.description %></td>	       
+		        <td style="width: 15px"><%= link_to 'Edit', edit_permission_path(permission), class: "w3-button w3-gray w3-card w3-hover-gray w3-small w3-round w3-round-xxlarge" %></td>
+		      </tr>
+		    <% end %>
+		  </tbody>
+		</table>
+</div>
+
+
+<div>
+ <!-- <%= link_to '+',  new_role_path, class: "w3-button w3-circle w3-teal w3-hover-teal w3-left w3-card-4" %> -->
+ <%= will_paginate @permissions,  renderer: BootstrapPagination::Rails, previous_label: 'Older', next_lable: 'Newer', class: "w3-right pagination-sm w3-card-4" %>
+<br /><br />
+</div> 
+<div class="clearfix"></div>
+<br><br />

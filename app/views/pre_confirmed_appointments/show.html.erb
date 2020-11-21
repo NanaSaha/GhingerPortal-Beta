@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Appointment:</strong>
+  <%= @pre_confirmed_appointment.appointment_id %>
+</p>
+
+<p>
+  <strong>Doctor:</strong>
+  <%= @pre_confirmed_appointment.doctor_id %>
+</p>
+
+<p>
+  <strong>Nurse:</strong>
+  <%= @pre_confirmed_appointment.nurse_id %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @pre_confirmed_appointment.user_id %>
+</p>
+
+<p>
+  <strong>Active status:</strong>
+  <%= @pre_confirmed_appointment.active_status %>
+</p>
+
+<p>
+  <strong>Del status:</strong>
+  <%= @pre_confirmed_appointment.del_status %>
+</p>
+
+<%= link_to 'Edit', edit_pre_confirmed_appointment_path(@pre_confirmed_appointment) %> |
+<%= link_to 'Back', pre_confirmed_appointments_path %>

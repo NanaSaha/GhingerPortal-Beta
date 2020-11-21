@@ -1,0 +1,94 @@
+<div></div>
+<div id="id01" class="w3-modal w3-card-4" style="display: block">
+  <div class="w3-modal-content w3-animate-top w3-card-4 w3-light-gray" style="width: 40%; max-height: 80%; overflow: auto;">
+    <% if flash[:notice] %>
+      <p class="flash_notice " id = 'notes' style = "margin-top: 5px"><%= notice %></p>
+    <% end %>
+    <header class="w3-container">
+      <h4>Billing Details</h4>
+    </header>
+    <br />
+    <!-- <div class="col-md-1 col-xs-12"></div> -->
+    <div class="col-md-12 col-xs-12 w3-padding">
+      <div class="w3-container ">
+        <p><b>Requester: </b><%= @patient_billing_info.confirmed_appointment.pre_appointment.person_info.surname %> <%= @patient_billing_info.confirmed_appointment.pre_appointment.person_info.other_names %></p>
+        <% if @patient_billing_info.confirmed_appointment.pre_appointment.requester_cat == "T" %>
+          <p><b>For: </b> <%= @patient_billing_info.confirmed_appointment.pre_appointment.beneficiary_name %></p>
+        <% end %>
+        <p><b>Appointment Type: </b><%= @patient_billing_info.confirmed_appointment.pre_appointment.appointment_type.title %></p>
+        <p><b>Date: </b><%= @patient_billing_info.created_at.strftime("%m-%d-%Y") %></p>
+        <p><b>Status: </b>
+          <% if @patient_billing_info.confirmed_appointment.paid %>
+            Paid
+          <% else %>
+            Not Paid
+          <% end %>
+        </p>
+        <table class="table table-condensed table-bordered table-striped w3-table-all">
+          <thead>
+            <tr class="w3-black">
+              <th>Item</th>
+              <th>Unit Price (GHS)</th>
+              <th>Quantity</th>
+              <th>Amount (GHS)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% total = 0 %>
+            <% if @patient_billing_info.confirmed_appointment.pre_appointment.appointment_type_id == "MD" %>
+              <% @med_bills.each do |med_bill| %>
+                <tr>
+                  <td><%= med_bill.drug_name %></td>
+                  <td><%= number_to_currency(med_bill.price, unit: " ") %></td>
+                  <td><%= med_bill.quantity %></td>
+                  <td><%= number_to_currency(med_bill.item_price, unit: " ") %></td>
+                  <% total +=  med_bill.item_price %>
+                </tr>
+              <% end %>
+              <br>
+              <tr class="w3-margin-top">
+                <td ><b >Total</b></td>
+                <td>
+                  <%= number_to_currency(total, unit: "GHS ") %>
+                </td>
+              </tr>
+            <% elsif @patient_billing_info.confirmed_appointment.pre_appointment.appointment_type_id == "LA" %>
+              <% @lab_bills.each do |lab_bill| %>
+                <tr>
+                  <td><%= lab_bill.title %></td>
+                  <td><%= number_to_currency(lab_bill.fee, unit: " ") %></td>
+                  <td><%= lab_bill.quantity %></td>
+                  <td><%= number_to_currency(lab_bill.item_price, unit: " ") %></td>
+                  <% total +=  lab_bill.item_price %>
+                </tr>
+              <% end %>
+              <br>
+              <hr>
+              <tr class="w3-margin-top">
+                <td ><b >Total</b></td>
+                <td>
+                  <%= number_to_currency(total, unit: "GHS ") %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <!-- <div class="col-md-1 col-xs-12"></div> -->
+    <br />
+    <footer class="w3-container">
+      <%= link_to 'Back', pre_appointments_path, :remote=> true, class: "w3-button w3-black w3-hover-black w3-right w3-card-4 w3-small w3-round-xlarge",data: {"disable-with": "Please wait......"} %>
+      <br />
+    </footer>
+    <br />
+  </div>
+  <br />
+</div>
+<script type="text/javascript">
+  $(document).ready(function(){
+      setTimeout(function(){
+          $('#notes').remove();
+      }, 4000);
+  });
+</script>

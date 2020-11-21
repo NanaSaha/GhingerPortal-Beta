@@ -1,0 +1,45 @@
+<% if flash[:notice] %>
+  <p class="flash_notice " id = 'notes' style = "margin-top: 5px"><%= notice %></p>
+<%end%>
+<!-- <div class="col-md-3 col-xs-12"></div> -->
+
+<div class="col-md-12 col-xs-12">
+	<h4><%= @city %></h4>
+	<div class="table-responsive">
+		<table class="table table-condensed table-bordered table-striped w3-card-4">
+		  <thead>
+		    <tr class="w3-teal">
+		      <th>Suburb name</th>
+		      <th>Status</th>
+		      <th style="width: 15px">Details</th>
+		    </tr>
+		  </thead>
+		
+		  <tbody>
+		    <% @suburb_masters.each do |suburb_master| %>
+		      <tr>
+		        <td><%= suburb_master.suburb_name %></td>
+		        <% if suburb_master.active_status == true %>  
+		          <td style="color: ">Active</td>
+		      		
+		       <%elsif suburb_master.active_status == false %>
+		          <td style="color: red">Inactive</td>
+		      		
+		       <%end%>
+		       
+		        <td style="15px"><%= link_to 'Details',suburb_master, remote: true, class: "w3-btn w3-indigo w3-hover-indigo w3-small w3-round-xlarge w3-middle " %></td>
+		      </tr>
+		    <% end %>
+		  </tbody>
+		</table>
+	</div>
+	
+	<div>
+	 <%= link_to 'Back', city_town_masters_path, :remote=> true, class: "w3-button  w3-black w3-hover-black w3-right w3-small w3-round-xxlarge w3-card" %>
+	 <%= link_to '+', new_suburb_master_path(:city_id => @current_city_id), :remote=> true, class: "w3-button w3-circle w3-teal w3-hover-teal w3-left w3-card" %>
+	<br />
+	</div>
+<br>
+</div>
+<!-- <div class="col-md-3 col-xs-12"></div> -->
+<!-- <%= link_to 'New Suburb master', new_suburb_master_path %> -->

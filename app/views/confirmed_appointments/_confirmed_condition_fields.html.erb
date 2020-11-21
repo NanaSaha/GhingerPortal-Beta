@@ -1,0 +1,36 @@
+<div class="col-md-1"></div>
+<div class="pre-scrollable" style="max-height: 200px">
+	<div  class="col-md-10">
+        <div class="nested-fields" >
+          <h4>Select condition(s)</h4>
+			<% count = 1 %>
+            <% unless @condition_masters.nil? %>
+				<%= f.input :allergy_id, label: "Are the selected condition(s) allergies?" %>
+                <% @condition_masters.each do |condition| %>
+                    <div class="table-responsive">
+                        <table class="table table-condensed table-bordered w3-striped">	
+						<tr class= "w3-teal">
+						   <td style="width: 5%"><%= "#{count}. " %></td>
+				           <td style="width: 95%; margin-bottom: " class="w3-white">&nbsp;<%= "#{condition.condition_name}" %></td>
+						   
+						   <td class="w3-white">
+							  <% if @confirmed_conditions.include? condition.id %>
+							 	   <input type="checkbox" name="condition_id[<%=count%>[checkbox]]" checked="checked" />
+							  <% else %>
+							 	   <input type="checkbox" name="condition_id[<%=count%>[checkbox]]"/>
+							  <% end %>	 	    	 
+							 	   <input type="hidden" name="condition_id[<%=count%>[id]]" value="<%= condition.id %>">
+							    <% count += 1 %>
+							</td>
+							 	
+					   </tr>	
+								
+					</table>
+                    </div>
+                <% end %>
+            <% end %>
+        </div>
+      <br />
+    </div>
+</div>
+<div class="col-md-1"></div>

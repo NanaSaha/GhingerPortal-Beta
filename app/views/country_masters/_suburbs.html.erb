@@ -1,0 +1,89 @@
+<h4>Available Suburbs</h4>
+<br />
+<p style = 'text-align: center; font-family: tahoma; font-size: 15px;'>
+   <b>Download:</b>  <%= link_to "CSV", suburb_masters_path(format: "csv" ), :class => "w3-hover-white" %> 
+                     | <%= link_to "Excel", suburb_masters_path(format: "xls"), :class => "w3-hover-white" %> 
+                     | <%= link_to "CSV-all", all_city_excel_path(format: "csv"), :class => "w3-hover-white", method: :get%> 
+                     | <%= link_to "Excel-all", all_city_excel_path(format: "xls"),:class => "w3-hover-white", method: :get%>
+</p>
+
+<div class="pull-right" style = 'margin-top: -3%;'>
+	<label class="">Display <u>No</u>: </label>
+	<%= select_tag :per_page, options_for_select([5,10, 20, 30, 40,50, 70,100], params[:per_page].to_i), :data => { :remote => true,
+	:url => url_for( :controller => "suburb_masters", :action => "index" )
+	}, class: "w3-bordered w3-round-xlarge w3-btn w3-small w3-card-4", remote: true %>
+</div>
+
+<div class="pull-left" style = 'margin-top: -3%;'>
+	<label class="">Filter by City/Town: </label>
+	<!-- <%= select("country_name", "country_name", CountryMaster.all.collect(&:country_name))  %> -->
+	<%= select_tag :city_town_name, options_from_collection_for_select(CityTownMaster.all, "city_town_name", "city_town_name",  @city_name), :data => {:remote => true,
+	:url => url_for(:controller => "suburb_masters", :action => "index")}, remote: true,  class: "w3-bordered w3-round-xlarge w3-btn w3-small w3-card-4", :prompt => "Please select" %>
+
+</div>
+
+<br />
+<div class="table-responsive">
+	<table class="table table-condensed table-bordered table-striped">
+		<thead>
+			<tr class="w3-teal">
+				<th>Suburb name</th>
+				<th>City town</th>
+				<th>Remark</th>
+				<!-- <th>Entity</th> -->
+				<th>Added by</th>
+				<th>Status</th>
+				<!-- <th>Date/Time</th> -->
+				<th colspan="2">Options</th>
+			</tr>
+		</thead>
+
+		<tbody>
+			<% @suburb_masters.each do |suburb_master| %>
+			<tr>
+				<td><%= suburb_master.suburb_name %></td>
+				<td><%= suburb_master.city_town_master.city_town_name if suburb_master.city_town_master %></td>
+				<td><%= suburb_master.comment %></td>
+				<!-- <td><%= suburb_master.entity_id %></td> -->
+				<td><%= suburb_master.user.person_info.surname if suburb_master.user %> <%= suburb_master.user.person_info.other_names if suburb_master.user %></td>
+
+				<% if suburb_master.active_status == true %>
+				<td style="color: ">Active</td>
+
+				<%elsif suburb_master.active_status == false %>
+				<td style="color: red">Inactive</td>
+
+				<%end%>
+				<!-- <td><%= suburb_master.active_status %></td> -->
+				<!-- <td><%= suburb_master.created_at.strftime("%F %R") %></td> -->
+				<!-- <td style="width: 5px"><%= link_to 'Show', suburb_master, remote: true, class: "w3-button w3-indigo w3-hover-indigo w3-card w3-small w3-round w3-round-xxlarge" %></td> -->
+				<td style="width: 5px"><%= link_to 'Edit', edit_suburb_master_path(suburb_master), remote: true, class: "w3-button w3-gray w3-card w3-hover-gray w3-small w3-round w3-round-xxlarge" %></td>
+
+				<td style="width: 15px"> <% if suburb_master.active_status == false %>
+				<%= link_to 'Enable', enable_suburb_path(:chosen => suburb_master.id), data: { confirm: 'You are about to enable the selected city. Do you want to continue?' }, remote: true,  class: "w3-button w3-blue w3-hover-blue w3-small w3-round-xxlarge w3-card" %>
+
+				<% else suburb_master.active_status == true %>
+				<%= link_to 'Disable', disable_suburb_path(:chosen => suburb_master.id), data: { confirm: 'You are about to disable the selected city. Do you want to continue?' }, remote: true,  class: "w3-button w3-red w3-hover-red w3-small w3-round w3-round-xxlarge w3-card" %>
+
+				<% end %> </td>
+				<!-- <td><%= link_to 'Destroy', suburb_master, method: :delete, data: { confirm: 'Are you sure?' } %></td> -->
+			</tr>
+			<% end %>
+		</tbody>
+	</table>
+</div>
+
+<div>
+	<%= will_paginate @suburb_masters,  renderer: BootstrapPagination::Rails, previous_label: 'Older', next_lable: 'Newer', class: "w3-right pagination-sm w3-card-4", :params => { :controller => "suburb_masters", :action => "index", count: params[:count], page: params[:page] } %>
+	<!-- <%#= link_to '+', new_suburb_master_path, :remote=> true, class: "w3-button w3-circle w3-teal w3-hover-teal" %> -->
+</div>
+<br>
+
+<script>
+	$(function() {
+		$('.pagination a').attr('data-remote', 'true')
+	});
+
+</script>
+
+<!-- <%= link_to 'New Suburb master', new_suburb_master_path %> -->

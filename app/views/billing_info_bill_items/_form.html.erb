@@ -1,0 +1,19 @@
+<%= simple_form_for(@billing_info_bill_item) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :billing_info_id %>
+    <%= f.input :item_id %>
+    <%= f.input :item_price %>
+    <%= f.input :item_price %>
+    <%= f.input :quantity %>
+    <%= f.input :comment %>
+    <%= f.input :user_id %>
+    <%= f.input :active_status %>
+    <%= f.input :del_status %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

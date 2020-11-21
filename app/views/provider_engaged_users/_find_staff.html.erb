@@ -1,0 +1,45 @@
+<% if flash[:notice] %>
+  <p class="flash_notice " id = 'notes' style = "margin-top: 5px"><%= notice %></p>
+<%end%>
+<h4>Staff of <%= @provider_name %> </h4> 
+<div class="table-responsive">
+	<table class="table table-condensed table-bordered table-striped w3-card table-hoverable">
+	  <thead>
+	    <tr class="w3-teal">
+	      <th>Surname</th>
+	      <th>Othername(s)</th>
+	      <th>Staff Type</th>
+	      <th>Status</th>
+	      <!-- <th colspan="3"></th> -->
+	    </tr>
+	  </thead>
+	
+	  <tbody>
+	    <% @provider_engaged_users.each do |provider_engaged_user| %>
+	      <tr>
+	        <td><%= provider_engaged_user.person_info.surname if provider_engaged_user.person_info %></td>
+	        <td><%= provider_engaged_user.person_info.other_names if provider_engaged_user.person_info %></td>
+	        <td><%= provider_engaged_user.person_info.person_type_master.user_type_title if provider_engaged_user.person_info.person_type_master  %></td>
+	        
+	         <% if provider_engaged_user.person_info.active_status == true %>
+	           	 <td>Available</td>                  
+               <% else provider_engaged_user.person_info.active_status == false %>
+	              <td style="color: red">Unavailable</td>         
+               <% end %>
+	        
+	        
+	        <!-- <td><%= link_to 'Show', provider_engaged_user %></td>
+	        <td><%= link_to 'Edit', edit_provider_engaged_user_path(provider_engaged_user) %></td>
+	        <td><%= link_to 'Destroy', provider_engaged_user, method: :delete, data: { confirm: 'Are you sure?' } %></td> -->
+	      </tr>
+	    <% end %>
+	  </tbody>
+	</table>
+</div>
+
+<div>
+	<%#= will_paginate @provider_masters,  renderer: BootstrapPagination::Rails, previous_label: 'Older', next_lable: 'Newer', class: "w3-right pagination-sm w3-card-4", :params => { :controller => "provider_masters", :action => "index", count: params[:count], page: params[:page] } %>
+	<%= link_to 'Back', provider_masters_path, :remote=> true,  class: "w3-button  w3-black w3-hover-black w3-right w3-small w3-round-xxlarge w3-card" %>
+	<%= link_to '+', new_provider_engaged_user_path(:provider_id => @provider_id), :remote=> true, class: "w3-button w3-circle w3-teal w3-hover-teal w3-left"  %>
+</div>
+<br /><br />

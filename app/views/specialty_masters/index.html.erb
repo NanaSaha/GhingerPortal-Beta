@@ -1,0 +1,76 @@
+<h4>Specialties</h4>
+
+<br />
+<div class="pull-right" style = 'margin-top: -3%; '>
+	  <label class="">Display <u>No</u>: </label> 
+	     <!-- <%#= select_tag :count, options_for_select([5,10,15,20,25,30], params[:count].to_i), :onchange => "if(this.value){ window.location='?count='+this.value ;}" %> -->
+	   <%= select_tag :per_page, options_for_select([10, 20, 30, 40,50, 70,100], params[:per_page].to_i), :data => { :remote => true, 
+	 	            :url => url_for( :controller => "specialty_masters", :action => "index" )
+	 	             }, :onchange => "if(this.value){window.location='?per_page='+this.value;}", class: "w3-bordered w3-round-xlarge w3-btn w3-small w3-card-4" %>	
+</div>
+<div class="pull-left" style = 'margin-top: -3%;'>
+	 <label class="">Filter by: </label> 
+	  <%= select_tag :title, options_from_collection_for_select(SpecialtyMaster.all, "title", "title", @specialty), :data => {
+	  	:url => url_for(:controller => "specialty_masters", :action => "index")}, :onchange => "if(this.value){window.location='?title='+this.value;}",  class: "w3-bordered w3-round-xlarge w3-btn w3-small w3-card-4", :prompt=> "Select to filter" %>
+	 	      	                                                                                                        
+ </div>
+<br />
+<p style = 'text-align: center; font-family: tahoma; font-size: 15px;'>
+   <b>Download:</b>  <%= link_to "CSV", specialty_masters_path(format: "csv"), :class => "w3-hover-white"%> 
+                     | <%= link_to "Excel",  specialty_masters_path(format: "xls"), :class => "w3-hover-white" %> 
+                     | <%= link_to "CSV-all", all_specialty_excel_path(format: "csv"), :class => "w3-hover-white", method: :get%> 
+                     | <%= link_to "Excel-all", all_specialty_excel_path(format: "xls"),:class => "w3-hover-white", method: :get%>
+</p>
+
+<div class="table-responsive">
+	<table class="table table-condensed table-bordered table-striped w3-card">
+	  <thead>
+	    <tr class="w3-teal">
+	      <th>Specialty</th>
+	      <th>Alias</th>
+	      <th>Remark</th>
+	      <!-- <th>User</th>
+	      <th>Entity</th> -->
+	      <th>Status</th>
+	      <th colspan="2">Options</th>
+	    </tr>
+	  </thead>
+	
+	  <tbody>
+	    <% @specialty_masters.each do |specialty_master| %>
+	      <tr>
+	        <td><%= specialty_master.title %></td>
+	        <td><%= specialty_master.alias %></td>
+	        <td><%= specialty_master.comment %></td>
+	       
+	        <% if specialty_master.active_status == true %>  
+	      	    	<td >Active</td>	
+	      	 <% elsif specialty_master.active_status == false %> 
+	      	     	<td style="color: red">Inactive</td>	      		
+	        <% end %>
+	        
+	        <td style="width: 5px"><%= link_to 'Edit', edit_specialty_master_path(specialty_master), class: "w3-button w3-gray w3-card w3-hover-gray w3-small w3-round w3-round-xxlarge" %></td>
+									
+			<td style="width: 15px">
+	           <% if specialty_master.active_status == false %>
+	           	   <%= link_to 'Enable', enable_specialty_path(:chosen => specialty_master.id), data: { confirm: 'You are about to enable the selected specialty, do you want to continue?' },  class: "w3-button w3-blue w3-hover-blue w3-small w3-round-xxlarge w3-card" %>
+                  
+              <% elsif specialty_master.active_status == true %>
+	              <%= link_to 'Disable', disable_specialty_path(:chosen => specialty_master.id), data: { confirm: 'You are about to disable the selected specialty, do you want to continue?' },  class: "w3-button w3-red w3-hover-red w3-small w3-round w3-round-xxlarge w3-card" %> 
+	            
+              <% end %>
+		   </td>
+							
+	      </tr>
+	    <% end %>
+	  </tbody>
+	</table>
+</div>
+      
+
+<div>
+ <%= link_to '+', new_specialty_master_path, class: "w3-button w3-circle w3-teal w3-hover-teal w3-left w3-card-4" %>
+ <%= will_paginate @specialty_masters,  renderer: BootstrapPagination::Rails, previous_label: 'Older', next_lable: 'Newer', class: "w3-right pagination-sm w3-card-4" %>
+<br />
+</div> 
+<br>

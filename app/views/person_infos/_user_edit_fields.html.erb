@@ -1,0 +1,20 @@
+<div class="nested-fields">
+	<h4>Login Credentials</h4>
+	<p style="color: red">Please leave password fields blank if you don't want to change</p>
+	<%= f.input :username, required: true, autofocus: true %>
+	<!-- <%= f.input :email, autofocus: true %> -->
+    <!-- <%= f.input :password, hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length) %>
+    <%= f.input :password_confirmation %> -->
+     <%= f.input :password, autocomplete: "off", hint: "leave it blank if you don't want to change it", required: false %>
+     <%= f.input :password_confirmation, required: false %>
+     <%= f.input :current_password, hint: "We need your current password to confirm your changes", required: true %>
+       
+       <!-- <p style="color: red">We need your current password to confirm your changes</p> -->
+       <!-- <%= f.input :current_password, required: true %> -->
+    
+    <!-- <%= f.input :active_status, as: :hidden, input_html: {vlaue: 1} %>
+    <%= f.input :del_status, as: :hidden, input_html: {vlaue: 0} %> -->
+
+	<p><b>Upload a profile picture</b></p>
+	 <%= f.input :profile, as: :file, label: false %>
+</div>

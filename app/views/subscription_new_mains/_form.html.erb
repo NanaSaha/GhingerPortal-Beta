@@ -1,0 +1,96 @@
+<div id="id01" class="w3-modal w3-card-4 w3-round-large" style="display: block;">
+  <div class="w3-modal-content w3-animate-bottom w3-card-4 w3-light-gray" style="width: 70%; max-height: 80%; overflow-y: auto;">
+    <div class="row">
+      <div class="col-md-7" style="margin-top: 20px">
+        <header class="w3-container">
+          <h4>Subscription </h4>
+        </header>
+        <div class="w3-container w3-white w3-padding" >
+          <% sub = SubscriptionNewMain.where(id: params[:id])[0] %>
+          <table class="table table-bordered table-striped" style="height: 80%  !important; ">
+            <tr>
+              <td class="w3-teal" style="width: 45%"><strong>ID </strong></td>
+              <td style="padding-left: 6%"><%= sub.id %></td>
+            </tr>
+            <tr>
+              <td class="w3-teal" style="width: 45%"><strong>Full Name</strong></td>
+              <td style="padding-left: 6%"><%= sub.f_name+''+sub.last_name %></td>
+            </tr>
+            <tr>
+              <td class="w3-teal" style="width: 45%"><strong>Phone Number </strong></td>
+              <td style="padding-left: 6%"><%= sub.phone_number %></td>
+            </tr>
+            <tr>
+              <td class="w3-teal" style="width: 45%"><strong>Subscription </strong></td>
+              <td style="padding-left: 6%"><%= sub.sub_name %></td>
+            </tr>
+            <tr>
+              <td class="w3-teal" style="width: 45%"><strong>Address </strong></td>
+              <td style="padding-left: 6%"><%= sub.address %></td>
+            </tr>
+            <tr>
+              <td class="w3-teal" style="width: 45%"><strong>Amount GHC </strong></td>
+              <td style="padding-left: 6%"><%= sub.amount %></td>
+            </tr>
+            <% if sub.status == true %>
+              <tr>
+                <td class="w3-teal" style="width: 40%"><strong>Status </strong></td>
+                <td style="padding-left: 6%; ">Active</td>
+              </tr>
+            <% else %>
+              <tr>
+                <td class="w3-teal" style="width: 40%"><strong>Status </strong></td>
+                <td style="padding-left: 6%; ">InActive</td>
+              </tr>
+            <% end %>
+            <% if sub.paid_status == true %>
+              <tr>
+                <td class="w3-teal" style="width: 40%"><strong>Paid Status </strong></td>
+                <td style="padding-left: 6%; ">Paid</td>
+              </tr>
+            <% else %>
+              <tr>
+                <td class="w3-teal" style="width: 40%"><strong>Paid Status </strong></td>
+                <td style="padding-left: 6%; ">Not Paid</td>
+              </tr>
+            <% end %>
+            <tr>
+              <td class="w3-teal" style="width: 45%"><strong>DateTime</strong></td>
+              <td style="padding-left: 6%"><%= sub.created_at.strftime('%F %R') %></td>
+            </tr>
+          </table>
+        </div>
+      </div>
+      <%= simple_form_for(@subscription_new_main, url: update_subscription_path(@subscription_new_main, id: params[:id]), method: :post) do |f| %>
+        <div class="col-md-5">
+          <div style="max-width: 70%; text-align: center; margin-left: 15%; margin-top: 15px">
+            <% if flash[:notice] %>
+              <p class="flash_notice " id = 'notes' style = ""><%= notice %></p>
+            <% end %>
+          </div>
+          <header class="w3-container">
+            <h4> Assign Subscription </h4>
+          </header>
+          <%= simple_form_for(@subscription_new_main, url: update_subscription_path, method: :post) do |f| %>
+            <%= f.error_notification %>
+            <div class="w3-container" >
+              <div class="form-inputs">
+                <label>DateTime</label>
+                <%= f.date_field :assign_date,as: :date, value: f.object.try(:strftime,"%m/%d/%Y"), class: 'form-control' %>
+                <br>
+                <%= f.input :doc_id, label: "Select Doctor",collection: @doc_list, label_method: :first, value_method: :last,input_html:{class:"form-control", } %>
+              </div>
+              <div class="form-actions">
+                <%= f.button :submit, class: "w3-right w3-button w3-small w3-round-large w3-teal w3-hover-teal", value: "Submit" %>
+                <%= link_to 'Back', subscription_new_mains_path, class: "w3-left w3-button w3-small w3-round-large w3-blue w3-hover-blue" %>
+              </div>
+            <% end %>
+          </div>
+          <br>
+          <br>
+          <br>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

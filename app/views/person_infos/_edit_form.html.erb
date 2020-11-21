@@ -1,0 +1,122 @@
+<br>
+<%= simple_form_for @person_info, remote: true  do |f| %>
+  <%= f.error_notification %>
+   <%= tinymce_assets %>
+
+ <script type="text/javascript">
+  	$(document).ready(function(){
+  		tinymce.init({
+		  selector: '.tinymce',  // change this value according to your HTML
+		  branding: false,
+		  resize: false,
+		  theme: 'modern',
+		  statusbar: false
+		});
+  	})
+  </script>
+
+<div id="id01" class="w3-modal w3-card-4 w3-round-large" style="display: block;">
+    <div class="w3-modal-content w3-animate-left w3-card-4 w3-light-gray" style="width: 33%; max-height: 80%; overflow-y: auto;">
+    	<div style="max-width: 70%; text-align: center; margin-left: 15%; margin-top: 15px">
+      
+	    	<% if flash[:notice] %>
+                <p class="flash_notice " id = 'notes' style = ""><%= notice %></p>
+		  	 <% end %>
+		  	
+    	</div>	   
+      <header class="w3-container">  
+        <h4>Edit a Personnel/User</h4> 
+      </header>          
+           <div class="w3-container" > 				 		      	
+              
+                <div class="form-inputs">
+				    <%= f.input :surname %>
+				    <%= f.input :other_names %>
+				    <%= f.input :dob, label: "Date of Birth", as: :string, input_html: {id: "datepicker", class: ""} %>
+				    <%= f.input :person_type_id, collection: @person_type_masters, label_method: "user_type_title", value_method: :id, input_html: {id: 'person_type', :include_blank=> false, :onchange => "pdSub()"} %>
+				    
+				     <div class='hidden' id='pd_sub'> 
+	                  <%= f.input :pd_sub, label: "Subscribe to Personal Doctor?" %>
+	                </div>
+				    
+				    <%= f.input :entity_id, as: :hidden %>
+				    <%= f.input :user_id, as: :hidden, input_html: {value: current_user.id} %>
+				    <!-- <%#= f.input :active_status, as: :hidden, input_html: {value: 1} %> -->
+				    <!-- <%#= f.input :del_status, as: :hidden, input_html: {value: 0} %> -->
+			   </div>
+						  
+			 	 <div class="extra">			
+						<%= link_to_add_association 'Contact Info', f, :person_contact_infos, force_non_association_create: true, data: { association_insertion_node: '.extra', association_insertion_method: :append }, class: "w3-middle w3-button w3-small w3-round-large w3-indigo w3-hover-indigo hidden"%>
+						<%= f.simple_fields_for :person_contact_infos do |extra| %>
+						<%= render  'person_contact_info_fields', f: extra %>			 
+						<%end%>
+						
+						<%= link_to_add_association 'Users', f, :users, force_non_association_create: true, data: { association_insertion_node: '.extra', association_insertion_method: :append }, class: "w3-middle w3-button w3-small w3-round-large w3-indigo w3-hover-indigo hidden"%>
+					    <%= f.simple_fields_for :users do |extra| %>
+						<%= render  'user_update_fields', f: extra %>			 
+				      <%end%>
+				</div>
+				
+			
+			 <br />
+      <footer class="w3-container">
+        <%= link_to 'Back', person_infos_path, class: "w3-left w3-button w3-small w3-round-large w3-blue w3-hover-blue", remote: true %>
+        <%= f.button :submit, class: "w3-right w3-button w3-small w3-round-large w3-teal w3-hover-teal", value: "Update" %>
+      <br />
+      </footer>
+      <% end %>
+      <br />
+    </div>
+    <br />
+</div>
+</div>
+
+<%= tinymce %>
+
+<script type="text/javascript">
+$(document).ready(function(){
+  setTimeout(function(){
+    $('#notes').remove();
+  }, 3000);
+  });
+</script>
+
+
+<style>
+	.input-group{
+		width: 100%;
+	}
+  .typeahead{
+    width: 100%;
+  }
+  
+</style>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+         $('form').attr('autocomplete', 'off');
+        
+         $('.combobox').combobox();
+
+   $('span.input-group-addon').addClass("hidden");
+  
+    });
+</script>
+<script>
+  $( function() {
+    $( "#datepicker" ).datepicker({
+    	dateFormat : 'yy-mm-dd'
+    });
+  } );
+  </script>
+<script type="text/javascript">
+ $(document).ready(function(){
+ 	var person_doctor_subscription;
+ 	person_doctor_subscription = document.getElementById('person_type');
+ 	if (person_doctor_subscription.value == 'D'){
+		// console.log('This is the if');
+		$('#pd_sub').removeClass("hidden");
+	}
+ 	 // $("#extra_type").removeClass("hidden");
+ })
+</script>

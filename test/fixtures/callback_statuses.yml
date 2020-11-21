@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  trans_status: MyString
+  trans_id: MyString
+  exttrid: MyString
+  trans_msg: MyString
+
+two:
+  trans_status: MyString
+  trans_id: MyString
+  exttrid: MyString
+  trans_msg: MyString

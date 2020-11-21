@@ -1,0 +1,38 @@
+<!--<div class="col-md-1"></div>-->
+<div class="pre-scrollable" style="max-height: 200px">
+  <!--<div  class="col-md-10">-->
+  <div class="nested-fields" >
+    <h4>Select medication service(s)</h4>
+    <% count = 1 %>
+    <% unless  @med_services.nil? %>
+
+        <% @med_services.each do |med_service| %>
+            <%#= med_service.inspect %>
+            <div class="table-responsive">
+              <table class="table table-condensed table-bordered w3-striped">
+                <tr class= "w3-teal">
+                  <td style="width: 5%"><%= "#{count}. " %></td>
+                  <td style="width: 70%; " class="w3-white">&nbsp;<%= "#{med_service.drug_master.drug_name}" %></td>
+                  <!--<td style="width: 15%; " class="w3-white">&nbsp;<%#= "#{med_service.price}" %></td>-->
+                  <%#= @lab_details.inspect %>
+                  <td class="w3-white">
+                    <% if @med_details.include?(med_service.drug_master.id) %>
+                        <input type="checkbox" name="drug_id[<%=count%>[checkbox]]" checked="checked" />
+                    <% else %>
+                        <input type="checkbox" name="drug_id[<%=count%>[checkbox]]"/>
+                    <% end %>
+                    <input type="hidden" name="drug_id[<%=count%>[drug_id]]"  value="<%= med_service.drug_id %>" required>
+                    <% count += 1 %>
+                  </td>
+
+                </tr>
+
+              </table>
+            </div>
+        <% end %>
+    <% end %>
+
+  </div>
+  <!--</div>-->
+</div>
+<!--<div class="col-md-1"></div>-->

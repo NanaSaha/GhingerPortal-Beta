@@ -1,0 +1,33 @@
+<div class="row">
+	<div class="col-md-4 col-xs-12"></div>
+	
+	<div class="col-md-4 col-xs-12 w3-card-4 w3-round-xlarge" style = "margin-top: 15%; background: #444; color: white">
+		<%= render 'layouts/messages' %>
+		<h4>Sign In</h4>
+	
+		<%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+		  <div class="form-inputs">
+		  	<%= f.input :username, required: false, label: "Username:", autofocus: true, input_html: { class: "w3-input w3-border w3-hover-sand"} %>
+		    <!-- <%#= f.input :email, required: false, autofocus: true %> -->
+		    <%= f.input :password, label: "Password:", required: false, input_html: { class: "w3-input w3-border w3-hover-sand "}  %>
+		   <%= f.input :remember_me, as: :boolean if devise_mapping.rememberable? %> 
+		  </div>
+		
+		   <div class="form-actions">
+		    <%= f.button :submit, class: 'form-control w3-teal w3-input fa fa-sign-in', value: 'Sign In' %>
+		    <br />
+		   </div>
+		 <%end %>
+	  <br />
+	</div>
+	
+	<div class="col-md-4 col-xs-12"></div>
+ </div>
+
+<script type="text/javascript">
+$(document).ready(function(){
+  setTimeout(function(){
+    $('.notice').remove();
+  }, 4000);
+ })
+</script> 

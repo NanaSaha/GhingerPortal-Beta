@@ -1,0 +1,79 @@
+ 
+<div class = "table-responsive">
+	<table class="table table-condensed table-bordered w3-striped w3-card-4 w3-hoverable">
+	  <thead>
+	  <%  if@doctor_video_appointments.blank?%>
+		    <p class="alert alert-danger" id = '' style = "margin-top: 5px"><%= flash.now[:notice] = "Sorry you do not have any appointment" %></p>
+	  	
+	  <% else %>
+	    <tr class="w3-black w3-card">
+	    	<th>N<u>o</u></th>
+	        <th>Patient Name</th>
+	        <th>Patient Contact</th>
+	        <th>Appt Type</th>	      
+		    <th>Date/Time</th>	      
+	        <th>Accept Status</th>
+		    <th>Attend Status</th>
+		    <% if @doctor_video_appointments[0].pre_appointment.appointment_type_id == 'VC'%>
+		     <th></th>
+		    <%end%>
+	    </tr> 
+	   
+	  </thead> 
+	  <tbody>  
+
+		 <% @doctor_video_appointments.each_with_index do |doctor_video_appointment,index| %>
+	        <tr class="w3-hover-pale-green">
+	        	<td style="width: 5%;"><%= index+=1%></td>
+	            <td><%= doctor_video_appointment.patient.surname %> <%= doctor_video_appointment.patient.other_names %></td>
+		       	<td><%= doctor_video_appointment.patient.person_contact_infos.last.contact_number %></td>
+		        <td><%= doctor_video_appointment.pre_appointment.appointment_type.title %></td>
+		        <td style="width: 15%;"><%= doctor_video_appointment.confirmed_date.strftime("%F %R") %></td>
+         		<td style="width: 10%;">Accepted</td>
+         	 
+         		<% if doctor_video_appointment.attended_to == true %>
+         			<td style="width: 10%;">Attended to</td>
+         		   <!-- <td  style="width: 10%" >  
+	         		 <%= select_tag :attend_to, options_for_select(['Attended to','Not attended to' ], params[:attend_to]), :data => { :remote => true,
+						:url => update_attend_status_path(:appt_id => doctor_video_appointment.id )
+					  }, class: "w3-bordered w3-round-xlarge w3-btn w3-small w3-card-4", remote: true %> 
+         		   </td> -->
+         		<%elsif doctor_video_appointment.attended_to == false %>
+         		  <td style="width: 10%;">Unattended to</td>
+         		   <!-- <td style="width: 10%">
+         		   	  <%= select_tag :attend_to, options_for_select(['Not attended to','Attended to' ], params[:attend_to]), :data => { :remote => true,
+						:url => update_attend_status_path(:appt_id => doctor_video_appointment.id )
+					  }, class: "w3-bordered w3-round-xlarge w3-btn w3-small w3-card-4", remote: true %> 
+         		   </td> -->
+         		  
+         		<%end%> 
+         		<% if doctor_video_appointment.pre_appointment.appointment_type_id == 'VC'%> 
+	         		<% if doctor_video_appointment.attended_to == false%> 
+	         			<td><%= link_to 'Attend to', attend_to_patient_med_record_path(:chosen => doctor_video_appointment.patient_id, :doc => doctor_video_appointment.doctor_id, :comfirmed_appt_id => doctor_video_appointment.id ), remote: true, class: "w3-button w3-indigo w3-hover-indigo w3-card w3-small w3-round w3-round-xxlarge"%></td>
+		        	<%elsif doctor_video_appointment.attended_to == true%>
+		        		<td><%= link_to 'Details', view_patient_med_record_path(:chosen => doctor_video_appointment.patient_id, :doc => doctor_video_appointment.doctor_id, :comfirmed_appt_id => doctor_video_appointment.id ), remote: true, class: "w3-button w3-khaki w3-hover-khaki w3-card w3-small w3-round w3-round-xxlarge"%></td>
+		        	<%end%>
+	        	<%end%> 
+	        </tr> 
+	          
+	       <% end %>
+		<% end %> 
+	      
+	  </tbody>
+	</table>
+</div>
+<div>
+	<!-- <%#= will_paginate @doctor_video_appointments,  renderer: BootstrapPagination::Rails, previous_label: 'Older', next_lable: 'Newer', class: "w3-right pagination-sm w3-card-4", :params => { :controller => "confirmed_appointments", :action => "index", count: params[:count], page: params[:page] }  %> -->
+</div>
+
+
+
+
+<script>
+  $(function(){
+    $('.pagination a').attr('data-remote', 'true');
+  });
+
+</script>
+
+

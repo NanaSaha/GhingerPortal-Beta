@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Pre appointment:</strong>
+  <%= @lab_detail_image.pre_appointment_id %>
+</p>
+
+<p>
+  <strong>Lab detail:</strong>
+  <%= @lab_detail_image.lab_detail_id %>
+</p>
+
+<p>
+  <strong>Comment:</strong>
+  <%= @lab_detail_image.comment %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @lab_detail_image.user_id %>
+</p>
+
+<p>
+  <strong>Active status:</strong>
+  <%= @lab_detail_image.active_status %>
+</p>
+
+<p>
+  <strong>Del status:</strong>
+  <%= @lab_detail_image.del_status %>
+</p>
+
+<%= link_to 'Edit', edit_lab_detail_image_path(@lab_detail_image) %> |
+<%= link_to 'Back', lab_detail_images_path %>

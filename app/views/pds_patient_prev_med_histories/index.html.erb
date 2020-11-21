@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Pds Patient Prev Med Histories</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Confirmed pds</th>
+      <th>Prev med histry</th>
+      <th>User</th>
+      <th>Active status</th>
+      <th>Del status</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @pds_patient_prev_med_histories.each do |pds_patient_prev_med_history| %>
+      <tr>
+        <td><%= pds_patient_prev_med_history.confirmed_pds_id %></td>
+        <td><%= pds_patient_prev_med_history.prev_med_histry %></td>
+        <td><%= pds_patient_prev_med_history.user_id %></td>
+        <td><%= pds_patient_prev_med_history.active_status %></td>
+        <td><%= pds_patient_prev_med_history.del_status %></td>
+        <td><%= link_to 'Show', pds_patient_prev_med_history %></td>
+        <td><%= link_to 'Edit', edit_pds_patient_prev_med_history_path(pds_patient_prev_med_history) %></td>
+        <td><%= link_to 'Destroy', pds_patient_prev_med_history, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Pds patient prev med history', new_pds_patient_prev_med_history_path %>

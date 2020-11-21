@@ -1,0 +1,36 @@
+<div class="col-md-1"></div>
+<div class="pre-scrollable" style="max-height: 200px">
+	<div  class="col-md-10">
+		<div class="nested-fields" >
+			<h4>Select lab servive(s)</h4>
+			<% count = 1 %>
+			<% unless  @lab_services.nil? %>
+			
+				<% @lab_services.each do |lab_service| %>
+				   <div class="table-responsive">
+					 <table class="table table-condensed table-bordered w3-striped">	
+						<tr>
+						   <td style="width: 5%"><%= "#{count}. " %></td>
+				           <td style="width: 90%; margin-bottom: -5px" class="w3-white">&nbsp;<%= "#{lab_service.title}" %></td>	
+							 	    
+						   <td class="w3-white">
+							  <% if @lab_details_list.include? lab_service.id %>
+							 	   <input type="checkbox" name="lab_service_id[<%=count%>[checkbox]]" checked="checked" />
+							  <% else %>
+							 	   <input type="checkbox" name="lab_service_id[<%=count%>[checkbox]]"/>
+							  <%end%>	 	    	 
+							 	   <input type="hidden" name="lab_service_id[<%=count%>[id]]" value="<%= lab_service.id %>">
+							    <% count += 1 %>
+							</td>
+							 	
+					   </tr>	
+								
+					</table>
+				 </div>
+				<% end %>
+			<%end%>
+					
+		</div>
+	</div>
+</div>
+<div class="col-md-1"></div>

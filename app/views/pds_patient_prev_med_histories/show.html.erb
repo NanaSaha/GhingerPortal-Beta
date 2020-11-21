@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Confirmed pds:</strong>
+  <%= @pds_patient_prev_med_history.confirmed_pds_id %>
+</p>
+
+<p>
+  <strong>Prev med histry:</strong>
+  <%= @pds_patient_prev_med_history.prev_med_histry %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @pds_patient_prev_med_history.user_id %>
+</p>
+
+<p>
+  <strong>Active status:</strong>
+  <%= @pds_patient_prev_med_history.active_status %>
+</p>
+
+<p>
+  <strong>Del status:</strong>
+  <%= @pds_patient_prev_med_history.del_status %>
+</p>
+
+<%= link_to 'Edit', edit_pds_patient_prev_med_history_path(@pds_patient_prev_med_history) %> |
+<%= link_to 'Back', pds_patient_prev_med_histories_path %>

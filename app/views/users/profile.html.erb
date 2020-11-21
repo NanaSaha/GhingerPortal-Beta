@@ -1,0 +1,141 @@
+<div id="id01" class="w3-modal w3-round-large" style="display: block; margin-top: ">
+    <div class="w3-modal-content w3-animate-top w3-white" style="width: 60%; max-height: 80%; margin-top: 5px; overflow-y: auto; background: transparent">
+    	<div style="max-width: 70%; text-align: center; margin-left: 15%; margin-top: 15px">	  	
+    	</div>	   
+      <header class="w3-container">  
+        <h4>
+         <% if flash[:notice] %>
+           <p class="flash_notice " id = 'notes' style = ""><%= notice %></p>
+		 <% end %>
+        </h4> 
+      </header>            
+           <div class="w3-container" > 				 		      	
+              <% if current_user.role.name == 'Super Admin' or current_user.role.name == 'Customer Service'%>
+	              <div class="col-md-3 xs-12"></div>
+					<div class="col-md-6 xs-12" id="content" style="margin-top: %">
+						
+						<h4>Your Profile</h4>
+						<div class="w3-card w3-round-xlarge"> 
+							<div class="w3-center"><br>
+								<% if @user.profile.nil? %>
+								   <%= image_tag ('user.png'), class: "w3-circle", :style => "width:30%" %>
+								<% else %>
+								  <%= image_tag @user.profile.url(:thumb), class: "w3-circle", :style => "width:30%" %>
+								<% end %>
+					        </div>
+					        
+						    <div class="w3-container">
+						      <h4><%= @user.person_info.surname %> <%= @user.person_info.other_names %></h4>
+						      <p class="w3-center"><b><%= @user.role.name %></b></p>  
+						    </div> 
+						    
+						   <table class="table table-condensed table-bordered table-striped">
+						      <!-- <tr><td class="w3-teal" style="width: 30%"><strong>Surname </strong></td><td style="padding-left: 6%""><%= @user.person_info.surname %>  </td></tr> -->
+							  <!-- <tr><td class="w3-teal" ><strong>Othername(s) </strong></td><td style="padding-left: 6%""><%= @user.person_info.other_names %> </td></tr> -->
+							  <tr><td class="w3-teal" style="width: 30%"><strong>Username </strong></td><td style="padding-left: 6%""><%= @user.username %> </td></tr>				 
+							  <!-- <tr><td class="w3-teal"><strong>Person Type </strong></td><td style="padding-left: 6%""><%= @user.person_info.person_type_master.user_type_title %></td></tr>			  -->
+							  <tr><td class="w3-teal" ><strong>Contact </strong></td><td style="padding-left: 6%""><%= @user.person_info.person_contact_infos[0].contact_number %> </td></tr>
+							  <tr><td class="w3-teal" ><strong>Email </strong></td><td style="padding-left: 6%""><%= @user.person_info.person_contact_infos[0].email %> </tr>	
+							  <tr><td class="w3-teal" ><strong>Postal Address </strong></td><td style="padding-left: 6%""><%= @user.person_info.person_contact_infos[0].postal_address %> </td></tr>
+							  <tr><td class="w3-teal" ><strong>Location Address </strong></td><td style="padding-left: 6%""><%= @user.person_info.person_contact_infos[0].location_address %> </td></tr>		
+					      </table>
+						    <br />
+					    </div>
+						<br />
+						<%= link_to 'Home', admin_root_path, class: "w3-button w3-black w3-hover-black w3-left w3-card-4 w3-small w3-round-xlarge" %>
+						<%= link_to 'Edit', edit_person_info_path(current_user), class: "w3-button w3-black w3-hover-black w3-right w3-card-4 w3-small w3-round-xlarge" %>
+					</div>
+				<br /><br />
+			<div class="col-md-3 xs-12"></div>
+
+         <% else %>
+			   <div class = "container" >
+				   	<div class="row">
+				   	    <div class="col-md-3 xs-12"></div>
+						<div class="col-md-6 xs-12" id="content">
+						<% if flash[:notice] %>
+						  <p class="flash_notice " id = 'notes' style = ""><%= notice %></p>
+						<%end%>
+						<h4>Your Profile</h4>
+						<div class="w3-card w3-round-xlarge"> 
+							<div class="w3-center"><br>
+								<% if @user.profile.nil? %>
+								   <%= image_tag ('user.png'), class: "w3-circle", :style => "width:30%" %>
+								<% else %>
+								  <%= image_tag @user.profile.url(:thumb), class: "w3-circle", :style => "width:30%" %>
+								<% end %>
+					        </div>
+					        
+						    <div class="w3-container">
+						      <h4><%= @user.person_info.surname %> <%= @user.person_info.other_names %></h4>
+						      <p class="w3-center"><b><%= @user.role.name %></b></p>  
+						    </div> 
+						    
+						   <table class="table table-condensed table-bordered table-striped">
+						      <!-- <tr><td class="w3-teal" style="width: 30%"><strong>Surname </strong></td><td style="padding-left: 6%""><%= @user.person_info.surname %>  </td></tr> -->
+							  <!-- <tr><td class="w3-teal" ><strong>Othername(s) </strong></td><td style="padding-left: 6%""><%= @user.person_info.other_names %> </td></tr> -->
+							  <tr><td class="w3-teal" style="width: 30%"><strong>Username </strong></td><td style="padding-left: 6%""><%= @user.username %> </td></tr>				 
+							  <!-- <tr><td class="w3-teal"><strong>Person Type </strong></td><td style="padding-left: 6%""><%= @user.person_info.person_type_master.user_type_title %></td></tr>			  -->
+							  <tr><td class="w3-teal" ><strong>Contact </strong></td><td style="padding-left: 6%""><%= @user.person_info.person_contact_infos[0].contact_number %> </td></tr>
+							  <tr><td class="w3-teal" ><strong>Email </strong></td><td style="padding-left: 6%""><%= @user.person_info.person_contact_infos[0].email %> </tr>	
+							  <tr><td class="w3-teal" ><strong>Postal Address </strong></td><td style="padding-left: 6%""><%= @user.person_info.person_contact_infos[0].postal_address %> </td></tr>
+							  <tr><td class="w3-teal" ><strong>Location Address </strong></td><td style="padding-left: 6%""><%= @user.person_info.person_contact_infos[0].location_address %> </td></tr>		
+					      </table>
+						    <br />
+					    </div>
+						<br />
+						<% if current_user.role.name == 'Doctor' %>
+						    <%= link_to 'Home', doctor_root_path, class: "w3-button w3-black w3-hover-black w3-left w3-card-4 w3-small w3-round-xlarge" %>
+						<% elsif current_user.role.name == 'Nurse' %>
+						    <%= link_to 'Home', nurse_root_path, class: "w3-button w3-black w3-hover-black w3-left w3-card-4 w3-small w3-round-xlarge" %>
+						<%end%>
+						<%= link_to 'Edit', edit_person_info_path(current_user), class: "w3-button w3-black w3-hover-black w3-right w3-card-4 w3-small w3-round-xlarge" %>
+					</div>
+					<div class="col-md-3 xs-12"></div>
+					<div class="clearfix">
+				  </div>
+			  </div>
+			<br /><br />
+			<%end%> 
+			</div>
+      <!-- <footer class="w3-container" > -->
+       	<!-- <button onclick="document.getElementById('id01').style.display='none'" class="w3-button w3-right w3-card-4 w3-small w3-round-xlarge w3-green w3-hover-green ">Okay</button> -->
+      <!-- <br /> -->
+      <!-- </footer> -->
+      <br />
+    </div>
+    <br />
+</div>
+<script>
+ function openCity(evt, cityName) {
+	var i, x, tablinks;
+	x = document.getElementsByClassName("city");
+	for (i = 0; i < x.length; i++) {
+		x[i].style.display = "none";
+	 }
+	tablinks = document.getElementsByClassName("tablink");
+	for (i = 0; i < x.length; i++) {
+		tablinks[i].className = tablinks[i].className.replace(" w3-black", "");
+	 }
+	document.getElementById(cityName).style.display = "block";
+	evt.currentTarget.className += " w3-black";
+ }
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){
+  // setTimeout(function(){
+    // $('#notes').remove();
+  // }, 3000);
+  });
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+  setTimeout(function(){
+    $('#notes').remove();
+  }, 4000);
+ });
+ 
+</script>

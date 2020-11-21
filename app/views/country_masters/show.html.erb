@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Country name:</strong>
+  <%= @country_master.country_name %>
+</p>
+
+<p>
+  <strong>Comment:</strong>
+  <%= @country_master.comment %>
+</p>
+
+<p>
+  <strong>Entity:</strong>
+  <%= @country_master.entity_id %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @country_master.user_id %>
+</p>
+
+<p>
+  <strong>Active status:</strong>
+  <%= @country_master.active_status %>
+</p>
+
+<p>
+  <strong>Del status:</strong>
+  <%= @country_master.del_status %>
+</p>
+
+<%= link_to 'Edit', edit_country_master_path(@country_master) %> |
+<%= link_to 'Back', country_masters_path %>

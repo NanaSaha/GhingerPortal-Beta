@@ -1,0 +1,20 @@
+<%= simple_form_for(@region_master, :remote => true) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :region_state_name, label: 'Region/State', placeholder: "Please enter the name without region or state" %>    
+    <%= f.input :country_id, as: :hidden, input_html: {value: @current_country_id} %>
+    <%= f.input :comment, label: "Remark" %>
+    <%= f.input :entity_id, as: :hidden %>
+    <%= f.input :user_id, as: :hidden, input_html: {value: current_user.id} %>
+    <%= f.input :active_status, as: :hidden, input_html: {value: 1} %>
+    <%= f.input :change_status, as: :hidden, input_html: {value: 0} %>
+  </div>
+
+  <div class="form-actions">
+    <%= link_to 'Back', find_countries_path(:country_id => @current_country_id), remote: true, class: "w3-left w3-button w3-small w3-round-large w3-blue w3-hover-blue" %>
+    <%= f.button :submit, class: "w3-right w3-button w3-small w3-round-large w3-teal w3-hover-teal", value: "Add Region" %>
+    <br />
+  </div>
+<% end %>
+<br />

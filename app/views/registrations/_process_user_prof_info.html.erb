@@ -1,0 +1,37 @@
+<div id="id01" class="w3-modal w3-round-large" style="display: block; margin-top: ">
+    <div class="w3-modal-content w3-animate-top w3-white" style="width: 33%; max-height: 80%; margin-top: 5px; overflow-y: auto; background: transparent">
+     
+      <header class="w3-container">  
+        <h4>
+         <% if flash[:notice] %>
+           <p class="flash_notice " id = 'notes' style = ""><%= notice %></p>
+		 <% end %>
+        </h4> 
+      </header>            
+           <div class="w3-container" > 	
+ 	
+           	  	<p style="font-family: tahoma; font-size: 20px; text-align: center"><b>Thanks for the registration, a customer service person will contact you to confirm your professional informations.</b></p>
+           	 
+           </div>
+        <br>
+      <footer class="w3-container" >
+      	
+      	    <button onclick="document.getElementById('id01').style.display='none'" class="w3-button w3-right w3-card-4 w3-small w3-round-xlarge w3-green w3-hover-green ">Okay</button>
+      	     
+      <br />
+      </footer>
+      <br />
+    </div>
+    <br />
+</div>
+
+
+
+<script type="text/javascript">
+$(document).ready(function(){
+  // setTimeout(function(){
+    // $('#notes').remove();
+  // }, 3000);
+  });
+</script>
+

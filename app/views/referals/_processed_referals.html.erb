@@ -1,0 +1,59 @@
+ 
+<h4>New Referals to Ghinger</h4>
+
+<div class="pull-right" style = 'margin-top: -3%; '>
+	  <label class="">Display <u>No</u>: </label> 
+	     <!-- <%#= select_tag :count, options_for_select([5,10,15,20,25,30], params[:count].to_i), :onchange => "if(this.value){ window.location='?count='+this.value ;}" %> -->
+	   <%= select_tag :per_page, options_for_select([10, 20, 30, 40,50, 70,100], params[:per_page].to_i), :data => { 
+	 	 :url => url_for( :controller => "referals", :action => "processed_index" )
+	 	 }, :onchange => "if(this.value){window.location='?per_page='+this.value;}", class: "w3-bordered w3-round-xlarge w3-btn w3-small w3-card-4" %>	
+   </div>
+ <br />
+ 
+ <p style = 'text-align: center; font-family: tahoma; font-size: 15px;'>
+   <b>Download:</b>  <%= link_to "CSV", referals_path(format: "csv", type: "processed"), :class => "w3-hover-white"%> 
+                     | <%= link_to "Excel", referals_path(format: "xls", type: "processed"), :class => "w3-hover-white" %> 
+                     | <%= link_to "CSV-all", all_referal_excel_path(format: "csv", type: "processed"), :class => "w3-hover-white", method: :get%> 
+                     | <%= link_to "Excel-all", all_referal_excel_path(format: "xls", type: "processed"),:class => "w3-hover-white", method: :get%>
+</p>
+
+
+<div class="table-responsive"> 
+	<table class="table table-condensed table-bordered table-striped w3-card-4">
+	  <thead>
+	    <tr class="w3-teal">
+	    	<th>S/N</th>
+		<th>Surname</th>
+	  	<th>Other Name(s)</th>
+	  	<th>Contact</th>
+	  	<th>Date/Time</th>
+	    </tr>
+	  </thead>
+	 
+	  <tbody>
+	     <% @processed.each_with_index do |referal, index| %> 
+		    <tr>
+		    	<td><%= index+1%></td>
+		    	<td><%= referal.surname %></td>
+		    	<td><%= referal.other_names %></td>
+		    	<td><%= referal.contact %></td>
+		    	<td><%= referal.updated_at.strftime('%F %R') %></td>	
+	          </tr>
+	    <% end %> 
+	  </tbody> 
+	</table>
+</div>
+<br>
+
+<div>
+ <!-- <%#= link_to '+', new_registration_path, :remote=> true, class: "w3-button w3-circle w3-teal w3-hover-teal w3-left w3-card-4" %> -->
+ <%= will_paginate @processed,  renderer: BootstrapPagination::Rails, previous_label: 'Older', next_lable: 'Newer', class: "w3-right pagination-sm w3-card-4", :params => { :controller => "referals", :action => "processed_index", count: params[:count], page: params[:page] }  %>
+<br /> 
+</div>
+<br />
+<script>
+  $(function(){
+    $('.pagination a').attr('data-remote', 'true');
+  });
+
+</script>

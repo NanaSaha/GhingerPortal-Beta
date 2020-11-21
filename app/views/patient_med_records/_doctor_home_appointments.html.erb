@@ -1,0 +1,65 @@
+<br /> 
+<div class = "table-responsive">
+	<table class="table table-condensed table-bordered w3-striped w3-card-4 w3-hoverable">
+	  <thead>
+	  <%  if@doctor_home_appointments.blank?%>
+		    <p class="alert alert-danger" id = '' style = "margin-top: 5px"><%= flash.now[:notice] = "Sorry you do not have any appointment" %></p>
+	  	
+	  <% else %>
+	    <tr class="w3-black w3-card">
+	    	<th>N<u>o</u></th>
+	        <th>Patient Name</th>
+	        <th>Patient Contact</th>
+	        <th>Appt Type</th>	      
+		    <th>Date/Time</th>	      
+	        <th>Accept Status</th>
+		    <th>Attend Status</th>
+		    <% if @doctor_home_appointments[0].pre_appointment.appointment_type_id == 'HC'%>
+		     <th></th>
+		    <%end%>
+	    </tr> 
+	   
+	  </thead> 
+	  <tbody>  
+
+		 <% @doctor_home_appointments.each_with_index do |doctor_home_appointment,index| %>
+	        <tr class="w3-hover-pale-green">
+	        	<td style="width: 5%;"><%= index+=1%></td>
+	            <td><%= doctor_home_appointment.patient.surname %> <%= doctor_home_appointment.patient.other_names %></td>
+		       	<td><%= doctor_home_appointment.patient.person_contact_infos.last.contact_number %></td>
+		        <td><%= doctor_home_appointment.pre_appointment.appointment_type.title %></td>
+		        <td style="width: 15%;"><%= doctor_home_appointment.confirmed_date.strftime("%F %R") %></td>
+         		<td style="width: 10%;">Accepted</td>
+         	 
+         		<% if doctor_home_appointment.attended_to == true %>
+         			<td style="width: 10%;">Attended to</td>
+         		   <!-- <td  style="width: 10%" >  
+	         		 <%= select_tag :attend_to, options_for_select(['Attended to','Not attended to' ], params[:attend_to]), :data => { :remote => true,
+						:url => update_attend_status_path(:appt_id => doctor_home_appointment.id )
+					  }, class: "w3-bordered w3-round-xlarge w3-btn w3-small w3-card-4", remote: true %> 
+         		   </td> -->
+         		<%elsif doctor_home_appointment.attended_to == false %>
+         			<td style="width: 10%;">Unattended to</td>
+         		   <!-- <td style="width: 10%">
+         		   	  <%= select_tag :attend_to, options_for_select(['Not attended to','Attended to' ], params[:attend_to]), :data => { :remote => true,
+						:url => update_attend_status_path(:appt_id => doctor_home_appointment.id )
+					  }, class: "w3-bordered w3-round-xlarge w3-btn w3-small w3-card-4", remote: true %> 
+         		   </td> -->
+         		  
+         		<%end%>  
+         		<% if doctor_home_appointment.pre_appointment.appointment_type_id == 'HC'%> 
+	         		<% if doctor_home_appointment.attended_to == false%> 
+	         			<td><%= link_to 'Attend to', attend_to_patient_med_record_path(:chosen => doctor_home_appointment.patient_id, :doc => doctor_home_appointment.doctor_id, :comfirmed_appt_id => doctor_home_appointment.id ), remote: true, class: "w3-button w3-indigo w3-hover-indigo w3-card w3-small w3-round w3-round-xxlarge"%></td>
+		        	<%elsif doctor_home_appointment.attended_to == true%>
+		        		<td><%= link_to 'Details', view_patient_med_record_path(:chosen => doctor_home_appointment.patient_id, :doc => doctor_home_appointment.doctor_id, :comfirmed_appt_id => doctor_home_appointment.id ), remote: true, class: "w3-button w3-khaki w3-hover-khaki w3-card w3-small w3-round w3-round-xxlarge"%></td>
+		        	<%end%>
+	        	<%end%> 
+	        	 
+	        </tr> 
+	          
+	       <% end %>
+		<% end %> 
+	      
+	  </tbody>
+	</table>
+</div>

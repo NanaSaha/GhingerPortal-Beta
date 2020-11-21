@@ -1,0 +1,5 @@
+<% if @price.present? %>
+    $("#Pre_appointment").html("<%= escape_javascript(render(:partial =>"new")) %>");
+<% else %>
+    $("#Pre_appointment").html("<%= escape_javascript(render(:partial =>"no_bill")) %>");
+<% end %>

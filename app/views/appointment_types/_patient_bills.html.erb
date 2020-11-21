@@ -1,0 +1,127 @@
+<% if flash[:notice] %>
+    <p class="flash_notice " id = 'notes' style = "margin-top: 5px"><%= notice %></p>
+<% end %>
+
+<!--<h4>Pre Appointments</h4>-->
+<br>
+<div class="pull-right" style = 'margin-top: -3%; display: inline-block'>
+
+  <label class="">Display <u>No</u>: </label>
+  <%= select_tag :per_page, options_for_select([30, 40,50, 70,100], params[:per_page].to_i), :data => { :remote => true,
+                            :url => url_for( :controller => "patient_billing_infos", :action => "index" )
+                          }, class: "w3-bordered w3-round-xlarge w3-btn w3-small w3-card-4", remote: true %>
+</div>
+
+<!--<div class="pull-left" style = 'margin-top: -3%;'>-->
+
+  <!--<label class="w3-middle" >Fileter by: </label><br/>-->
+  <!--<ul class="list-inline">-->
+
+    <!--<li>-->
+      <!--<%#= select_tag :provider_name, options_from_collection_for_select(ProviderMaster.all, "provider_name", "provider_name",  @provider_name), :data => {:remote => true,-->
+                                                                                                                                                          <!--:url => url_for(:controller => "pre_appointments", :action => "index")}, remote: true,  class: "w3-bordered w3-round-xlarge w3-btn w3-small w3-card-4", :prompt => "Service Provider", style: "max-width: 100%; width: 100%; min-width: 100%"%>-->
+      <!--&lt;!&ndash; <br><br> &ndash;&gt;-->
+    <!--</li>-->
+
+    <!--<li>-->
+      <%#= select_tag :category, options_from_collection_for_select(RequestCategory.all, "category", "category",  @category), :data => {:remote => true,
+                                                                                                                                       :url => url_for(:controller => "pre_appointments", :action => "index")}, remote: true,  class: "w3-bordered w3-round-xlarge w3-btn w3-small w3-card-4", :prompt => "Request Category", style: "max-width: 100%; width: 100%; min-width: 100%" %>
+
+      <!--&lt;!&ndash; <br><br> &ndash;&gt;-->
+    <!--</li>-->
+
+    <!--<li>-->
+      <!--<%#= select_tag :title, options_from_collection_for_select(AppointmentType.all, "title", "title",  @type), :data => {:remote => true,-->
+                                                                                                                          <!--:url => url_for(:controller => "pre_appointments", :action => "index")}, remote: true,  class: "w3-bordered w3-round-xlarge w3-btn w3-small w3-card-4", :prompt => "Appointment Type", style: "max-width: 100%; width: 100%; min-width: 100%" %>-->
+      <!--&lt;!&ndash;  <br><br> &ndash;&gt;-->
+    <!--</li>-->
+    <!--<br><br>-->
+    <!--<div class="w3-clear"></div>-->
+    <!--<li>-->
+      <!--<%#= select_tag :user_type_title, options_from_collection_for_select(PersonTypeMaster.where('ref_id =? OR ref_id =? OR ref_id =?', 'C', 'D', 'N'), "user_type_title", "user_type_title", @person_type), :data => {:remote => true,-->
+                                                                                                                                                                                                                       <!--:url => url_for(:controller => "pre_appointments", :action => "index")}, remote: true,  class: "w3-bordered w3-round-xlarge w3-btn w3-small w3-card-4", :prompt => "Person Type", style: "max-width: 100%; width: 100%; min-width: 100%" %>-->
+    <!--</li>-->
+
+  <!--</ul>-->
+<!--</div>-->
+
+<br /><br>
+<div class="clearfix"></div>
+
+<!--<p style = 'text-align: center; font-family: tahoma; font-size: 15px;'>-->
+  <!--b>Download:</b>  <%#= link_to "CSV", pre_appointments_path(format: "csv"), :class => "w3-hover-white"%>
+  | <%#= link_to "Excel", pre_appointments_path(format: "xls"), :class => "w3-hover-white" %>
+  | <%#= link_to "CSV-all", all_pre_appointment_excel_path(format: "csv"), :class => "w3-hover-white", method: :get%>
+  | <%#= link_to "Excel-all", all_pre_appointment_excel_path(format: "xls"),:class => "w3-hover-white", method: :get%>
+<!--</p>-->
+<div class = "table-responsive">
+  <table class="table table-condensed table-bordered table-striped w3-card-4">
+    <thead>
+    <tr class="w3-teal">
+      <th>S/N</th>
+      <th>Requester</th>
+      <th>Appt Type</th>
+      <th>Proposed Date/Time</th>
+      <th>Amount (GHS)</th>
+      <td>Status</td>
+      <th colspan="">Bill Details</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <% @all_billings.each.with_index(@all_billings.offset + 1) do |bill, index| %>
+        <tr>
+            <td><%= index %></td>
+            <td><%= bill.confirmed_appointment.pre_appointment.person_info.surname if  bill.confirmed_appointment  %> <%= bill.confirmed_appointment.pre_appointment.person_info.other_names if  bill.confirmed_appointment %></td>
+            <td><%= bill.confirmed_appointment.pre_appointment.appointment_type.title if  bill.confirmed_appointment  %></td>
+            <td><%= bill.created_at.strftime("%F %R") %></td>
+           <td style="width: 10%">
+             <%#= bill.billing_info_bill_items.count() %>
+             <% bills = BillingInfoBillItem.where(billing_info_id: bill.id) %>
+             <% total = 0 %>
+             <% bills.each do |bill_price| %>
+              
+                <% total +=  bill_price.item_price %>
+             <% end %>
+             <%= number_to_currency(total, unit: "") %>
+           </td>
+          <td>
+
+                 <%if bill.confirmed_appointment %>
+
+            <%if bill.confirmed_appointment.paid  %>
+                Paid
+            <% elsif bill.confirmed_appointment.paid == false %>
+               Unpaid
+            <% elsif bill.confirmed_appointment.paid.nil? %>
+                Unpaid
+            <% end %> 
+
+          </td>
+          <td style="width: 10px;"><%= link_to 'Bill Info', bill_info_path(appointment_id: bill.confirmed_appointment.id, from: "billing"), remote: true, class: "w3-card-4 btn w3-khaki w3-hover-khaki w3-tiny w3-round-large" %></td>
+           <% end %> 
+        </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>
+<div>
+  <%#= link_to '+', new_pre_appointment_path, :remote=> true, class: "w3-button w3-circle w3-teal w3-hover-teal w3-left w3-card-4" %>
+  <%= will_paginate @all_billings,  renderer: BootstrapPagination::Rails, previous_label: 'Older', next_lable: 'Newer', class: "w3-right pagination-sm w3-card-4", :params => { :controller => "patient_billing_infos", :action => "index", count: params[:count], page: params[:page] }  %>
+  <br />
+</div>
+<br>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        setTimeout(function(){
+            $('#notes').remove();
+        }, 4000);
+    });
+</script>
+<script>
+    $(function(){
+        $('.pagination a').attr('data-remote', 'true');
+    });
+
+</script>

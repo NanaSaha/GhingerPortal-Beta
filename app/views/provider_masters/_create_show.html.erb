@@ -1,0 +1,41 @@
+<% if flash[:notice] %>
+  <p class="flash_notice " id = 'notes' style = "margin-top: 5px"><%= notice %></p>
+<%end%>
+<br />
+<div class="row">
+	<div class="col-md-3 col-xs-12"></div>
+	<div class="col-md-6 col-xs-12 w3-card-4 w3-round-large">
+		<h4>Service Provider Details</h4>
+		<table class="table table-condensed table-bordered table-striped">
+			 <tr><td class="w3-teal"><strong>Provider: </strong></td><td style="padding-left: 6%""><%= @provider_master.provider_name %></td></tr>
+			 <tr><td class="w3-teal"><strong>Alias/Othernames: </strong></td><td style="padding-left: 6%""><%= @provider_master.alias %></td></tr>
+			 <tr><td class="w3-teal"><strong>Provider Type: </strong></td><td style="padding-left: 6%""><%= @provider_master.service_prov_type.service_prov_type_title if @provider_master.service_prov_type %></td></tr>
+			 <tr><td class="w3-teal" ><strong>Comment: </strong></td><td style="padding-left: 6%""><%= @provider_master.comment %></td></tr>
+			 <tr><td class="w3-teal"><strong>Entity: </strong></td><td style="padding-left: 6%""><%= @provider_master.entity_id %></td></tr>
+			 <tr><td class="w3-teal" ><strong>Added By: </strong></td><td style="padding-left: 6%""><%= @provider_master.user_id %></td></tr>
+			 
+	
+			 <% if @provider_master.active_status == true %>  
+	      		<tr><td class="w3-teal"><strong>Status: </strong></td><td style="padding-left: 6%"> Active </td></tr>
+	      		
+	      	 <%elsif @provider_master.active_status == false %>
+	      		<tr><td class="w3-teal"><strong>Status: </strong></td><td style="padding-left: 6%; color: red">Inactive</td></tr>
+	         <%end%>
+	         	
+		</table>
+		<!-- <%#= link_to 'Extra Info', find_extra_info_path(:provider_id => @provider_master.id), remote: true, class: "w3-right w3-button w3-small w3-round-large w3-green w3-hover-green" %> -->
+		<%= link_to 'Back', service_prov_types_path, remote: true, class: "w3-left w3-button w3-small w3-round-large w3-blue w3-hover-blue" %>
+	   <br /><br />
+	</div>
+	<div class="col-md-3 col-xs-12"></div> 
+</div>
+<br />
+
+<script type="text/javascript">
+$(document).ready(function(){
+  setTimeout(function(){
+    $('#notes').remove();
+  }, 4000);
+ })
+</script>
+

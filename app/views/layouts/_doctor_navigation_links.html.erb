@@ -1,0 +1,37 @@
+
+<%= link_to doctor_root_path, class: "w3-bar-item w3-border-top w3-button w3-border-bottom w3-card-4 w3-hover-white ", style: "color: white" do %>
+  <i class="fa fa-tachometer " aria-hidden="true"></i> <span style="margin-left: 5px;"><b>Dashboard</b></span> 
+<% end %>
+
+ <button class="w3-bar-item w3-border-top w3-button w3-border-bottom w3-card-4 w3-hover-white" style="color: white" onclick="myAccFunc()">
+ 	<i class="fa fa-clock-o " aria-hidden="true"></i> <span style="margin-left: 5px;"><b>Appointments</b></span>  <i class="fa fa-caret-down"></i>	
+ </button>
+ <div id="demoAcc" class="w3-hide w3-white w3-card">
+ 	<%= link_to doctor_awaiting_appointments_path, class: "w3-bar-item w3-border-top w3-button w3-border-bottom w3-card-4 w3-hover-green", style: "color: black" do %>
+ 		 <i class="fa fa-thermometer-empty " aria-hidden="true"></i> <span style="margin-left: 5px;"><b>New Appointments</b></span> 
+	<% end %>
+ 	
+ 	<%= link_to doctor_general_appointments_path, class: "w3-bar-item w3-border-top w3-button w3-border-bottom w3-card-4 w3-hover-green", style: "color: black" do %>
+ 		 <i class="fa fa-heartbeat " aria-hidden="true"></i> <span style="margin-left: 5px;"><b>General Appointments</b></span> 
+	<% end %>
+	
+	<%= link_to doctor_pds_appointments_path, class: "w3-bar-item w3-border-top w3-button w3-border-bottom w3-card-4 w3-hover-green", style: "color: black" do %>
+ 		 <i class="fa fa-hospital-o" aria-hidden="true"></i> <span style="margin-left: 5px;"><b>PDS Appointments</b></span> 
+	<% end %>
+ </div>
+
+
+<%= link_to doctor_pds_path,  class: "w3-bar-item w3-border-top w3-button w3-border-bottom w3-card-4 w3-hover-white", style: "color: white" do %>
+  <i class="fa fa-user-md " aria-hidden="true"></i> <span style="margin-left: 5px;"><b>Personal Doctor Services</b></span> 
+<% end %>
+
+
+<%= link_to my_referal_path, class: "w3-bar-item w3-border-top w3-button w3-border-bottom w3-card-4 w3-hover-white", style: "color: white" do %>
+  <i class="fa fa-wheelchair " aria-hidden="true"></i> <span style="margin-left: 5px;"><b>Refer a Patient to Ghinger</b></span> 
+<% end %>
+ 
+
+<%= link_to doctor_root_path, class: "w3-bar-item w3-border-top w3-button w3-border-bottom w3-card-4 w3-hover-white", style: "color: white" do %>
+  <i class="fa fa-money " aria-hidden="true"></i> <span style="margin-left: 5px;"><b>Bills and Invoice Information</b></span> 
+<% end %>
+ 

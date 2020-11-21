@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Person type master:</strong>
+  <%= @permission_role.person_type_master_id %>
+</p>
+
+<p>
+  <strong>Permission:</strong>
+  <%= @permission_role.permission_id %>
+</p>
+
+<%= link_to 'Edit', edit_permission_role_path(@permission_role) %> |
+<%= link_to 'Back', permission_roles_path %>

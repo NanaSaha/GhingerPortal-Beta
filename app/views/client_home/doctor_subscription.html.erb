@@ -1,0 +1,63 @@
+
+
+<h4>Subscriptions</h4>
+<br>
+<div class="table-responsive">
+	<table class="table table-condensed table-bordered table-striped w3-card">
+  <thead>
+    <tr class="w3-teal">
+      <th>ID</th>
+      <th>Full Name</th>
+      <th>Phone Number</th>
+      <th>Subscription </th>
+      <th>Address</th>
+      <th>Amount GHC</th>
+      <th>Assign Status</th>
+     
+      <th>Paid status</th>
+      <th>DateTime</th>
+      <th colspan="4">Options</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @subscription_new_mains.each_with_index do |subscription_new_main,index| %>
+      <tr>
+        <td><%= index + 1 %></td>
+        <td><%= subscription_new_main.f_name+' '+subscription_new_main.middle_name+' '+subscription_new_main.last_name %></td>
+        <td><%= subscription_new_main.phone_number %></td>
+        <td><%= subscription_new_main.sub_name %></td>
+        <td><%= subscription_new_main.address %></td>
+        <td><%= subscription_new_main.amount %></td>
+        <td><%if subscription_new_main.status == true %>
+            Assigned 
+            <% else %>
+            Not Assigned
+            <% end %>
+        </td>
+       
+        <td><%if subscription_new_main.paid_status == true %>
+           Paid 
+           <% else %>
+           Not Paid 
+           <% end %>
+        </td>
+        <td><%= subscription_new_main.created_at.strftime('%F %R') %></td>
+         
+       
+        <td><%= link_to 'Remarks',doc_remark_info_path(:id => subscription_new_main.id),class: "w3-button w3-blue w3-card w3-hover-blue w3-small w3-round w3-round-xxlarge" %></td>
+      
+        <td><%= link_to 'Details', doc_sub_detail_path(:id => subscription_new_main.id),class: "w3-button w3-indigo w3-card w3-hover-indigo w3-small w3-round w3-round-xxlarge" %></td>
+      
+     
+          
+  
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+</div>
+
+<br>
+
+

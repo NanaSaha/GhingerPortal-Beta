@@ -1,0 +1,119 @@
+<div id="id01" class="w3-modal w3-round-large" style="display: block; margin-top: ">
+    <div class="w3-modal-content w3-animate-top w3-white" style="width: 60%; max-height: 80%; margin-top: ; overflow-y: auto; background: transparent">
+    	<div style="max-width: 70%; text-align: center; margin-left: 15%; margin-top: 15px">	  	
+    	</div>	   
+      <header class="w3-container">  
+        <h4>
+         <% if flash[:notice] %>
+           <p class="flash_notice " id = 'notes' style = ""><%= notice %></p>
+		 <% end %>
+        </h4> 
+      </header>            
+           <div class="w3-container" > 
+	           	 <% if  @patient_personal_doctor.present?%>				 		      	
+	              	<div class="row">
+	              		<div class="col-md-4 col-sm-12 col-xs-12"></div>
+	              		<div class="col-md-4 col-sm-12 col-xs-12 w3-card">
+	              			<div class="col-md-4 col-xs-4"></div>
+	              			<div class="col-md-4 col-xs-4">
+					            <% if @patient_personal_doctor.doctor.users[0].profile.nil? %> 
+								  <%= image_tag ('user.png'), class: "pull-left img-responsive img-circle", style: "width: 150px; height: ; margin-top: 10px" %>
+								<% else %>
+								  <%= image_tag  @patient_personal_doctor.doctor.users[0].profile.url(:thumb), class: "img-responsive img-circle", style: "width: 150px; height: ; margin-top: 10px" %>
+								<% end %>
+								<br />					 
+	              			</div>
+	              			<div class="col-md-4 col-xs-4"></div>
+	              			<div class="w3-clear"></div>
+	              			<p style="text-align: center">Your personal doctor is</p> 
+							<h4>
+							  Dr. <%= @patient_personal_doctor.doctor.surname %> <%= @patient_personal_doctor.doctor.other_names %>
+							</h4>
+	              		</div>
+	              		<div class="col-md-4 col-sm-12 col-xs-12"></div>
+	              	</div>
+	                <br />
+	              
+					<div class="w3-bar w3-card" style="background: #92d36e">
+						<button class="w3-bar-item w3-button tablink w3-black w3-card-4 w3-hover-black" style="color: white" onclick="openCity(event,'P_Consult');"><b>Phone Consult</b></button>
+					    <button class="w3-bar-item w3-button tablink w3-card-4 w3-hover-black" style="color: white" onclick="openCity(event,'V_Consult');"><b>Video Consult</b></button>  
+					    <button class="w3-bar-item w3-button tablink w3-card-4 w3-hover-black" style="color: white" onclick="openCity(event,'H_Care');"><b>Home Care</b></button>
+					    <button class="w3-bar-item w3-button tablink w3-card-4 w3-hover-black" style="color: white" onclick="openCity(event,'D_Pres');"><b>Prescription</b></button>
+					 </div>
+		
+					<div id="P_Consult" class="w3-container w3-display-container city w3-border w3-card" style="display:; margin-bottom: 5%">
+					  <br />
+					    <%= render :partial=> 'patient_phone_appointments' %>
+					</div>
+					
+					<div id="V_Consult" class="w3-container w3-display-container city w3-border w3-card" style="display: none; margin-bottom: 5%">
+					  <br />
+					    <%= render :partial=> 'patient_video_appointments_pds' %>
+					</div>
+			
+					
+					<div id="H_Care" class="w3-container w3-display-container city w3-border w3-card" style="display: none; margin-bottom: 5%">
+					  <br />
+					    <%= render :partial=> 'patient_home_appointments_pds' %> 
+					</div>
+					
+					<div id="D_Pres" class="w3-container w3-display-container city w3-border w3-card" style="display: none; margin-bottom: 5%">
+					  <br />
+					     <%= render :partial=> 'patient_prescription_appointments' %>
+					</div>
+		 	
+					
+	          		<%= link_to '+', patient_new_appointment_pds_path, :remote=> true, class: "w3-button w3-circle w3-left w3-card-4", style: "background: #92d36e" %>
+	          		<button onclick="document.getElementById('id01').style.display='none'" class="w3-button w3-right w3-card-4 w3-small w3-round-xlarge w3-hover-black w3-black">Back</button>
+	          		<br />
+	          	 <% elsif @unconfimed_pds.present? %>
+	          	   <h4 style="color: red">Sorry your personal doctor appointment with Ghinger is yet to be approved </h4>
+	          	   <h4>Please be patient!<br />You can make General Appointments for the mean time</h4>
+	          	    <%= link_to '+', patient_new_appointment_path, :remote=> true, class: "w3-button w3-circle w3-left w3-card-4", style: "background: #92d36e" %>
+	          		<button onclick="document.getElementById('id01').style.display='none'" class="w3-button w3-right w3-card-4 w3-small w3-round-xlarge w3-hover-black w3-black">Cancel</button>
+	          		<br />	
+	       
+	          	 <%else%>
+	          	    <h4 style="color: red">Sorry you do not have a personal doctor with Ghinger </h4>
+	          	    <h4>Please request for apPersonal docter</h4>
+	          	   <%= link_to '+', patient_new_appointment_path, :remote=> true, class: "w3-button w3-circle w3-left w3-card-4", style: "background: #92d36e" %>
+	          		<button onclick="document.getElementById('id01').style.display='none'" class="w3-button w3-right w3-card-4 w3-small w3-round-xlarge w3-hover-black w3-black">Cancel</button>
+	          		<br />	
+	          		
+	          	<%end%>
+	          	
+           </div>
+         
+      <!-- <footer class="w3-container" > -->
+       	<!-- <button onclick="document.getElementById('id01').style.display='none'" class="w3-button w3-right w3-card-4 w3-small w3-round-xlarge w3-green w3-hover-green ">Okay</button> -->
+      <!-- <br /> -->
+      <!-- </footer> -->
+      <br />
+    </div>
+    <br />
+</div>
+<script>
+ function openCity(evt, cityName) {
+	var i, x, tablinks;
+	x = document.getElementsByClassName("city");
+	for (i = 0; i < x.length; i++) {
+		x[i].style.display = "none";
+	 }
+	tablinks = document.getElementsByClassName("tablink");
+	for (i = 0; i < x.length; i++) {
+		tablinks[i].className = tablinks[i].className.replace(" w3-black", "");
+	 }
+	document.getElementById(cityName).style.display = "block";
+	evt.currentTarget.className += " w3-black";
+ }
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){
+  // setTimeout(function(){
+    // $('#notes').remove();
+  // }, 3000);
+  });
+</script>
+

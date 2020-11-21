@@ -1,0 +1,151 @@
+<br>
+<%= simple_form_for @pre_appointment, url: process_order_path, method: :post  do |f| %>
+<!-- <%#= f.error_notification %> -->
+<%= tinymce_assets %>
+
+ <script type="text/javascript">
+  	$(document).ready(function(){
+  		tinymce.init({
+		  selector: '.tinymce',  // change this value according to your HTML
+		  branding: false,
+		  resize: false,
+		  theme: 'modern',
+		  statusbar: false
+		});
+  	})
+  </script>
+
+<div id="id01" class="w3-modal w3-card-4 w3-round-large" style="display: block;">
+    <div class="w3-modal-content w3-animate-left w3-card-4 w3-light-gray" style="width: 33%; max-height: 80%; overflow-y: auto;">
+    	<div style="max-width: 70%; text-align: center; margin-left: 15%; margin-top: 15px">
+      
+	    	<% if flash[:notice] %>
+                <p class="flash_notice " id = 'notes' style = ""><%= notice %></p>
+		  	 <% end %>
+		  	
+    	</div>	   
+      <header class="w3-container">  
+        <h4>Place order for Patient</h4> 
+      </header>           
+           <div class="w3-container" > 				 		      	
+              
+               <div class="form-inputs">
+                  <%= f.input :suburb_id, as: :hidden, input_html: {value: @patient_loc_id} %>	               
+	           <%= f.input :requester_id, as: :hidden, input_html: {value: @patient_id} %>
+	           <%= f.input :appointment_type_id, collection: @appointment_types, label_method: :title, value_method: :ref_id, input_html: {id: 'appt_type', :include_blank=> false, :onchange => "lab()"} %>            
+	           <%= f.input :req_urgency, label: "Request Urgency", collection: @request_urgencies, label_method: :urgency, value_method: :ref_id %>
+	           <%= f.input :requester_cat, label: 'Request Type', collection: RequestCategory.all, label_method: :category, value_method: :ref_id, input_html: {id: 'req_cat', :include_blank=> false, :onchange => "change()"}  %>
+	               
+	           <div class='hidden' id='beneficiary_name'>
+	              <%= f.input :beneficiary_name %>
+	           </div>	                
+	              <!-- <p class="w3-btn w3-black w3-round-xlarge hidden" id="show" onclick="showLab(); ">Show</p>
+	               <p class="w3-btn w3-black w3-round-xlarge hidden" id="hide" onclick="hideLab(); ">Hide</p>
+	               <div class="extra hidden" id = 'extra_type' >
+	                 
+	                <%= link_to_add_association 'Lab Detail Image', f, :lab_detail_images, force_non_association_create: true, data: { association_insertion_node: '.extra', association_insertion_method: :append }, class: "w3-middle w3-button w3-small w3-round-large w3-indigo w3-hover-indigo hidden"%>
+	                <%= f.simple_fields_for :lab_detail_images do |extra| %>
+	                      <%= render  'lab_detail_image_fields', f: extra %>			 
+	                  <%end%>
+	                <br> -->
+	                <!-- <%= link_to_add_association 'Lab Details', f, :lab_details, force_non_association_create: true, data: { association_insertion_node: '.extra', association_insertion_method: :append }, class: "w3-middle w3-button w3-small w3-round-large w3-indigo w3-hover-indigo hidden"%>
+	                <%= f.simple_fields_for :lab_details do |extra| %>
+	                      <%= render  'lab_detail_fields', f: extra %>			 
+	                  <%end%>
+	                </div> -->
+	               
+	               <%= f.input :proposed_date, as: :string, label: "Schedule Date and Time", input_html: {:id =>'datetimepicker4'} %>
+	               <%= f.label :complaint_desc, "Complaint Description"%>
+	               <%= f.text_area :complaint_desc, :class => "tinymce", :rows=> 7 %>
+	               <br>
+	               <%= f.label :prev_medical_history, "Previous Medical History"%>
+	               <%= f.text_area :prev_medical_history, :class => "tinymce", :rows=> 7 %>
+	               
+	              
+	               <br>
+	               <%= f.label :comment, "Give a Remark or Comment"%>
+	               <%= f.text_area :comment, :class => "tinymce", :rows=> 7 %>
+	               
+	               <%= f.input :user_id, as: :hidden, input_html: { value: @doctor_id } %>
+	               <%= f.input :active_status, as: :hidden, input_html: {value: 1} %>
+	               <%= f.input :del_status, as: :hidden, input_html: {value: 0}  %>
+	               <%= f.input :src, as: :hidden, input_html: {value: "PTL"}  %>
+	               <%= f.input :confirm_status, as: :hidden, input_html: {value: 0}  %>
+               </div>
+           </div>
+        <br>
+      <footer class="w3-container">
+       	<%= f.button :submit, class: "w3-button w3-teal w3-hover-teal w3-left w3-card-4 w3-small w3-round-xlarge", value: "Create" %>
+        <%= link_to 'Back', find_patient_details_path(:chosen => @patient_id, :doc => @doctor_id), class: "w3-button w3-black w3-hover-black w3-right w3-card-4 w3-small w3-round-xlarge" %>
+      <br />
+      </footer>
+      <% end %>
+      <br />
+    </div>
+    <br />
+</div>
+
+<%= tinymce %>
+
+<script type="text/javascript">
+$(document).ready(function(){
+  setTimeout(function(){
+    $('#notes').remove();
+  }, 3000);
+  });
+</script>
+
+
+<style>
+	.input-group{
+		width: 100%;
+	}
+  .typeahead{
+    width: 100%;
+  }
+  
+</style>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+         $('form').attr('autocomplete', 'off');
+        
+         $('.combobox').combobox();
+
+   $('span.input-group-addon').addClass("hidden");
+  
+    });
+</script>
+
+
+<script type="text/javascript">
+ $(function () {
+   $('#datetimepicker4').datetimepicker({
+   	 format: "YYYY-MM-DD HH:mm",
+   	 minDate: new Date()
+   });
+   
+    // $("#datetimepicker4").on("dp.change", function (e) {
+      // $('#datetimepicker4').data("DateTimePicker").minDate(e.date);
+    // });
+    // $("#datetimepicker4").on("dp.change", function (e) {
+    // $('#datetimepicker4').data("DateTimePicker").maxDate(e.date);
+   // });
+    
+  });
+</script>
+
+<!-- <script type="text/javascript">
+		
+var appointment_type;
+function lab(){
+	appointment_type = document.getElementById('appt_type');
+	alert(appointment_type.value)
+	
+	// if (appointment_type.value == 'LA'){
+		// console.log('This is the if');
+		// $('#extra_type').removeClass("hidden");
+	// }
+}
+</script> -->
+

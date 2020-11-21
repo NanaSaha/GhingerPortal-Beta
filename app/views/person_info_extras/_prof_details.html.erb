@@ -1,0 +1,79 @@
+<div></div>
+<div id="id01" class="w3-modal w3-card-4" style="display: block">
+    <div class="w3-modal-content w3-animate-opacity w3-card-4 w3-light-gray" style="width: 40%">
+    	<div style="max-width: 70%; text-align: center; margin-left: 15%; margin-top: 15px">
+	    	<% if flash.now[:notice] %>
+			  <p class="flash_notice "  style = ""><b><%= notice %></b></p>
+			<% end %>
+    	</div>
+    		
+      <% if @person_info_extra.nil? %>
+        <div class="w3-container"> </div><br />   
+	     
+	     <% if @type == "Patient"%>
+	     
+	     <%else%>
+		      <footer class="w3-container">
+		      	 <%= link_to 'Add Profession Info', new_person_info_extra_path(:person_id => @person_id), :remote=> true, class: "w3-button w3-blue w3-hover-blue w3-left w3-card-4 w3-small w3-round-xlarge" %>
+		      <br />
+		      </footer>
+	     <% end %>
+      <% else %>
+      
+      	<header class="w3-container"> 
+          <h4>Professional Information</h4>  
+       </header>
+      
+      	<div class="w3-container"> 	
+	      	  <table class="table table-condensed table-bordered table-striped w3-card">
+				 <tr><td class="w3-teal" style="width: 35%"><strong>Full Name </strong></td><td style="padding-left: 6%""><%= @person_info_extra.person_info.surname %> <%= @person_info_extra.person_info.other_names %>  </td></tr>
+				 <tr><td class="w3-teal"><strong>Person Type </strong></td><td style="padding-left: 6%""><%= @person_info_extra.person_info.person_type_master.user_type_title %></td></tr>
+				 <tr><td class="w3-teal" ><strong>Specialty </strong></td><td style="padding-left: 6%""><%= @person_info_extra.specialty_master.title %> </td></tr>
+				 <tr><td class="w3-teal" ><strong>Specialty Duration </strong></td><td style="padding-left: 6%""><%= @person_info_extra.specialty_duration %> </td></tr>
+				 <tr><td class="w3-teal" ><strong>Medical Regulator </strong></td><td style="padding-left: 6%""><%= @person_info_extra.profesional_group.group_name %> </td></tr> 
+				 <tr><td class="w3-teal" ><strong>Licence Number </strong></td><td style="padding-left: 6%""><%= @person_info_extra.licence_number %> </td></tr>	
+				  
+				  <tr><td class="w3-teal" ><strong>Has specialty </strong></td>
+				  	 <%if @person_info_extra.has_specialty == true %>
+				  	 	<td style="padding-left: 6%"">Yes</td>
+				  	 <%elsif @person_info_extra.has_specialty == false %>
+				  	  <td style="padding-left: 6%""> No</td>
+				  	 <%end%>
+				   </tr>
+				   
+				  <tr><td class="w3-teal" ><strong>Foreign Traning </strong></td>
+				  	 <%if @person_info_extra.forign_training == true %>
+				  	 	<td style="padding-left: 6%"">Yes</td>
+				  	 <%elsif @person_info_extra.forign_training == false %>
+				  	    <td style="padding-left: 6%""> No</td>
+				  	 <%end%>
+				  		
+				  </tr>	
+				  
+				 <tr><td class="w3-teal" ><strong>Foreign Medical Board </strong></td><td style="padding-left: 6%""><%= @person_info_extra.foreign_institution_desc %> </td></tr>				 
+				 <tr><td class="w3-teal" ><strong>Foreign Licence Number </strong></td><td style="padding-left: 6%""><%= @person_info_extra.foreign_licence_number %> </td></tr>	
+				 <tr><td class="w3-teal" ><strong>Place of Work </strong></td><td style="padding-left: 6%""><%= @person_info_extra.hospital_name %> </td></tr>	
+				 <tr><td class="w3-teal" ><strong>Remark </strong></td><td style="padding-left: 6%""><%= @person_info_extra.comment %> </td></tr>	
+			  </table>
+        </div>
+       <% end%>
+      <br />
+      <footer class="w3-container">
+      	<% if @person_info_extra.present? %>
+      	  <%= link_to 'Edit', edit_prof_details_path(:person_id => @person_info_extra.person_id), :remote=> true, class: "w3-button w3-blue w3-hover-blue w3-left w3-card-4 w3-small w3-round-xlarge" %>
+        <%end%>
+        <%= link_to 'Back', person_infos_path, :remote=> true, class: "w3-button w3-black w3-hover-black w3-right w3-card-4 w3-small w3-round-xlarge" %>
+      <br />
+      </footer>
+      <br />
+    </div>
+    <br />
+</div>
+
+<script type="text/javascript">
+$(document).ready(function(){
+  setTimeout(function(){
+    $('#notes').remove();
+  }, 7000);
+ })
+</script>

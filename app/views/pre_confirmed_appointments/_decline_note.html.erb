@@ -1,0 +1,44 @@
+<div></div>
+<div id="com" class="w3-modal w3-card-4 " style="display: block">
+  <div class="w3-modal-content w3-animate-top w3-card-4 w3-pale-green w3-round-xlarge" style="width: 33%">
+    <% if flash[:notice] %>
+      <p class="flash_notice " id = 'notes' style = "margin-top: 5px"><%= notice %></p>
+    <% end %>
+    <header class="w3-container">
+      <h4>Appointment decline notes</h4>
+    </header>
+    <div class="w3-padding w3-white w3-margin w3-round-xlarge">
+      <div class="w3-container table-responsive">
+        <table class="table table-condensed table-bordered table-striped w3-margin">
+          <tbody>
+            <tr>
+              <td class="w3-pale-red" style="width: 28%"><b>Appointment Date</b></td>
+              <td style="text-align: center"><%= @pre_confirm.date_time.strftime("%F %R")%></td>
+            </tr>
+            <tr>
+              <td class="w3-pale-red" style="width: 28%"><b>Available Date</b></td>
+              <td style="text-align: center"><%= @decline_comment.available_date.strftime("%F %R")%></td>
+            </tr>
+            <tr>
+              <td class="w3-pale-red" style=""><b>Reason/Note</b></td>
+              <td style="text-align: center"><%= @decline_comment.comment%></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <footer class="w3-container">
+      <span onclick="document.getElementById('com').style.display='none'" class="w3-button w3-red w3-hover-red w3-right w3-card-4 w3-small w3-round-xlarge">Close</span>
+      <br />
+    </footer>
+    <br />
+  </div>
+  <br />
+</div>
+<script type="text/javascript">
+  $(document).ready(function(){
+    setTimeout(function(){
+      $('#notes').remove();
+    }, 4000);
+   });
+</script>

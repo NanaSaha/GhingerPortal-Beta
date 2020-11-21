@@ -1,0 +1,101 @@
+<div id="id01" class="w3-modal w3-card-4" style="display: block">
+	<div id="comment"></div>
+    <div class="w3-modal-content w3-animate-top w3-card-4 w3-light-gray" style="width: 60%">
+       <% if flash[:notice] %>
+		   <p class="flash_notice " id = 'notes' style = "margin-top: 5px"><%= notice %></p>
+	   <% end %>
+      <header class="w3-container"> 
+        <h4>Appointment sent to Professionals</h4> 
+      </header>
+      <br />
+      <!-- <div class="col-md-1 col-xs-12"></div> -->
+      <div class="col-md-12 col-xs-12 w3-padding">
+	<div class="w3-container table-responsive"> 	
+	 <table class="table table-condensed table-bordered table-striped">
+	  <thead>
+	    <tr class="w3-teal">
+	      <th>Surname</th>
+	      <th>Other Names</th> 
+	      <th>Person Type</th>
+	      <th>Accept Status</th>
+	      <th>Decline Status</th>
+	      
+	    </tr>
+	  </thead>
+	  <tbody>
+	<% @doc_nurse.each do |doc_nurse| %>
+	<tr>
+	<% if doc_nurse.pre_appointment.appointment_type.ref_id == 'HC'%>
+	  <% if doc_nurse.doctor.present? %>
+	   <td><%= doc_nurse.doctor.surname if doc_nurse.doctor %></td>
+	   <td><%= doc_nurse.doctor.other_names  if doc_nurse.doctor%></td>
+	  <% elsif doc_nurse.nurse.present? %>
+	   <td><%= doc_nurse.nurse.surname  if doc_nurse.nurse%></td>
+	   <td><%= doc_nurse.nurse.other_names if doc_nurse.nurse%></td>
+	  <% else %>
+	   <td>Appointment not assigned to any professional</td>
+	  <%end%>
+	<% else %>
+	  <td><%= doc_nurse.doctor.surname if doc_nurse.doctor %></td>
+	  <td><%= doc_nurse.doctor.other_names if doc_nurse.doctor %></td>
+	<%end%>
+	
+	<% if doc_nurse.pre_appointment.appointment_type.ref_id == 'HC'%>
+	  <% if doc_nurse.doctor.present? && doc_nurse.doctor.person_type_id == 'D' %>
+	   <td>Doctor</td>									   
+	  <% elsif doc_nurse.nurse.present? && doc_nurse.nurse.person_type_id == 'N'%>
+	   <td>Nurse</td>
+	  <%else %>
+		<td>None</td>
+	  <%end%>						   							   							   
+	<% else %>
+	<% if doc_nurse.doctor.present? && doc_nurse.doctor.person_type_id == 'D' %>
+	   <td>Doctor</td>
+	<%end%>
+	  <%end%>
+	  
+	  <% if doc_nurse.accepted_status== true %>
+		<td>Accepted</td>
+		  <%elsif doc_nurse.accepted_status == false %>
+		<td>Unaccepted</td>
+	  <%end%>
+	  
+	  <% if doc_nurse.decline_status== true %>
+	    <td>Declined</td>
+	  <%elsif doc_nurse.decline_status == false %>				
+	    <td>Not declined</td>
+	  <%end%>
+	  
+	  <% if doc_nurse.decline_status== true  %>
+	  	<td style="width: 15%"><%= link_to 'Decline Note', decline_note_path(pre_confirm_id: doc_nurse.id, doc: doc_nurse.doctor_id), remote: true, class: "w3-button w3-light-blue w3-hover-light-blue w3-card-4 w3-small w3-round-xlarge"%></td>
+	  <% end %>
+	  	
+	</tr>
+	<%end%>
+	  </tbody>
+	</table>
+	</div> 
+      </div>  
+      <!-- <div class="col-md-1 col-xs-12"></div> -->
+      <br />
+      <footer class="w3-container">  
+         <%= link_to 'Back', pre_confirmed_appointments_path, remote: true, class: "w3-button w3-black w3-hover-black w3-right w3-card-4 w3-small w3-round-xlarge" %>
+      <br />
+      </footer>
+      <br />
+    </div>
+    <br />
+</div>
+
+
+
+
+<script type="text/javascript">
+$(document).ready(function(){
+  setTimeout(function(){
+    $('#notes').remove();
+  }, 4000);
+ });
+</script> 
+
+

@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  appt_type_id: MyString
+  service_id: 1
+  req_urgency: MyString
+  fee: 
+  fee: 
+  comment: MyString
+  user_id: 1
+  active_status: false
+  del_status: false
+
+two:
+  appt_type_id: MyString
+  service_id: 1
+  req_urgency: MyString
+  fee: 
+  fee: 
+  comment: MyString
+  user_id: 1
+  active_status: false
+  del_status: false

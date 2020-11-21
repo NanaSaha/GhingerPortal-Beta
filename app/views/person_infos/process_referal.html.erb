@@ -1,0 +1,71 @@
+<div id="id01" class="w3-modal w3-card-4 w3-round-large" style="display: block;">
+    <div class="w3-modal-content w3-animate-left w3-card-4 w3-light-gray" style="width: 33%; max-height: 80%; overflow-y: auto;">
+    	<div style="max-width: 70%; text-align: center; margin-left: 15%; margin-top: 15px">
+      
+	    	<% if flash[:notice] %>
+                <p class="flash_notice " id = 'notes' style = ""><%= notice %></p>
+		  	 <% end %>
+		  	
+    	</div>	    
+      <header class="w3-container">  
+        <h4>Referal Deatails</h4> 
+      </header>          
+           <div class="w3-container" > 				 		      	
+              <table class="table table-condensed table-bordered table-striped">
+					 <tr><td class="w3-teal"><strong>Name </strong></td><td style="padding-left: 6%""><%= @surname %> <%= @other_names %></td></tr>
+					 <tr><td class="w3-teal" ><strong>Tel. Number </strong></td><td style="padding-left: 6%""><%=  @contact %></td></tr>
+					 <tr><td class="w3-teal" ><strong>Date of Birth </strong></td><td style="padding-left: 6%""><%= @dob %></td></tr>
+					 
+			
+					 <% if @processed_status == true %>  
+			      		<tr><td class="w3-teal"><strong>Status: </strong></td><td style="padding-left: 6%"> Processed </td></tr>
+			      		
+			      	 <%elsif @processed_status == false %>
+			      		<tr><td class="w3-teal"><strong>Status: </strong></td><td style="padding-left: 6%; color: red">Unprocessed</td></tr>
+			         <%end%>	
+		     </table>
+                
+		      <footer class="w3-container">
+		        <%= link_to 'Back', referals_path, class: "w3-left w3-button w3-small w3-round-large w3-blue w3-hover-blue" %>
+		      </footer>      
+    	  </div>
+    <br />
+</div>
+
+<script type="text/javascript">
+$(document).ready(function(){
+  setTimeout(function(){
+    $('#notes').remove();
+  }, 3000);
+  });
+</script>
+
+
+<style>
+	.input-group{
+		width: 100%;
+	}
+  .typeahead{
+    width: 100%;
+  }
+  
+</style>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+         $('form').attr('autocomplete', 'off');
+        
+         $('.combobox').combobox();
+
+   $('span.input-group-addon').addClass("hidden");
+  
+    });
+</script>
+<script>
+  $( function() {
+    $( "#datepicker" ).datepicker({
+    	dateFormat : 'yy-mm-dd'
+    });
+  } );
+  </script>
+

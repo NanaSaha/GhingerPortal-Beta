@@ -1,0 +1,103 @@
+<br />
+<% if flash[:notice] %>
+  <p class="flash_notice " id = 'notes' style = "margin-top: 5px"><%= notice %></p>
+<%end%>
+<h4>Pending Registrations</h4>
+<div class="pull-right" style = 'margin-top: -3%; '>
+  <label class="">Display <u>No</u>: </label>
+  <!-- <%#= select_tag :count, options_for_select([5,10,15,20,25,30], params[:count].to_i), :onchange => "if(this.value){ window.location='?count='+this.value ;}" %> -->
+  <%= select_tag :per_page, options_for_select([5,10, 20, 30, 40,50, 70,100], params[:per_page].to_i), :data => { :remote => true, 
+	 	 :url => url_for( :controller => "registrations", :action => "index" )
+	 	 }, :onchange => "if(this.value){window.location='?per_page='+this.value;}", class: "w3-bordered w3-round-xlarge w3-btn w3-small w3-card-4" %>
+</div>
+<br />
+<p style = 'text-align: center; font-family: tahoma; font-size: 15px;'>
+  <b>Download:</b>  <%= link_to "CSV", pending_registrations_path(format: "csv"), :class => "w3-hover-white"%>
+  | <%= link_to "Excel", pending_registrations_path(format: "xls"), :class => "w3-hover-white" %>
+  | <%= link_to "CSV-all", all_pending_registration_excel_path(format: "csv"), :class => "w3-hover-white", method: :get%>
+  | <%= link_to "Excel-all", all_pending_registration_excel_path(format: "xls"),:class => "w3-hover-white", method: :get%>
+</p>
+<div class="table-responsive">
+  <table class="table table-condensed table-bordered table-striped w3-card-4">
+    <thead>
+      <tr class="w3-teal">
+		<th> Date </th>
+        <th>Surname</th>
+        <th>Other names</t>
+        <th>Email</th> 
+        <th>Mobile number</th>
+        <th>User type</th>
+        <th>Source</th>
+        <!-- <th>Status</th> -->
+        <th>Approved Status</th>
+        <th colspan="2">Options</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @pending_registrations.each do |registration| %>
+        <tr>
+	<td><%= registration.created_at.strftime("%B %d, %Y %H:%M") %></td>
+          <td><%= registration.surname %></td>
+          <td><%= registration.other_names %></td>
+          
+          <td><%= registration.email %></td>
+          <td><%= registration.mobile_number %></td>
+          <% if registration.user_type == 'D' %>
+            <td>Doctor</td>
+          <% elsif registration.user_type == 'C' %>
+            <td>Patient</td>
+          <% elsif registration.user_type == 'N' %>
+            <td>Nurse</td>
+          <% elsif registration.user_type == 'L' %>
+            <td>Laboratorist</td>
+          <% elsif registration.user_type == 'P' %>
+            <td>Pharmacist</td>
+          <% end %>
+          <% if registration.src == 'PTL'%>
+            <td> Portal </td>
+          <% elsif registration.src == 'APP' %>
+            <td> Mobile App </td>
+          <% elsif registration.src == 'USS' %>
+            <td> USSD </td>
+          <% elsif registration.src == 'WEB' %>
+            <td> Web Access </td>
+          <%end%>
+          <!-- <% if registration.status == true %>  
+	      		<td style="color: ">Active</td>
+	      		
+	      	<%elsif registration.status == false %>
+	      		<td style="color: red">Inactive</td>
+	      		
+	        <%end%> -->
+          <% if registration.verified == true %>
+            <td style="color: ">Approved</td>
+          <% elsif registration.verified == false %>
+            <td style="color: ">Pending</td>
+          <% end %>
+          <!-- <td><%= link_to 'Show', registration %></td> -->
+          <!-- <td><%= link_to 'Approve', approve_registration_path(:reg_id => registration.id ), data: { confirm: 'Do you want to confirm the registration?' }, remote: true, class: "w3-button w3-khaki w3-card w3-hover-khaki w3-small w3-round w3-round-xxlarge" %></td> -->
+          <td><%= link_to 'Approve', new_confirm_person_info_path(:reg_id => registration.id ), remote: true, class: "w3-button w3-khaki w3-card w3-hover-khaki w3-small w3-round w3-round-xxlarge",data: {"disable-with": "Please wait......"} %></td>
+          <td style="width: 15px">
+            <% if registration.status == false %>
+              <%= link_to 'Enable', enable_pending_reg_path(:chosen => registration.id), data: { confirm: 'You are about to enable the selected registration. Do you want to continue?' }, remote: true,  class: "w3-button w3-blue w3-hover-blue w3-small w3-round-xxlarge w3-card",data: {"disable-with": "Please wait......"} %>
+            <% else registration.status == true %>
+              <%= link_to 'Disable', disable_pending_reg_path(:chosen => registration.id), data: { confirm: 'You are about to disable the selected registration. Do you want to continue?' }, remote: true,  class: "w3-button w3-red w3-hover-red w3-small w3-round w3-round-xxlarge w3-card",data: {"disable-with": "Please wait......"} %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+<br>
+<div>
+  <!-- <%= link_to '+', new_registration_path, :remote=> true, class: "w3-button w3-circle w3-teal w3-hover-teal w3-left w3-card-4" %> -->
+  <%= will_paginate @pending_registrations,  renderer: BootstrapPagination::Rails, previous_label: 'Older', next_lable: 'Newer', class: "w3-right pagination-sm w3-card-4", :params => { :controller => "registrations", :action => "pending_registrations", count: params[:count], page: params[:page] }, :remote => true  %>
+  <br />
+</div>
+<br />
+<script>
+  $(function(){
+    $('.pagination a').attr('data-remote', 'true')
+  });
+</script>

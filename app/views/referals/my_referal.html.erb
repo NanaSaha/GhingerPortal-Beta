@@ -1,0 +1,62 @@
+<div class="container" style="min-width: 75%; margin-left: 2%"> 
+	<div class="col-md-2 colxs-12 col-sm-12"></div>
+	<div class="col-md-10 colxs-12 col-sm-12">
+	<div class = "table-responsive">
+		<% if flash[:notice] %>
+		  <p class="flash_notice " id = 'notes' style = "margin-top: 5px"><%= notice %></p>
+		<% end %>
+		
+		<% if @referals[0].nil? %>
+		
+		 	<% if flash[:info] %>
+			  <p class="alert alert-info" id = '' style = "margin-top: 5px"><%= info %></p>
+			<% end %>
+			
+			<br />
+		   <%= link_to '+', refer_patient_path, class: "w3-button w3-circle w3-teal w3-hover-teal w3-left w3-card-4" %>
+		 
+		<%else%>
+		
+		<h4>Patients referred by <%= @referals[0].person_info.surname %> <%= @referals[0].person_info.other_names %> </h4>
+		
+		<table class="table table-condensed table-bordered w3-striped w3-card-4 w3-hoverable">
+		  <thead>
+		 
+		    <tr class="w3-black w3-card">
+		        <th>Surname</th>
+		        <th>Other Name(s)</th>
+		        <th>Date of Birth</th>
+		        <th>Contact</th>
+		         <!-- <th colspan="2"></th>	       -->			    
+		    </tr> 	   
+		  </thead> 
+		  <tbody>  
+	
+			<% @referals.each do |referal| %>
+			      <tr>
+			        <td><%= referal.surname %></td>
+			        <td><%= referal.other_names %></td>
+			        <td><%= referal.dob %></td>
+			        <td><%= referal.contact %></td>
+			        <!-- <td><%= referal.active_status %></td> -->
+			        <!-- <td><%= referal.del_status %></td> -->
+
+			        <!-- <td><%= link_to 'Edit', edit_referal_path(referal) %></td> -->
+			        <!-- <td><%= link_to 'Destroy', referal, method: :delete, data: { confirm: 'Are you sure?' } %></td> -->
+			      </tr>
+			    <% end %>
+		  
+		  </tbody>
+		</table>
+	</div>
+	<div> 
+ <%= link_to '+', refer_patient_path, class: "w3-button w3-circle w3-teal w3-hover-teal w3-left w3-card-4" %>
+ <%= will_paginate @referals,  renderer: BootstrapPagination::Rails, previous_label: 'Older', next_lable: 'Newer', class: "w3-right pagination-sm w3-card-4", :params => { :controller => "referals", :action => "my_referal", count: params[:count], page: params[:page] }  %>
+<!-- end of if -->
+<%end%>
+<br />
+</div>
+	
+	</div>
+	<div class="col-md-2 colxs-12 col-sm-12"></div>
+</div>

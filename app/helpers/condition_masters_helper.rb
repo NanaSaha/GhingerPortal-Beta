@@ -1,0 +1,2 @@
+module ConditionMastersHelper
+end

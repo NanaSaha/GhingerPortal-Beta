@@ -1,0 +1,5 @@
+<% if @src == "details" %>
+    $("#showImage").html("<%= escape_javascript(render(:partial =>"image")) %>");
+<%elsif @src == "confirmed_appt" %>
+    $("#dropImage").html("<%= escape_javascript(render(:partial =>"image")) %>");
+<%end %>

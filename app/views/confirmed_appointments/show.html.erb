@@ -1,0 +1,54 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Pre appointment:</strong>
+  <%= @confirmed_appointment.pre_appointment_id %>
+</p>
+
+<p>
+  <strong>Provider:</strong>
+  <%= @confirmed_appointment.provider_id %>
+</p>
+
+<p>
+  <strong>Complaint desc:</strong>
+  <%= @confirmed_appointment.complaint_desc %>
+</p>
+
+<p>
+  <strong>Confirmed date:</strong>
+  <%= @confirmed_appointment.confirmed_date %>
+</p>
+
+<p>
+  <strong>Confirmed time:</strong>
+  <%= @confirmed_appointment.confirmed_time %>
+</p>
+
+<p>
+  <strong>Comment:</strong>
+  <%= @confirmed_appointment.comment %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @confirmed_appointment.user_id %>
+</p>
+
+<p>
+  <strong>Entity:</strong>
+  <%= @confirmed_appointment.entity_id %>
+</p>
+
+<p>
+  <strong>Active status:</strong>
+  <%= @confirmed_appointment.active_status %>
+</p>
+
+<p>
+  <strong>Del status:</strong>
+  <%= @confirmed_appointment.del_status %>
+</p>
+
+<%= link_to 'Edit', edit_confirmed_appointment_path(@confirmed_appointment) %> |
+<%= link_to 'Back', confirmed_appointments_path %>

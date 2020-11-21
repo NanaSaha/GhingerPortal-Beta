@@ -1,0 +1,2 @@
+module DrugMastersHelper
+end

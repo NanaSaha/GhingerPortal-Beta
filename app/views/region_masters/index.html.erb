@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Region Masters</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Region state name</th>
+      <th>Comment</th>
+      <th>Country</th>
+      <th>Entity</th>
+      <th>User</th>
+      <th>Active status</th>
+      <th>Del status</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @region_masters.each do |region_master| %>
+      <tr>
+        <td><%= region_master.region_state_name %></td>
+        <td><%= region_master.comment %></td>
+        <td><%= region_master.country_id %></td>
+        <td><%= region_master.entity_id %></td>
+        <td><%= region_master.user_id %></td>
+        <td><%= region_master.active_status %></td>
+        <td><%= region_master.del_status %></td>
+        <td><%= link_to 'Show', region_master %></td>
+        <td><%= link_to 'Edit', edit_region_master_path(region_master) %></td>
+        <td><%= link_to 'Destroy', region_master, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Region master', new_region_master_path %>

@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Doctor:</strong>
+  <%= @confirmed_personal_doctor_service.doctor_id %>
+</p>
+
+<p>
+  <strong>Patient:</strong>
+  <%= @confirmed_personal_doctor_service.patient_id %>
+</p>
+
+<p>
+  <strong>Comment:</strong>
+  <%= @confirmed_personal_doctor_service.comment %>
+</p>
+
+<p>
+  <strong>Entity:</strong>
+  <%= @confirmed_personal_doctor_service.entity_id %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @confirmed_personal_doctor_service.user_id %>
+</p>
+
+<p>
+  <strong>Active status:</strong>
+  <%= @confirmed_personal_doctor_service.active_status %>
+</p>
+
+<p>
+  <strong>Del status:</strong>
+  <%= @confirmed_personal_doctor_service.del_status %>
+</p>
+
+<%= link_to 'Edit', edit_confirmed_personal_doctor_service_path(@confirmed_personal_doctor_service) %> |
+<%= link_to 'Back', confirmed_personal_doctor_services_path %>

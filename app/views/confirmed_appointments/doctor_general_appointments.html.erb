@@ -1,0 +1,70 @@
+<div class="container" style="min-width: 75%">
+	<div class="w3-bar w3-card" style="background: #92d36e">
+		<div id="showDetails"></div>
+		<button class="w3-bar-item w3-button tablink w3-black w3-card-4 w3-hover-white" style="color: white" onclick="openCity(event,'D_Med');"><b>Medication</b></button>
+	    <!-- <button class="w3-bar-item w3-button tablink w3-card-4 w3-hover-white" style="color: white" onclick="openCity(event,'P_Consult');"><b>Phone Consult</b></button> -->
+	    <button class="w3-bar-item w3-button tablink w3-card-4 w3-hover-white" style="color: white" onclick="openCity(event,'V_Consult');"><b>Video Consult</b></button>  
+	    <button class="w3-bar-item w3-button tablink w3-card-4 w3-hover-white" style="color: white" onclick="openCity(event,'H_Care');"><b>Home Care</b></button>
+	    <!-- <button class="w3-bar-item w3-button tablink w3-card-4 w3-hover-white" style="color: white" onclick="openCity(event,'D_Med');"><b>General Medication</b></button> -->
+	 </div>
+	
+	
+	<div id="D_Med" class="w3-container w3-display-container city w3-border w3-card" style="display:; margin-bottom: 5%">
+	  <!-- <span onclick="this.parentElement.style.display='none'"
+	  class="w3-button w3-large w3-display-topright">&times;</span> -->
+	  <br />
+	    <%= render :partial=> 'doctor_medication_appointments' %>
+	</div>
+	
+	<!-- <div id="M_Pres" class="w3-container w3-display-container city w3-border w3-card" style="display:; margin-bottom: 5%">
+	  <span onclick="this.parentElement.style.display='none'"
+	  class="w3-button w3-large w3-display-topright">&times;</span>
+	  <br /><br />
+	    <%#= render :partial=> 'doctor_prescription_appointments' %>
+	</div> -->
+	
+	
+	<!-- <div id="P_Consult" class="w3-container w3-display-container city w3-border w3-card" style="display: none; margin-bottom: 5%">
+	  <span onclick="this.parentElement.style.display='none'"
+	  class="w3-button w3-large w3-display-topright">&times;</span>
+	  <br /><br />
+	    <%#= render :partial=> 'doctor_phone_appointments' %>
+	</div> -->
+	
+	<div id="V_Consult" class="w3-container w3-display-container city w3-border w3-card" style="display: none; margin-bottom: 5%">
+	  <!-- <span onclick="this.parentElement.style.display='none'"
+	  class="w3-button w3-large w3-display-topright">&times;</span> -->
+	  <br />
+	    <%= render :partial=> 'doctor_video_appointments' %> 
+	</div>
+	
+	<div id="H_Care" class="w3-container w3-display-container city w3-border w3-card" style="display: none; margin-bottom: 5%">
+	  <!-- <span onclick="this.parentElement.style.display='none'"
+	  class="w3-button w3-large w3-display-topright">&times;</span> -->
+	  <br />
+	    <%= render :partial=> 'doctor_home_appointments' %>
+	</div>
+	
+	
+	 
+	
+	
+	<br /><br />
+	<div class="clearfix"></div>
+
+</div>
+<script>
+function openCity(evt, cityName) {
+  var i, x, tablinks;
+  x = document.getElementsByClassName("city");
+  for (i = 0; i < x.length; i++) {
+      x[i].style.display = "none";
+  }
+  tablinks = document.getElementsByClassName("tablink");
+  for (i = 0; i < x.length; i++) {
+      tablinks[i].className = tablinks[i].className.replace(" w3-black", "");
+  }
+  document.getElementById(cityName).style.display = "block";
+  evt.currentTarget.className += " w3-black";
+}
+</script>

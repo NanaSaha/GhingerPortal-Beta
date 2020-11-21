@@ -1,0 +1,58 @@
+<div class="nested-fields">
+	<h4>Extra Information</h4>
+	<div class="w3-left", style="width: 45%">
+		<%= f.input :service_prov_id, as: :hidden, class: "w3-left", collection: ProviderMaster.all, label_method: :provider_name, value_method: :id %>
+	</div>
+	
+	<div class="w3-left", style="width: 45%">
+      <%= f.input :suburb_id, collection: SuburbMaster.all, label_method: :suburb_name, value_method: :id, class: "w3-right" %>
+    </div>
+    
+    <div class="w3-right", style="width: 45%">
+       <%= f.input :contact_number1, class: "w3-left" %>
+    </div>
+    
+    <div class="w3-left", style="width: 45%">
+       <%= f.input :contact_number2, class: "w3-right" %>
+    </div>
+    
+    
+    <div class="w3-right", style="width: 45%">
+        <%= f.input :postal_address, class: "w3-left" %>
+    </div>
+    
+    <div class="w3-left", style="width: 45%">
+       <%= f.input :location_address, class: "w3-right" %>
+    </div>
+    
+    <div class="w3-right", style="width: 45%">
+       <%= f.input :contact_person_name, class: "w3-left" %>
+    </div>
+    
+    <div class="w3-left", style="width: 45%">
+       <%= f.input :web_url, class: "w3-right" %>
+    </div>
+    
+    <div class="w3-right", style="width: 45%">
+       <%= f.input :longitude, class: "w3-left" %>
+    </div>
+     
+    <div class="w3-left", style="width: 45%">
+       <%= f.input :latitude, class: "w3-right" %>
+    </div>
+    
+    <div class="w3-right", style="width: 45%">
+       <%= f.input :comment, class: "w3-left" %>
+    </div>
+    
+    <%= f.input :entity_id, as: :hidden %>
+    <%= f.input :user_id, as: :hidden %>
+    <%= f.input :active_status, as: :hidden, input_html: {value: 1} %> 
+    <%= f.input :del_status, as: :hidden, input_html: {value: 0} %>
+	
+<%= link_to_remove_association 'Remove', f, class: "w3-button w3-small w3-round-large w3-red w3-hover-red hidden" %>
+</div>
+
+<br />
+<div class="clearfix w3-clear"></div>
+ 

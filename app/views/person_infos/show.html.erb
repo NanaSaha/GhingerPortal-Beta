@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Surname:</strong>
+  <%= @person_info.surname %>
+</p>
+
+<p>
+  <strong>Other names:</strong>
+  <%= @person_info.other_names %>
+</p>
+
+<p>
+  <strong>Person type:</strong>
+  <%= @person_info.person_type_id %>
+</p>
+
+<p>
+  <strong>Entity:</strong>
+  <%= @person_info.entity_id %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @person_info.user_id %>
+</p>
+
+<p>
+  <strong>Active status:</strong>
+  <%= @person_info.active_status %>
+</p>
+
+<p>
+  <strong>Del status:</strong>
+  <%= @person_info.del_status %>
+</p>
+
+<%= link_to 'Edit', edit_person_info_path(@person_info) %> |
+<%= link_to 'Back', person_infos_path %>

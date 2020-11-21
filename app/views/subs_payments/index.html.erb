@@ -1,0 +1,93 @@
+<div class="table-responsive">
+  <div class="row">
+    <div class="typography">
+      <div class="col-md-4 validation-grids widget-shadow" data-example-id="basic-forms">
+        <div class="form-title">
+          <h3>Filter</h3>
+        </div>
+        <div class="form-body">
+          <%=form_tag subs_payments_path, method: :get, input_html:{display:"block"} do %>
+            <div class="col-md-10">
+              <label style="float: left;">Transaction&nbsp;&nbsp;&nbsp;&nbsp;</label>
+              <br>
+              <input id="search-field" class="form-control border-input" name="trans"/>
+            </div>
+            <br>
+            <br>
+            <div class="col-md-10">
+              <div class="form-group">
+                <label style="float: left;">Status</label>
+                <select id="search-field" name="status" class="form-control input-sm">
+                  <option value="">--Select--</option>
+                  <option value="1">Paid</option>
+                  <option value="0">Not Paid</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-md-10">
+              <div id="date_div">
+                <div>
+                  <label style="float: left;">Start Date &nbsp;&nbsp;&nbsp;&nbsp;</label>
+                  <input type="date" class="input-daterange form-control border-input" name="start_date" id="date-field"/>
+                </div>
+                <div>
+                  <label style="float: left;">End Date &nbsp;&nbsp;&nbsp;&nbsp;</label>
+                  <input type="date" class="input-daterange form-control border-input" name="end_date" id="date-field2"/>
+                </div>
+              </div>
+              <br>
+            </div>
+            <br>
+            <br>
+            <br>
+            <div class="col-md-8">
+              <input id="search-btn" type="submit" value="Filter"  class="btn btn-info btn-fill btn-wd">
+            </div>
+            <br>
+            <br>
+          <% end%>
+        </div>
+      </div>
+    </div>
+  </div>
+  <h4>Subscription Payments</h4>
+  <br>
+  <table class="table table-condensed table-bordered table-striped w3-card">
+    <thead>
+      <tr class="w3-teal">
+        <th>Subscription</th>
+        <th>Transaction</th>
+        <th>GHC Amount</th>
+        <th>Status</th>
+        <th>Date/Time</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @subs_payments.each do |subs_payment| %>
+        <tr>
+          <td><%= subs_payment.subscription_new_main.sub_name if subs_payment.subscription_new_main %></td>
+          <td><%= subs_payment.transaction_id %></td>
+          <td><%= subs_payment.amount %></td>
+          <td><% if subs_payment.trans_status == true %>
+              Paid
+            <% else %>
+              Not Paid
+            <% end %>
+          </td>
+          <td><%= subs_payment.created_at.strftime('%F %R') %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+<div class="col-md-12">
+  <div class="pull-right">
+    <%= will_paginate @subs_payments, renderer:BootstrapPagination::Rails %>
+  </div>
+</div>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>

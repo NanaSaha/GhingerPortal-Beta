@@ -1,0 +1,5 @@
+<% if @appt_type == "LA" or @appt_type == "MD" %>
+    $("#Pre_appointment").html("<%= escape_javascript(render(:partial =>"bill")) %>");
+<% else %>
+    $("#Pre_appointment").html("<%= escape_javascript(render(:partial =>"create_show")) %>");
+<% end %>

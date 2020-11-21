@@ -1,0 +1,2 @@
+module PersonTypeMastersHelper
+end

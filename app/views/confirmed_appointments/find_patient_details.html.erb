@@ -1,0 +1,92 @@
+<div></div>
+<div id="id01" class="w3-modal w3-card-4" style="display: block">
+    <div class="w3-modal-content w3-animate-top w3-card-4 w3-white" style="width: 40%">
+       <% if flash[:notice] %>
+		   <p class="alert alert-info" id = 'notes' style = "margin-top: 5px"><%= notice %></p>
+	   <% end %> 
+      <header class="w3-container"> 
+        <h4><%= @patient_detail.surname %> <%= @patient_detail.other_names %></h4> 
+      </header>
+      <br />
+      <!-- <div class="col-md-1 col-xs-12"></div> -->
+      <div class="col-md-12 col-xs-12 w3-padding">
+      	<div class="w3-container "> 
+      		<div class="row">
+	      		<div class="col-md-6 col-sm-12">
+	      			<table class="w3-table table-condensed table-striped">
+	      				
+				 	 <tr><td  style="width: 20%"><strong>DOB: </strong></td><td style="padding-left: 6%"><%= @patient_detail.dob %></td></tr>
+				 	 <tr><td  style="width: 20%"><strong>Age: </strong></td><td style="padding-left: 6%"><%= ((Time.zone.now - @patient_detail.dob.to_time) / 1.year.seconds).floor if @patient_detail.dob %></td></tr>
+				 	 <tr><td  style="width: 20%"><strong>Location: </strong></td><td style="padding-left: 6%"><%= @patient_detail.person_contact_infos[0].suburb_master.suburb_name if @patient_detail.person_contact_infos[0].suburb_id   %></td></tr>
+				 	 
+				    </table>	
+	      		</div>
+	      		<div class="col-md-6 col-sm-12">
+      			  <table class="w3-table table-condensed table-striped">
+		 	      <tr><td  style="width: 20%"><strong>Allergies: </strong></td><td style="padding-left: 6%">
+		 	 	 <%= @patient_allergies.map {|patient_allergy| patient_allergy.allergies_master.title}.join(' , ') %> 	 	
+		 	      </td></tr>
+		 	      <tr><td  style="width: 20%"><strong>PMH: </strong></td><td style="padding-left: 6%"><%= raw @patient_pmh.prev_med_histry if @patient_pmh %></td></tr>
+		 	     <tr><td  style="width: 20%"><strong>Current Meds: </strong></td><td style="padding-left: 6%"><%=  %></td></tr>	 	 
+			    </table>
+	      		</div>
+      	   </div>
+      	  <br />
+      	  <h5><b style="color: blue"><u>List of Previous Encounters</u></b></h5>
+      	  <div class="w3-clear"></div>
+      	   <table class="table table-condensed table-striped w3-card">
+      	    	<thead>
+			    <tr class="">
+			       <th>Details</th>
+			       <th>Date</th> 
+			       <th></th>
+			    </tr>
+			  </thead>		      
+		      <tbody>
+		      	<% @previous_encounters.each_with_index do |previous_encouter, index| %>
+		      	<tr>
+		      	 	<td> <%= index+1 %>. <%= previous_encouter.pre_appointment.appointment_type.title %> </td>
+		      	 	<td><%= previous_encouter.created_at.strftime("%F %R") %> </td>
+		      	 	<td><%= link_to "Details", record_detail_path(:confirmed_appt_id => previous_encouter.id), class: "w3-button w3-sand w3-hover-sand w3-card-4 w3-small w3-round-xlarge" %> </td>
+		      	 </tr>     	     	    
+      	        <% end %>
+		      </tbody>
+		       
+			</table> 
+			
+       </div> 
+      </div>        
+
+		      <footer class="w3-container"> 
+		      	<%= will_paginate @previous_encounters, renderer: BootstrapPagination::Rails, previous_label: 'Older', next_lable: 'Newer', class: "w3-right pagination-sm w3-card-4", :params => { :controller => "confirmed_appointments", :action => "find_patient_details", count: params[:count], page: params[:page] }  %>  
+		      <br /><br />
+		      <div class="w3-clear"></div>
+		       <%= link_to 'New Record', patient_confirmed_unattended_to_appt_path(:patient_id => @patient_id, :doctor_id => @doctor_id), class: "w3-button w3-yellow w3-card w3-left w3-hover-yellow" %>
+		       <%= link_to 'Place an Order', place_order_path(:patient_id => @patient_id, :doctor_id => @doctor_id), class: "w3-button w3-yellow w3-card w3-right w3-hover-yellow" %>
+		       <div class="clearfix w3-clear"></div>
+		       <br /> 
+		       <%= link_to 'Back', doctor_pds_path, class: "w3-button w3-black w3-hover-black  w3-card-4 w3-small w3-round-xlarge w3-right" %>
+		      </footer>
+     
+      <br />
+    </div>
+    <br />
+</div>
+
+
+<script type="text/javascript">
+$(document).ready(function(){
+  setTimeout(function(){
+    $('#notes').remove();
+  }, 4000);
+ });
+</script> 
+
+<script>
+  $(function(){
+    // $('.pagination a').attr('data-remote', 'true');
+  });
+
+</script>
+
+

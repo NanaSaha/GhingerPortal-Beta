@@ -1,0 +1,102 @@
+ 
+<h4>Patients refered to Ghinger</h4>
+
+<div class="pull-right" style = 'margin-top: -3%; '>
+	  <label class="">Display <u>No</u>: </label> 
+	     <!-- <%#= select_tag :count, options_for_select([5,10,15,20,25,30], params[:count].to_i), :onchange => "if(this.value){ window.location='?count='+this.value ;}" %> -->
+	   <%= select_tag :per_page, options_for_select([10, 20, 30, 40,50, 70,100], params[:per_page].to_i), :data => { 
+	 	 :url => url_for( :controller => "referals", :action => "index" )
+	 	 }, :onchange => "if(this.value){window.location='?per_page='+this.value;}", class: "w3-bordered w3-round-xlarge w3-btn w3-small w3-card-4" %>	
+   </div>
+ <br />
+ 
+ <p style = 'text-align: center; font-family: tahoma; font-size: 15px;'>
+   <b>Download:</b>  <%= link_to "CSV", referals_path(format: "csv"), :class => "w3-hover-white"%> 
+                     | <%= link_to "Excel", referals_path(format: "xls"), :class => "w3-hover-white" %> 
+                     | <%= link_to "CSV-all", all_referal_excel_path(format: "csv"), :class => "w3-hover-white", method: :get%> 
+                     | <%= link_to "Excel-all", all_referal_excel_path(format: "xls"),:class => "w3-hover-white", method: :get%>
+</p>
+
+<div class="table-responsive"> 
+	<table class="table table-condensed table-bordered table-striped w3-card-4">
+	  <thead>
+	    <tr class="w3-teal">
+		  <th>Surname</th>
+		  <th>Other Name(s)</th>
+		  <th>Date of Birth</th>
+		  <th>Contact</th>
+		  <th>Refered by</th>
+		  <th>Status</th>
+		  <!-- <th>Processed Status</th> -->
+		  <th colspan="2">Options</th>
+	    </tr>
+	  </thead>
+	 
+	  <tbody>
+	     <% @referals.each do |referal| %>
+		    <tr>
+			    <td><%= referal.surname %></td>
+			    <td><%= referal.other_names %></td>
+			    <td><%= referal.dob %></td>
+			    <td><%= referal.contact %></td>
+			    <td><%= referal.person_info.surname %> <%= referal.person_info.other_names %></td> 
+			   	
+			   	<% if referal.active_status == true %>  
+	      		   <td style="color: ">Active</td>
+	      		
+		      	<% elsif referal.active_status == false %> 
+		      		<td style="color: ">Inactive</td>
+		      		
+		        <% end %>
+		        
+		        <!-- <% if referal.processed_status == true %>  
+	      		   <td style="width: 30px ">Proceesed</td>
+	      		
+		      	<% elsif referal.processed_status == false %> 
+		      		<td style="width: 30px ">Unprocessed</td>
+		      		
+		        <% end %>  -->
+		        
+		        
+		        
+		        <% if referal.processed_status == true %>  
+		        	<td  style="width: 10%" >  
+		         		 <%= select_tag :processed_status, options_for_select(['Processed','Unprocessed' ], params[:processed_status]), :data => { :remote => true,
+							:url => update_processed_status_path(:ref_id => referal.id )
+						  }, class: "w3-bordered w3-round-xlarge w3-btn w3-small w3-card-4", remote: true %> 
+         		   </td>
+		        
+	   				<!-- <td style="width: 15px"><button class="w3-button w3-white w3-card w3-hover-white w3-small w3-round w3-round-xxlarge">Processed</button></td>   		   	    -->
+		      	<% elsif referal.processed_status == false %> 
+		      		<td  style="width: 10%" >  
+		         		 <%= select_tag :processed_status, options_for_select(['Unprocessed','Processed' ], params[:processed_status]), :data => { :remote => true,
+							:url => update_processed_status_path(:ref_id => referal.id )
+						  }, class: "w3-bordered w3-round-xlarge w3-btn w3-small w3-card-4", remote: true %> 
+         		   </td>
+		      		<!-- <td style="width: 15px"><%= link_to 'Process', process_referal_path(:ref_id => referal.id), class: "w3-button w3-khaki w3-card w3-hover-khaki w3-small w3-round w3-round-xxlarge" %></td> -->
+		        
+		        <% end %> 
+			   
+			   			    
+			    <td style="width: 15px"> 
+			           <% if referal.active_status == false %>
+			           	 <%= link_to 'Enable', enable_referal_path(:chosen => referal.id), data: { confirm: 'You are about to enable the selected referal. Do you want to continue?' },  class: "w3-button w3-blue w3-hover-blue w3-small w3-round-xxlarge w3-card" %>
+		                  
+		               <% else referal.active_status == true %>
+			              <%= link_to 'Disable', disable_referal_path(:chosen => referal.id), data: { confirm: 'You are about to disable the selected referal. Do you want to continue?' }, class: "w3-button w3-red w3-hover-red w3-small w3-round w3-round-xxlarge w3-card" %> 
+			                           
+		              <% end %>       	
+	            </td>
+			</tr>
+		<% end %> 
+	  </tbody> 
+	</table>
+</div>
+<br>
+
+<div>
+ <!-- <%#= link_to '+', new_registration_path, :remote=> true, class: "w3-button w3-circle w3-teal w3-hover-teal w3-left w3-card-4" %> -->
+ <%= will_paginate @referals,  renderer: BootstrapPagination::Rails, previous_label: 'Older', next_lable: 'Newer', class: "w3-right pagination-sm w3-card-4", :params => { :controller => "referals", :action => "index", count: params[:count], page: params[:page] }  %>
+<br /> 
+</div>
+<br />
