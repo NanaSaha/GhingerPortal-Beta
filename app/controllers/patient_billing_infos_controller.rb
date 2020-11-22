@@ -19,8 +19,8 @@ require 'twilio-ruby'
 
      def sendmsg(phone,msg)
 
-      account_sid = 'AC2327f6201a02298610e5cc6df9b4b7e2'
-      auth_token = 'ef45f23889f7730e8af70c5328db5d52'
+      account_sid = ''
+      auth_token = ''
       @client = Twilio::REST::Client.new(account_sid, auth_token)
       
       from = 'Ghinger' # Your Twilio number
